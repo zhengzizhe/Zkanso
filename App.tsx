@@ -9,12 +9,30 @@ import { ShareModal, SettingsModal, GlobalSettingsModal, TemplatesModal, Command
 import { Space, Doc, ViewMode, Language, Theme, TRANSLATIONS, Template } from './types';
 import { Search, Plus, Grid, List as ListIcon, CloudSun, AlignJustify, Trash2, ArrowLeft, Clock, FileText, Sparkles, TrendingUp, Timer, Zap, Shuffle, X, Star, Hash, Calendar as CalendarIcon } from 'lucide-react';
 
-// --- 空数据初始化 ---
-const MOCK_SPACES: Space[] = [];
+const MOCK_SPACES: Space[] = [
+  {
+    id: 'space-1',
+    name: '2025 Vision Board',
+    icon: '📝',
+    color: 'blue'
+  },
+  {
+    id: 'space-2',
+    name: 'Trips',
+    icon: '✈️',
+    color: 'orange'
+  },
+  {
+    id: 'space-3',
+    name: 'Reading List',
+    icon: '📚',
+    color: 'purple'
+  }
+];
 
 const generateMockDocs = (): Doc[] => {
   return [];
-}
+};
 
 const TEMPLATES: Template[] = [];
 
@@ -73,12 +91,12 @@ const formatRelativeTime = (timestamp: number, lang: Language): string => {
 };
 
 const ViewHeader = ({ title, showSearch, onSearch, layoutMode, setLayoutMode, onMenuClick, t, children, view, getGreeting, lang, formattedTime }: any) => (
-  <div className="fixed top-0 left-0 right-0 md:left-[320px] h-20 bg-transparent backdrop-blur-3xl z-20 flex items-center justify-between px-6 md:px-10 transition-all duration-300">
+  <div className="fixed top-0 left-0 right-0 md:left-[320px] h-20 bg-transparent z-20 flex items-center justify-between px-6 md:px-10 transition-all duration-300">
     <div className="flex items-center gap-5 flex-1">
       {/* 移动菜单按钮 */}
       <button 
         onClick={onMenuClick} 
-        className="md:hidden p-2.5 -ml-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-white/10 rounded-2xl transition-all active:scale-95 backdrop-blur-sm"
+        className="md:hidden p-2.5 -ml-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100/80 dark:hover:bg-white/10 rounded-2xl transition-all active:scale-95"
       >
         <AlignJustify className="w-5 h-5" />
       </button>
@@ -126,53 +144,53 @@ const ViewHeader = ({ title, showSearch, onSearch, layoutMode, setLayoutMode, on
                   className="relative group hidden md:flex items-center" 
                   onClick={onSearch}
                 >
-                  <div className="absolute left-4 flex items-center pointer-events-none z-10">
-                    <Search className="w-4 h-4 text-gray-400 group-hover:text-indigo-500 transition-colors" />
+                  <div className="absolute left-3 flex items-center pointer-events-none z-10">
+                    <Search className="w-3.5 h-3.5 text-gray-400 group-hover:text-indigo-500 transition-colors" />
                   </div>
                   <input 
                     type="text" 
                     placeholder={t.search}
                     readOnly
-                    className="w-64 pl-11 pr-24 py-3 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 hover:from-white hover:to-gray-50 dark:hover:from-gray-800/80 dark:hover:to-gray-900/80 border border-gray-200/80 dark:border-gray-700/50 hover:border-indigo-300 dark:hover:border-indigo-500/50 rounded-2xl text-sm font-semibold focus:outline-none transition-all cursor-pointer text-gray-700 dark:text-gray-200 placeholder-gray-400 shadow-lg hover:shadow-xl backdrop-blur-sm"
+                    className="w-56 pl-9 pr-20 py-2 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 hover:from-white hover:to-gray-50 dark:hover:from-gray-800/80 dark:hover:to-gray-900/80 border border-gray-200/80 dark:border-gray-700/50 hover:border-indigo-300 dark:hover:border-indigo-500/50 rounded-lg text-xs font-medium focus:outline-none transition-all cursor-pointer text-gray-700 dark:text-gray-200 placeholder-gray-400 shadow-sm hover:shadow"
                   />
-                  <div className="absolute right-3 flex items-center gap-1.5 pointer-events-none">
-                    <kbd className="px-2.5 py-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-[10px] font-black text-gray-600 dark:text-gray-400 shadow-md">⌘K</kbd>
+                  <div className="absolute right-2 flex items-center gap-1 pointer-events-none">
+                    <kbd className="px-2 py-0.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded text-[9px] font-bold text-gray-500 dark:text-gray-400 shadow-sm">⌘K</kbd>
                   </div>
                 </div>
                 
                 {/* 布局切换 */}
-                <div className="hidden sm:flex items-center gap-1.5 p-1.5 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200/80 dark:border-gray-700/50 shadow-lg">
+                <div className="hidden sm:flex items-center gap-1 p-1 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-lg border border-gray-200/80 dark:border-gray-700/50 shadow-sm">
                   <button 
                     onClick={() => setLayoutMode('grid')} 
-                    className={`p-2.5 rounded-xl transition-all ${
+                    className={`p-2 rounded-md transition-all ${
                       layoutMode === 'grid' 
-                        ? 'bg-white dark:bg-gray-700 shadow-xl text-indigo-600 dark:text-indigo-400 scale-110' 
-                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:scale-105'
+                        ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-indigo-400' 
+                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
                     }`}
                   >
-                    <Grid className="w-4 h-4" />
+                    <Grid className="w-3.5 h-3.5" />
                   </button>
                   <button 
                     onClick={() => setLayoutMode('list')} 
-                    className={`p-2.5 rounded-xl transition-all ${
+                    className={`p-2 rounded-md transition-all ${
                       layoutMode === 'list' 
-                        ? 'bg-white dark:bg-gray-700 shadow-xl text-indigo-600 dark:text-indigo-400 scale-110' 
-                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50 hover:scale-105'
+                        ? 'bg-white dark:bg-gray-700 shadow-sm text-indigo-600 dark:text-indigo-400' 
+                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
                     }`}
                   >
-                    <ListIcon className="w-4 h-4" />
+                    <ListIcon className="w-3.5 h-3.5" />
                   </button>
                 </div>
-            </>
-          )
-        )}
+              </>
+            )
+          )}
         {children}
     </div>
   </div>
 );
 
 const App: React.FC = () => {
-  const [spaces, setSpaces] = useState<Space[]>([]);
+  const [spaces, setSpaces] = useState<Space[]>(MOCK_SPACES);
   const [docs, setDocs] = useState<Doc[]>(() => {
     // 加载假数据
     return mockData.docs.map(doc => ({
@@ -229,7 +247,7 @@ const App: React.FC = () => {
   // --- Theme Effect ---
   useEffect(() => {
     // 移除所有主题类
-    document.body.classList.remove('theme-light', 'theme-dark', 'theme-gradient');
+    document.body.classList.remove('theme-light', 'theme-dark', 'theme-gradient', 'theme-paper', 'theme-warm', 'theme-slate');
     document.documentElement.classList.remove('dark');
     
     // 应用新主题
@@ -243,7 +261,7 @@ const App: React.FC = () => {
     // 控制 mesh-bg 的显示
     const meshBg = document.querySelector('.mesh-bg') as HTMLElement;
     if (meshBg) {
-      if (theme === 'light') {
+      if (theme === 'light' || theme === 'paper' || theme === 'warm' || theme === 'slate') {
         meshBg.style.display = 'none';
       } else {
         meshBg.style.display = 'block';
@@ -547,7 +565,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen relative text-gray-900 dark:text-gray-100 overflow-hidden bg-transparent">
+    <div className="flex min-h-screen relative text-gray-900 dark:text-gray-100 overflow-hidden bg-gray-50 dark:bg-gray-950">
       
       {/* Sidebar Component handles its own mobile rendering via props */}
       <Sidebar 
@@ -624,22 +642,13 @@ const App: React.FC = () => {
                     )}
                     {view === 'space' && activeSpace && (
                          <motion.button 
-                            whileHover={{ 
-                              scale: 1.02, 
-                              y: -2,
-                              transition: { type: "spring", stiffness: 400, damping: 25 }
-                            }}
-                            whileTap={{ 
-                              scale: 0.98,
-                              transition: { type: "spring", stiffness: 600, damping: 30 }
-                            }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={handleCreateDoc}
-                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl font-bold will-change-transform"
-                            style={{ transform: 'translate3d(0,0,0)' }}
+                            className="flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg transition-colors"
                             title={t.newDoc}
                         >
-                            <Plus className="w-5 h-5" />
-                            <span className="hidden sm:inline">{t.newDoc}</span>
+                            <Plus className="w-4 h-4" />
                         </motion.button>
                     )}
                 </ViewHeader>

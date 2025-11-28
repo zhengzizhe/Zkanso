@@ -493,6 +493,24 @@ export const GlobalSettingsModal: React.FC<GlobalSettingsModalProps> = ({ isOpen
                                                 onClick={() => setTheme('gradient')}
                                                 preview={<div className="w-full h-20 rounded-lg bg-gradient-to-br from-indigo-100 to-purple-100 border border-indigo-200"></div>}
                                              />
+                                             <ThemeOption 
+                                                label={t.paper} 
+                                                isActive={theme === 'paper'} 
+                                                onClick={() => setTheme('paper')}
+                                                preview={<div className="w-full h-20 rounded-lg bg-[#f5f5f0] border border-[#e8e8e0]"></div>}
+                                             />
+                                             <ThemeOption 
+                                                label={t.warm} 
+                                                isActive={theme === 'warm'} 
+                                                onClick={() => setTheme('warm')}
+                                                preview={<div className="w-full h-20 rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200"></div>}
+                                             />
+                                             <ThemeOption 
+                                                label={t.slate} 
+                                                isActive={theme === 'slate'} 
+                                                onClick={() => setTheme('slate')}
+                                                preview={<div className="w-full h-20 rounded-lg bg-slate-100 border border-slate-300"></div>}
+                                             />
                                          </div>
                                      </div>
                                  </div>

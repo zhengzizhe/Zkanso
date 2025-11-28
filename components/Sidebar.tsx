@@ -115,17 +115,9 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
             top-0 left-0 bottom-0 w-[280px] md:left-4 md:top-4 md:bottom-4 perspective-[1200px] pointer-events-none`}
         >
           <motion.div 
-            className="pointer-events-auto relative w-full h-full md:rounded-[28px] overflow-hidden shadow-2xl border-r md:border border-white/20 dark:border-white/10 ring-1 ring-white/10 will-change-transform bg-white/10 dark:bg-gray-900/10 backdrop-blur-[60px] saturate-[200%]"
+            className="pointer-events-auto relative w-full h-full md:rounded-[28px] overflow-hidden shadow-lg border-r md:border border-gray-200/80 dark:border-gray-700/50 will-change-transform bg-white dark:bg-gray-900"
           >
             {/* 朗胧内光效 */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent pointer-events-none"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-white/10 pointer-events-none"></div>
-            
-            {/* 动态光晕效果 */}
-            <div className="absolute inset-0 opacity-30 pointer-events-none">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent"></div>
-            </div>
             
             <AnimatePresence initial={false} custom={direction} mode='popLayout'>
                 {(currentView === 'dashboard' || currentView === 'trash') && (
@@ -167,6 +159,7 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
                             space={activeSpace} docs={docs} activeDoc={activeDoc} t={t} lang={lang}
                             onBack={onBackToHome} onSelectDoc={onSelectDoc} onOpenSettings={onOpenSettings}
                             onOpenTagsManagement={onOpenTagsManagement}
+                            onClose={onClose}
                         />
                     </motion.div>
                 )}
@@ -222,34 +215,36 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
                     K
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-bold text-gray-900 dark:text-gray-100 tracking-tight text-lg leading-tight">Kanso</span>
-                    <span className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Workspace</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100 tracking-tight text-base leading-tight">Kanso</span>
+                    <span className="text-[9px] font-bold text-indigo-500 uppercase tracking-widest">Workspace</span>
                 </div>
              </div>
-             <button onClick={onClose} className="md:hidden p-2 rounded-lg hover:bg-gray-200/50 dark:hover:bg-white/10 text-gray-500">
-                 <X className="w-5 h-5" />
-             </button>
+             <div className="flex items-center gap-2">
+                <button onClick={onClose} className="hidden md:inline-flex items-center justify-center w-6 h-6 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+                    <SidebarClose className="w-3.5 h-3.5" />
+                </button>
+                <button onClick={onClose} className="md:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
+                    <X className="w-4 h-4" />
+                </button>
+             </div>
         </motion.div>
 
-        {/* Quick Search */}
-        <motion.div variants={itemVariants} className="px-4 mb-6">
+        <motion.div variants={itemVariants} className="px-4 mb-4">
             <button 
                 onClick={onOpenSearch}
-                className="w-full flex items-center justify-between px-3 py-2.5 bg-white/70 dark:bg-white/5 hover:bg-white/90 border border-white/50 rounded-xl transition-all backdrop-blur-sm group shadow-sm hover:shadow-md ring-1 ring-black/5"
+                className="w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all text-gray-400 dark:text-gray-500 text-xs"
             >
-                <div className="flex items-center gap-2.5 text-gray-500 dark:text-gray-400">
-                    <Search className="w-4 h-4" />
-                    <span className="text-sm font-medium">{t.search}</span>
-                </div>
-                <span className="text-[10px] bg-gray-200/50 dark:bg-white/10 px-1.5 py-0.5 rounded text-gray-500 font-bold group-hover:text-gray-700 transition-colors border border-gray-200 dark:border-white/5">⌘ K</span>
+                <Search className="w-3.5 h-3.5" />
+                <span>{t.search}</span>
+                <span className="ml-auto text-[10px] text-gray-400">(Cmd+K)</span>
             </button>
         </motion.div>
 
-        <div className="flex-1 overflow-y-auto px-3 custom-scrollbar pb-4 space-y-6">
+        <div className="flex-1 overflow-y-auto px-4 custom-scrollbar pb-4 space-y-5">
             {/* Primary Nav */}
-            <motion.div variants={staggerVariants} className="space-y-1.5">
+            <motion.div variants={staggerVariants} className="space-y-0.5">
                 <NavItem 
-                    icon={<Clock className="w-4 h-4" />} 
+                    icon={<Clock className="w-3 h-3" />} 
                     label={t.recents} 
                     isActive={currentView === 'dashboard'} 
                     color="text-blue-600" 
@@ -257,7 +252,7 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
                     onClick={() => { onNavigate('dashboard'); onClose(); }} 
                 />
                 <NavItem 
-                    icon={<LayoutGrid className="w-4 h-4" />} 
+                    icon={<LayoutGrid className="w-3 h-3" />} 
                     label={t.templates} 
                     isActive={false} 
                     color="text-purple-600" 
@@ -265,7 +260,7 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
                     onClick={() => { onOpenTemplates(); onClose(); }} 
                 />
                 <NavItem 
-                    icon={<Trash2 className="w-4 h-4" />} 
+                    icon={<Trash2 className="w-3 h-3" />} 
                     label={t.trash} 
                     isActive={currentView === 'trash'} 
                     count={trashCount} 
@@ -297,15 +292,12 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
                         <motion.button
                             key={space.id}
                             variants={itemVariants}
-                            whileHover={{ scale: 1.01, backgroundColor: "rgba(255, 255, 255, 0.6)" }}
+                            whileHover={{ x: 2 }}
                             onClick={() => { onNavigate('space', space.id); onClose(); }}
-                            className="flex items-center w-full px-3 py-2 rounded-xl text-gray-600 dark:text-gray-300 transition-colors group relative overflow-hidden hover:shadow-sm"
+                            className="flex items-center w-full px-2 py-1.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
                         >
-                            <span className="mr-3 text-lg group-hover:scale-110 transition-transform duration-300">{space.icon}</span>
-                            <span className="text-sm font-semibold group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{space.name}</span>
-                            <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                                <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-                            </div>
+                            <span className="mr-2.5 text-base">{space.icon}</span>
+                            <span className="text-[13px] font-normal text-gray-700 dark:text-gray-300">{space.name}</span>
                         </motion.button>
                     ))}
                  </div>
@@ -339,18 +331,18 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
 
 // --- User Profile Component ---
 const UserProfile = ({ t, onOpenSettings }: any) => (
-    <motion.div variants={itemVariants} className="p-3 mt-auto">
-        <div className="p-2 bg-white/70 dark:bg-white/5 backdrop-blur-md rounded-2xl border border-white/60 dark:border-white/10 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer hover:bg-white/90">
+    <motion.div variants={itemVariants} className="p-3 mt-auto border-t border-gray-100 dark:border-gray-800">
+        <div className="p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group cursor-pointer">
             <div className="flex items-center gap-3">
-                 <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold shadow-md ring-2 ring-white dark:ring-white/10">
+                 <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold">
                     ME
                  </div>
                  <div className="flex flex-col flex-1 min-w-0">
-                    <span className="text-sm font-bold text-gray-800 dark:text-gray-100 truncate">Creator</span>
-                    <span className="text-[10px] text-gray-500 font-medium group-hover:text-indigo-600 transition-colors">Free Plan</span>
+                    <span className="text-xs font-medium text-gray-800 dark:text-gray-100 truncate">Creator</span>
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500">Free Plan</span>
                  </div>
-                 <button onClick={onOpenSettings} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
-                    <Settings className="w-4 h-4" />
+                 <button onClick={onOpenSettings} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                    <Settings className="w-3.5 h-3.5" />
                  </button>
             </div>
         </div>
@@ -358,7 +350,7 @@ const UserProfile = ({ t, onOpenSettings }: any) => (
 );
 
 // --- Space Sidebar Content ---
-const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelectDoc, onOpenSettings, onOpenTagsManagement }: any) => {
+const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelectDoc, onOpenSettings, onOpenTagsManagement, onClose }: any) => {
     // State for folder drill-down navigation
     const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
     // State for tags section
@@ -405,11 +397,14 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
     return (
         <motion.div className="flex flex-col h-full" variants={staggerVariants} initial="hidden" animate="visible">
             <motion.div variants={itemVariants} className="px-4 py-5 flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <button onClick={onBack} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+                    <ArrowLeft className="w-4 h-4" />
+                </button>
+                <div className="flex items-center gap-3 flex-1 justify-center">
                     <span className="text-2xl filter drop-shadow-sm">{space.icon}</span>
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">{space.name}</h2>
                 </div>
-                <button onClick={onBack} className="p-2 rounded-xl hover:bg-gray-200/50 dark:hover:bg-white/10 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
                     <SidebarClose className="w-4 h-4" />
                 </button>
             </motion.div>
@@ -423,10 +418,10 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
                 />
             </motion.div>
 
-            <motion.nav variants={staggerVariants} className="px-3 space-y-1 mb-6">
-                <SpaceNavItem icon={<Sparkles className="w-4 h-4" />} label={t.allDocs} count={docs.filter((d:Doc) => d.spaceId === space.id && !d.isDeleted).length} color="text-indigo-500" bgColor="bg-indigo-50" />
-                <SpaceNavItem icon={<Star className="w-4 h-4" />} label={t.favorites} count={docs.filter((d:Doc) => d.spaceId === space.id && !d.isDeleted && d.isFavorite).length} color="text-amber-500" bgColor="bg-amber-50" />
-                <SpaceNavItem icon={<Users className="w-4 h-4" />} label={t.sharedWithMe} color="text-teal-500" bgColor="bg-teal-50" />
+            <motion.nav variants={staggerVariants} className="px-4 space-y-0.5 mb-6">
+                <SpaceNavItem icon={<Sparkles className="w-3 h-3" />} label={t.allDocs} count={docs.filter((d:Doc) => d.spaceId === space.id && !d.isDeleted).length} color="text-indigo-500" bgColor="bg-indigo-50" />
+                <SpaceNavItem icon={<Star className="w-3 h-3" />} label={t.favorites} count={docs.filter((d:Doc) => d.spaceId === space.id && !d.isDeleted && d.isFavorite).length} color="text-amber-500" bgColor="bg-amber-50" />
+                <SpaceNavItem icon={<Users className="w-3 h-3" />} label={t.sharedWithMe} color="text-teal-500" bgColor="bg-teal-50" />
             </motion.nav>
 
             <div className="flex-1 overflow-y-auto custom-scrollbar px-3 pb-4">
@@ -671,25 +666,19 @@ const EmptyState = ({ label }: { label: string }) => (
 const NavItem = ({ icon, label, isActive, color, bgColor, onClick, count }: any) => (
     <motion.button
         variants={itemVariants}
-        whileHover={{ scale: 1.01, x: 2 }}
+        whileHover={{ x: 2 }}
         whileTap={{ scale: 0.98 }}
         onClick={onClick}
-        className={`relative flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all group overflow-hidden ${isActive ? 'bg-white shadow-sm ring-1 ring-black/5 dark:bg-white/10 dark:ring-white/10' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200'}`}
+        className={`relative flex items-center justify-between w-full px-2 py-2 rounded-lg transition-all group ${isActive ? 'bg-gray-100 dark:bg-gray-800' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
     >
-        <div className="flex items-center">
-            {isActive && (
-                 <motion.div 
-                    layoutId="activeNav"
-                    className={`absolute left-0 top-2 bottom-2 w-1 rounded-r-full ${color.replace('text-', 'bg-')}`}
-                 />
-            )}
-            <div className={`mr-3 ml-1 p-1.5 rounded-lg transition-colors ${isActive ? bgColor : 'bg-transparent'} ${isActive ? color : `text-gray-400 group-hover:${color} group-hover:bg-gray-100/50 dark:group-hover:bg-white/5`}`}>
+        <div className="flex items-center gap-2.5">
+            <div className={`${isActive ? color : 'text-gray-400'} transition-colors`}>
                  {icon}
             </div>
-            <span className={`text-sm font-semibold tracking-wide ${isActive ? 'text-gray-900 dark:text-white' : ''}`}>{label}</span>
+            <span className={`text-[13px] font-normal ${isActive ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{label}</span>
         </div>
         {count !== undefined && count > 0 && (
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${isActive ? 'bg-gray-100 dark:bg-white/20 text-gray-700 dark:text-white' : 'bg-gray-200/50 dark:bg-white/10 text-gray-500'}`}>
+            <span className="text-[11px] text-gray-400 dark:text-gray-500">
                 {count}
             </span>
         )}
@@ -699,14 +688,14 @@ const NavItem = ({ icon, label, isActive, color, bgColor, onClick, count }: any)
 const SpaceNavItem = ({ icon, label, count, color, bgColor }: any) => (
     <motion.div 
         variants={itemVariants}
-        whileHover={{ x: 4, backgroundColor: "rgba(255, 255, 255, 0.6)" }}
-        className="flex items-center justify-between px-3 py-2 rounded-xl text-gray-600 dark:text-gray-300 cursor-pointer transition-colors group"
+        whileHover={{ x: 2 }}
+        className="flex items-center justify-between px-2 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors group"
     >
-        <div className="flex items-center gap-3">
-            <div className={`p-1.5 rounded-lg ${color} bg-opacity-20 group-hover:bg-opacity-100 group-hover:text-white transition-all duration-300 ${bgColor}`}>{icon}</div>
-            <span className="text-sm font-semibold">{label}</span>
+        <div className="flex items-center gap-2.5">
+            <div className={`${color} transition-colors`}>{icon}</div>
+            <span className="text-[13px] font-normal">{label}</span>
         </div>
-        {count !== undefined && <span className="text-[10px] font-bold text-gray-400 bg-white dark:bg-white/10 px-2 py-0.5 rounded-md border border-gray-100 dark:border-white/5">{count}</span>}
+        {count !== undefined && <span className="text-[11px] text-gray-400 dark:text-gray-500">{count}</span>}
     </motion.div>
 );
 
@@ -735,7 +724,7 @@ const FolderTreeItem = ({ doc, allDocs, onSelect, onNavigate, onOpenSettings, de
                 />
             )}
             <div 
-                className="group flex items-center px-2 py-2 rounded-lg hover:bg-white/60 dark:hover:bg-white/10 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all relative z-10"
+                className="group flex items-center px-2 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all relative z-10"
                 style={{ paddingLeft: isNavMode ? '10px' : `${10 + depth * 16}px` }}
             >
                 <div 
@@ -757,12 +746,12 @@ const FolderTreeItem = ({ doc, allDocs, onSelect, onNavigate, onOpenSettings, de
 
                     <div className="mr-2.5 text-gray-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">
                         {isFolder ? (
-                            (isOpen && !isNavMode) ? <FolderOpen className="w-5 h-5 text-amber-400" /> : <Folder className="w-5 h-5 text-amber-400/80" />
+                            (isOpen && !isNavMode) ? <FolderOpen className="w-4 h-4 text-amber-400" /> : <Folder className="w-4 h-4 text-amber-400/80" />
                         ) : (
-                            <FileText className="w-4.5 h-4.5" />
+                            <FileText className="w-4 h-4" />
                         )}
                     </div>
-                    <span className={`text-base truncate ${isFolder ? 'font-semibold text-gray-700 dark:text-gray-200' : 'font-medium text-gray-600 dark:text-gray-300'}`}>{doc.title || 'Untitled'}</span>
+                    <span className={`text-[12px] truncate ${isFolder ? 'font-medium text-gray-700 dark:text-gray-200' : 'font-normal text-gray-600 dark:text-gray-300'}`}>{doc.title || 'Untitled'}</span>
                     
                     {/* Drill-down indicator for Nav Mode */}
                     {isNavMode && isFolder && (

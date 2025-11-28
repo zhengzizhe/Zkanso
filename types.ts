@@ -3,7 +3,7 @@ export type ViewMode = 'dashboard' | 'space' | 'doc' | 'trash';
 
 export type Language = 'en' | 'zh';
 
-export type Theme = 'light' | 'dark' | 'gradient';
+export type Theme = 'light' | 'dark' | 'gradient' | 'paper' | 'warm' | 'slate';
 
 export interface Space {
   id: string;
@@ -146,6 +146,9 @@ export const TRANSLATIONS = {
     light: 'Light',
     dark: 'Dark',
     gradient: 'Gradient',
+    paper: 'Paper',
+    warm: 'Warm',
+    slate: 'Slate',
     selectLanguage: 'Select Language',
     // Editor & Slash Menu
     format: 'Format',
@@ -288,6 +291,9 @@ export const TRANSLATIONS = {
     light: '浅色',
     dark: '深色',
     gradient: '极光',
+    paper: '纸张',
+    warm: '暖色',
+    slate: '石板',
     selectLanguage: '选择语言',
     // Editor & Slash Menu
     format: '格式',

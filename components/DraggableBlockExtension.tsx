@@ -12,9 +12,9 @@ const BlockComponent = ({ node, editor, getPos }: any) => {
   const isEmpty = !node.textContent?.trim();
 
   return (
-    <NodeViewWrapper className="block-wrapper">
+    <NodeViewWrapper className="block-wrapper my-2">
       <motion.div
-        className="group relative"
+        className="group relative rounded-2xl bg-white/90 dark:bg-gray-900/60 backdrop-blur-sm border border-gray-200/70 dark:border-gray-800/70 shadow-sm hover:shadow-md transition-shadow px-4 py-3"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => {
           setIsHovering(false);
@@ -24,6 +24,10 @@ const BlockComponent = ({ node, editor, getPos }: any) => {
         dragControls={dragControls}
         dragListener={false}
         dragMomentum={false}
+        initial={{ opacity: 0, y: 6, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.12, ease: [0.4, 0, 0.2, 1] } }}
+        whileHover={{ y: -1 }}
+        whileDrag={{ scale: 1.02, boxShadow: '0 12px 28px rgba(0,0,0,0.08)' }}
       >
         {/* 左侧工具栏 */}
         <div
@@ -49,7 +53,7 @@ const BlockComponent = ({ node, editor, getPos }: any) => {
         </div>
 
         {/* 块内容 */}
-        <div className="block-content">
+        <div className="block-content prose prose-lg max-w-none leading-7 text-gray-800 dark:text-gray-100">
           <NodeViewContent />
         </div>
 
