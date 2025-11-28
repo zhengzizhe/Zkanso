@@ -9,15 +9,26 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-dom": "^19.2.0",
+    "@google/genai": "^1.30.0",
+    "@tiptap/extension-collaboration": "^2.27.1",
+    "@tiptap/extension-collaboration-cursor": "^2.26.2",
+    "@tiptap/extension-placeholder": "^2.27.1",
+    "@tiptap/react": "^2.27.1",
+    "@tiptap/starter-kit": "^2.27.1",
+    "framer-motion": "^11.0.8",
     "lucide-react": "^0.555.0",
     "react": "^19.2.0",
-    "@google/genai": "^1.30.0",
-    "framer-motion": "^11.0.8"
+    "react-dom": "^19.2.0",
+    "ws": "^8.18.3",
+    "y-websocket": "^2.1.0",
+    "y-websocket-server": "^1.0.2",
+    "yjs": "^13.6.27"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/puppeteer": "^5.4.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "puppeteer": "^24.31.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }

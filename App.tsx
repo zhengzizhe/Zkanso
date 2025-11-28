@@ -3,136 +3,20 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from './components/Sidebar';
 import DocCard from './components/DocCard';
-import Editor from './components/Editor';
-import { ShareModal, SettingsModal, GlobalSettingsModal, TemplatesModal, CommandPalette } from './components/Modals';
+import TiptapEditor from './components/TiptapEditor';
+import mockData from './mock-data.json';
+import { ShareModal, SettingsModal, GlobalSettingsModal, TemplatesModal, CommandPalette, TagsManagementModal } from './components/Modals';
 import { Space, Doc, ViewMode, Language, Theme, TRANSLATIONS, Template } from './types';
 import { Search, Plus, Grid, List as ListIcon, CloudSun, AlignJustify, Trash2, ArrowLeft, Clock, FileText, Sparkles, TrendingUp, Timer, Zap, Shuffle, X, Star, Hash, Calendar as CalendarIcon } from 'lucide-react';
 
-// --- Mock Data Generator ---
-const MOCK_SPACES: Space[] = [
-  { id: '1', name: 'Personal', icon: '🪐', color: 'blue' },
-  { id: '2', name: 'Work', icon: '🚀', color: 'orange' },
-  { id: '3', name: 'Ideas', icon: '💡', color: 'green' },
-  { id: '4', name: 'Journal', icon: '📔', color: 'pink' },
-];
+// --- 空数据初始化 ---
+const MOCK_SPACES: Space[] = [];
 
 const generateMockDocs = (): Doc[] => {
-  const docs: Doc[] = [];
-  const spaceIds = MOCK_SPACES.map(s => s.id);
-  let idCounter = 1000;
-
-  // 1. Add specific demo data (preserved from original)
-  const demoDocs: Doc[] = [
-      { 
-        id: '101', spaceId: '1', parentId: null, type: 'doc', 
-        title: '2025 Vision Board', content: '## Future Goals\n\n1. Master AI Engineering\n2. Visit Mars Colony Alpha\n3. Build a glass house\n\n## Shopping List\n- [ ] Spacesuit\n- [x] Oxygen Tank\n- [ ] Protein Bars\n\n![Mars Surface](https://images.unsplash.com/photo-1614728853975-69c960c72abc?auto=format&fit=crop&w=300&q=80)', 
-        lastModified: Date.now() - 1000000, isFavorite: true, isLiked: false, isShared: false,
-        tags: ['planning', 'life'],
-        coverImage: 'https://images.unsplash.com/photo-1614728853975-69c960c72abc?auto=format&fit=crop&w=500&q=80', isDeleted: false
-      },
-      { 
-        id: '102', spaceId: '1', parentId: null, type: 'folder', 
-        title: 'Trips', content: '', 
-        lastModified: Date.now() - 5000000, isFavorite: false, isLiked: true, isShared: true,
-        tags: ['travel'], isDeleted: false
-      },
-      { 
-        id: '106', spaceId: '1', parentId: '102', type: 'folder', 
-        title: 'Tokyo', content: '', 
-        lastModified: Date.now() - 500000, isFavorite: false, isLiked: false, isShared: false, isDeleted: false
-      },
-      { 
-        id: '107', spaceId: '1', parentId: '106', type: 'doc', 
-        title: 'Itinerary', content: '## Day 1: Shibuya\n- [ ] Visit Crossing\n- [ ] Hachiko Statue\n\n![Shibuya](https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=300&q=80)', 
-        lastModified: Date.now() - 10000, isFavorite: false, isLiked: false, isShared: false,
-        coverImage: 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=500&q=80', isDeleted: false
-      },
-  ];
-  docs.push(...demoDocs);
-
-  // 2. Generate ~60 items across spaces with nesting
-  spaceIds.forEach(spaceId => {
-      // Create 4 Root Docs per space
-      for (let i = 0; i < 4; i++) {
-          docs.push({
-              id: (idCounter++).toString(),
-              spaceId,
-              parentId: null,
-              type: 'doc',
-              title: `Note ${idCounter} - ${String.fromCharCode(65+i)}`,
-              content: `# Note ${idCounter}\n\nLorum ipsum content...`,
-              lastModified: Date.now() - Math.floor(Math.random() * 1000000000),
-              isFavorite: Math.random() > 0.9, isLiked: false, isShared: false, isDeleted: false
-          });
-      }
-
-      // Create 3 Root Folders per space
-      for (let i = 0; i < 3; i++) {
-          const folderId = (idCounter++).toString();
-          docs.push({
-              id: folderId,
-              spaceId,
-              parentId: null,
-              type: 'folder',
-              title: `Folder ${idCounter}`,
-              content: '',
-              lastModified: Date.now(),
-              isFavorite: false, isLiked: false, isShared: false, isDeleted: false
-          });
-          
-          // 4 Docs inside folder
-          for (let j = 0; j < 4; j++) {
-               docs.push({
-                  id: (idCounter++).toString(),
-                  spaceId,
-                  parentId: folderId,
-                  type: 'doc',
-                  title: `Sub-doc ${idCounter}`,
-                  content: `# Nested Document\n\nContent goes here.`,
-                  lastModified: Date.now() - Math.floor(Math.random() * 500000000),
-                  isFavorite: false, isLiked: false, isShared: false, isDeleted: false
-               });
-          }
-
-          // 1 Nested sub-folder
-          const subFolderId = (idCounter++).toString();
-          docs.push({
-              id: subFolderId,
-              spaceId,
-              parentId: folderId,
-              type: 'folder',
-              title: `Nested Archive ${idCounter}`,
-              content: '',
-              lastModified: Date.now(),
-              isFavorite: false, isLiked: false, isShared: false, isDeleted: false
-          });
-          
-          // 2 Deep docs
-          for (let k = 0; k < 2; k++) {
-              docs.push({
-                  id: (idCounter++).toString(),
-                  spaceId,
-                  parentId: subFolderId,
-                  type: 'doc',
-                  title: `Deeply Nested ${idCounter}`,
-                  content: `Level 3 content`,
-                  lastModified: Date.now(),
-                  isFavorite: false, isLiked: false, isShared: false, isDeleted: false
-               });
-          }
-      }
-  });
-
-  return docs;
+  return [];
 }
 
-const TEMPLATES: Template[] = [
-    { id: 't1', category: 'work', title: 'Meeting Notes', icon: '🗓', color: 'bg-blue-100 text-blue-600', content: '# Meeting Notes\n\n## Attendees\n- [ ] \n- [ ] \n\n## Agenda\n1. Review last week\n2. Discuss upcoming roadmap\n3. AOB\n\n## Action Items\n- [ ] ' },
-    { id: 't2', category: 'work', title: 'Project Plan', icon: '🚀', color: 'bg-indigo-100 text-indigo-600', content: '# Project: [Name]\n\n## Overview\nBrief description of the project goals.\n\n## Timeline\n- [ ] Phase 1: Planning\n- [ ] Phase 2: Execution\n- [ ] Phase 3: Launch\n\n## Resources\n[Link to designs]\n[Link to specs]' },
-    { id: 't3', category: 'personal', title: 'Weekly Review', icon: '☕️', color: 'bg-amber-100 text-amber-600', content: '# Weekly Review\n\n## Wins of the week\n\n## Challenges\n\n## Next Week Priorities\n- [ ] \n- [ ] ' },
-    { id: 't4', category: 'personal', title: 'Habit Tracker', icon: '✅', color: 'bg-emerald-100 text-emerald-600', content: '# Habit Tracker\n\n## Daily Habits\n- [ ] Drink 2L Water\n- [ ] Read 30 mins\n- [ ] Exercise\n\n## Notes' },
-    { id: 't5', category: 'education', title: 'Lecture Notes', icon: '📚', color: 'bg-pink-100 text-pink-600', content: '# Subject: [Topic]\nDate: [Date]\n\n## Key Concepts\n\n## Detailed Notes\n\n## Summary\n\n## Questions' },
-];
+const TEMPLATES: Template[] = [];
 
 const useCurrentTime = () => {
     const [time, setTime] = useState(new Date());
@@ -189,7 +73,7 @@ const formatRelativeTime = (timestamp: number, lang: Language): string => {
 };
 
 const ViewHeader = ({ title, showSearch, onSearch, layoutMode, setLayoutMode, onMenuClick, t, children, view, getGreeting, lang, formattedTime }: any) => (
-  <div className="fixed top-0 left-0 right-0 md:left-[320px] h-20 bg-white/80 dark:bg-gray-900/80 backdrop-blur-3xl border-b border-gray-200/20 dark:border-white/5 z-20 flex items-center justify-between px-6 md:px-10 transition-all duration-300">
+  <div className="fixed top-0 left-0 right-0 md:left-[320px] h-20 bg-transparent backdrop-blur-3xl z-20 flex items-center justify-between px-6 md:px-10 transition-all duration-300">
     <div className="flex items-center gap-5 flex-1">
       {/* 移动菜单按钮 */}
       <button 
@@ -288,9 +172,14 @@ const ViewHeader = ({ title, showSearch, onSearch, layoutMode, setLayoutMode, on
 );
 
 const App: React.FC = () => {
-  const [spaces, setSpaces] = useState<Space[]>(MOCK_SPACES);
-  // Initialize with large mock data
-  const [docs, setDocs] = useState<Doc[]>(() => generateMockDocs());
+  const [spaces, setSpaces] = useState<Space[]>([]);
+  const [docs, setDocs] = useState<Doc[]>(() => {
+    // 加载假数据
+    return mockData.docs.map(doc => ({
+      ...doc,
+      lastModified: doc.lastModified || Date.now()
+    }));
+  });
   
   const [activeSpaceId, setActiveSpaceId] = useState<string | null>(null);
   const [activeDocId, setActiveDocId] = useState<string | null>(null);
@@ -299,7 +188,7 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterMode, setFilterMode] = useState<'all' | 'shared' | 'favorites'>('all');
   const [lang, setLang] = useState<Language>('zh'); 
-  const [theme, setTheme] = useState<Theme>('gradient');
+  const [theme, setTheme] = useState<Theme>('light');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   // 创意功能状态
@@ -310,22 +199,16 @@ const App: React.FC = () => {
   const [pomodoroRunning, setPomodoroRunning] = useState(false);
 
   // Modal State
-  const [modalType, setModalType] = useState<'share' | 'settings' | 'globalSettings' | 'templates' | 'commandPalette' | null>(null);
+  const [modalType, setModalType] = useState<'share' | 'settings' | 'globalSettings' | 'templates' | 'commandPalette' | 'tagsManagement' | null>(null);
   const [modalDocId, setModalDocId] = useState<string | null>(null);
 
   const t = TRANSLATIONS[lang];
 
   // 每日灵感语录
-  const inspirationQuotes = [
-    { zh: '“今天的你，想创造什么？”', en: '"What will you create today?"' },
-    { zh: '“伟大的想法始于第一个字。”', en: '"Great ideas start with the first word."' },
-    { zh: '“不要等待灵感，创造它。”', en: '"Don\'t wait for inspiration, create it."' },
-    { zh: '“你的下一个突破只差一次点击。”', en: '"Your next breakthrough is one click away."' },
-    { zh: '“记录今日，启发明天。”', en: '"Document today, inspire tomorrow."' },
-    { zh: '“每个大项目都从小笔记开始。”', en: '"Every big project starts with a small note."' },
-  ];
-
-  const currentQuote = inspirationQuotes[dailyQuote % inspirationQuotes.length];
+  const inspirationQuotes: Array<{ zh: string; en: string }> = [];
+  const currentQuote = inspirationQuotes.length > 0 
+    ? inspirationQuotes[dailyQuote % inspirationQuotes.length] 
+    : { zh: '', en: '' };
   const { formattedTime, getGreeting } = useCurrentTime();
 
   // Pomodoro 倒计时
@@ -345,12 +228,26 @@ const App: React.FC = () => {
 
   // --- Theme Effect ---
   useEffect(() => {
+    // 移除所有主题类
     document.body.classList.remove('theme-light', 'theme-dark', 'theme-gradient');
+    document.documentElement.classList.remove('dark');
+    
+    // 应用新主题
     document.body.classList.add(`theme-${theme}`);
+    
+    // 仅深色主题添加 dark 类
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    }
+    
+    // 控制 mesh-bg 的显示
+    const meshBg = document.querySelector('.mesh-bg') as HTMLElement;
+    if (meshBg) {
+      if (theme === 'light') {
+        meshBg.style.display = 'none';
+      } else {
+        meshBg.style.display = 'block';
+      }
     }
   }, [theme]);
 
@@ -373,10 +270,8 @@ const App: React.FC = () => {
 
   const filteredDocs = docs.filter(doc => {
     if (searchQuery) {
-      // 全文搜索：标题 + 内容
       const searchLower = searchQuery.toLowerCase();
-      return doc.title.toLowerCase().includes(searchLower) || 
-             doc.content.toLowerCase().includes(searchLower);
+      return doc.title.toLowerCase().includes(searchLower);
     }
     if (view === 'trash') return doc.isDeleted;
     if (doc.isDeleted) return false;
@@ -404,7 +299,7 @@ const App: React.FC = () => {
     const newDoc: Doc = {
       id: `quick-${Date.now()}`,
       title: quickCaptureText.split('\n')[0].substring(0, 50) || 'Quick Note',
-      content: quickCaptureText,
+      content: '',
       spaceId: null,
       parentId: null,
       type: 'doc',
@@ -430,7 +325,7 @@ const App: React.FC = () => {
   // 文档统计
   const stats = useMemo(() => {
     const totalDocs = docs.filter(d => !d.isDeleted).length;
-    const totalWords = docs.reduce((sum, doc) => sum + (doc.content?.split(/\s+/).length || 0), 0);
+    const totalWords = 0;
     const last7Days = Date.now() - 7 * 24 * 60 * 60 * 1000;
     const recentDocs = docs.filter(d => d.lastModified > last7Days).length;
     return { totalDocs, totalWords, recentDocs };
@@ -468,7 +363,7 @@ const App: React.FC = () => {
   const handleCreateDoc = () => {
     const newDoc: Doc = {
       id: Date.now().toString(),
-      spaceId: activeSpaceId || spaces[0].id,
+      spaceId: activeSpaceId || spaces[0]?.id,
       parentId: null,
       type: 'doc',
       title: '',
@@ -488,11 +383,11 @@ const App: React.FC = () => {
   const handleCreateFromTemplate = (template: Template) => {
       const newDoc: Doc = {
           id: Date.now().toString(),
-          spaceId: activeSpaceId || spaces[0].id,
+          spaceId: activeSpaceId || spaces[0]?.id,
           parentId: null,
           type: 'doc',
           title: template.title,
-          content: template.content,
+          content: '',
           lastModified: Date.now(),
           isFavorite: false,
           isLiked: false,
@@ -519,13 +414,7 @@ const App: React.FC = () => {
             parentId: null,
             type: 'doc',
             title: dailyTitle,
-            content: `# ${dailyTitle}
-
-## Priorities
-- [ ] 
-
-## Notes
-`,
+            content: '',
             lastModified: Date.now(),
             isFavorite: false,
             isLiked: false,
@@ -631,21 +520,29 @@ const App: React.FC = () => {
       setIsSidebarOpen(false);
   }
 
-  // --- View Transition Variants (Craft Style - 干脆流畅) ---
+  // --- View Transition Variants (Craft Style - Spring Physics) ---
   const pageVariants = {
-      initial: { opacity: 0, y: 4 },
+      initial: { opacity: 0, y: 2, scale: 0.99 },
       animate: { 
           opacity: 1, 
           y: 0,
+          scale: 1,
           transition: { 
-            duration: 0.12,
-            ease: [0.4, 0, 0.2, 1]
+            type: "spring",
+            stiffness: 400,
+            damping: 30,
+            mass: 0.8
           }
       },
       exit: { 
           opacity: 0, 
-          y: -4,
-          transition: { duration: 0.1, ease: [0.4, 0, 1, 1] }
+          y: -2,
+          scale: 0.99,
+          transition: { 
+            type: "spring",
+            stiffness: 500,
+            damping: 35
+          }
       }
   };
 
@@ -667,28 +564,27 @@ const App: React.FC = () => {
         onOpenGlobalSettings={() => setModalType('globalSettings')}
         onOpenTemplates={() => setModalType('templates')}
         onDateSelect={handleDateSelect}
+        onOpenSettings={handleOpenSettings}
         // @ts-ignore
         onOpenSearch={() => setModalType('commandPalette')}
+        onOpenTagsManagement={() => setModalType('tagsManagement')}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
       />
 
       <AnimatePresence mode="wait">
         {view === 'doc' && activeDoc ? (
-             <main key="editor" className="flex-1 ml-0 md:ml-[320px] mr-0 md:mr-6 my-0 md:my-6 overflow-hidden relative h-[calc(100vh-3.5rem)] md:h-auto mt-14 md:mt-0">
-                 <Editor 
-                    doc={activeDoc}
-                    space={spaces.find(s => s.id === activeDoc.spaceId)} 
-                    allDocs={docs.filter(d => !d.isDeleted)}
-                    lang={lang}
-                    onBack={() => {
-                        setView(activeSpaceId ? 'space' : 'dashboard');
-                        setActiveDocId(null);
-                    }}
-                    onNavigate={handleBreadcrumbNavigate}
-                    onUpdate={handleUpdateDoc}
-                    onOpenShare={handleOpenShare}
-                />
+             <main key="editor" className="flex-1 ml-0 md:ml-[320px] overflow-hidden relative min-h-screen">
+                 <TiptapEditor
+                   docId={activeDoc.id}
+                   pageTitle={activeDoc.title || 'Untitled'}
+                   collaborationUrl="ws://localhost:1234"
+                   onBack={() => {
+                     setView(activeSpaceId ? 'space' : 'dashboard');
+                     setActiveDocId(null);
+                   }}
+                   onShare={handleOpenShare}
+                 />
              </main>
         ) : (
             <div key={`${view}-${activeSpaceId || 'home'}`} className="flex-1 ml-0 md:ml-[320px] flex flex-col h-screen overflow-hidden">
@@ -706,12 +602,40 @@ const App: React.FC = () => {
                     lang={lang}
                     formattedTime={formattedTime}
                 >  
+                    {view === 'dashboard' && (
+                         <motion.button 
+                            whileHover={{ 
+                              scale: 1.02, 
+                              y: -2,
+                              transition: { type: "spring", stiffness: 400, damping: 25 }
+                            }}
+                            whileTap={{ 
+                              scale: 0.98,
+                              transition: { type: "spring", stiffness: 600, damping: 30 }
+                            }}
+                            onClick={handleCreateDoc}
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl font-bold will-change-transform"
+                            style={{ transform: 'translate3d(0,0,0)' }}
+                            title={t.newDoc}
+                        >
+                            <Plus className="w-5 h-5" />
+                            <span className="hidden sm:inline">{t.newDoc}</span>
+                        </motion.button>
+                    )}
                     {view === 'space' && activeSpace && (
                          <motion.button 
-                            whileHover={{ scale: 1.05, y: -1 }}
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ 
+                              scale: 1.02, 
+                              y: -2,
+                              transition: { type: "spring", stiffness: 400, damping: 25 }
+                            }}
+                            whileTap={{ 
+                              scale: 0.98,
+                              transition: { type: "spring", stiffness: 600, damping: 30 }
+                            }}
                             onClick={handleCreateDoc}
-                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl font-bold transition-all"
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl font-bold will-change-transform"
+                            style={{ transform: 'translate3d(0,0,0)' }}
                             title={t.newDoc}
                         >
                             <Plus className="w-5 h-5" />
@@ -731,209 +655,6 @@ const App: React.FC = () => {
                         {/* View Specific Headers/Widgets */}
                         {view === 'dashboard' && (
                             <>
-                            {/* 创意功能区 - 3栏布局 */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                                {/* 每日灵感 */}
-                                <motion.div 
-                                    whileHover={{ scale: 1.02, y: -2 }}
-                                    className="col-span-1 p-4 rounded-2xl bg-pink-50/70 dark:bg-pink-900/20 border border-pink-200/50 dark:border-pink-800/30 cursor-pointer group backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
-                                    onClick={() => setDailyQuote(prev => prev + 1)}
-                                >
-                                    <div className="flex items-start justify-between mb-3">
-                                        <div className="p-2 rounded-lg bg-pink-500/10 group-hover:bg-pink-500/20 transition-colors">
-                                            <Sparkles className="w-4 h-4 text-pink-600 dark:text-pink-400" />
-                                        </div>
-                                        <span className="text-[10px] font-bold text-pink-500 dark:text-pink-400 uppercase tracking-wider">
-                                            {lang === 'zh' ? '点击刷新' : 'Click to refresh'}
-                                        </span>
-                                    </div>
-                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 leading-relaxed italic">
-                                        {currentQuote[lang]}
-                                    </p>
-                                </motion.div>
-
-                                {/* 统计仪表盘 */}
-                                <motion.div 
-                                    whileHover={{ scale: 1.02, y: -2 }}
-                                    className="col-span-1 p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-900/20 border border-blue-200/50 dark:border-blue-800/30 backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-2 rounded-lg bg-blue-500/10">
-                                            <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                                        </div>
-                                        <h4 className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-                                            {lang === 'zh' ? '统计' : 'Stats'}
-                                        </h4>
-                                    </div>
-                                    <div className="grid grid-cols-3 gap-2">
-                                        <div className="text-center">
-                                            <div className="text-2xl font-black text-blue-600 dark:text-blue-400 tabular-nums">{stats.totalDocs}</div>
-                                            <div className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">{lang === 'zh' ? '文档' : 'Docs'}</div>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="text-2xl font-black text-indigo-600 dark:text-indigo-400 tabular-nums">{(stats.totalWords / 1000).toFixed(1)}k</div>
-                                            <div className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">{lang === 'zh' ? '字数' : 'Words'}</div>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="text-2xl font-black text-purple-600 dark:text-purple-400 tabular-nums">{stats.recentDocs}</div>
-                                            <div className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">{lang === 'zh' ? '7天' : '7 Days'}</div>
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Pomodoro 计时器 */}
-                                <motion.div 
-                                    whileHover={{ scale: 1.02, y: -2 }}
-                                    className="col-span-1 p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-900/20 border border-emerald-200/50 dark:border-emerald-800/30 backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-2 rounded-lg bg-emerald-500/10">
-                                            <Timer className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                                        </div>
-                                        <h4 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                                            Pomodoro
-                                        </h4>
-                                    </div>
-                                    <div className="text-center mb-3">
-                                        <div className="text-3xl font-black font-mono text-emerald-600 dark:text-emerald-400 tabular-nums">
-                                            {Math.floor(pomodoroTime / 60)}:{(pomodoroTime % 60).toString().padStart(2, '0')}
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => setPomodoroRunning(!pomodoroRunning)}
-                                        className="w-full py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-colors"
-                                    >
-                                        {pomodoroRunning ? (lang === 'zh' ? '暂停' : 'Pause') : (lang === 'zh' ? '开始' : 'Start')}
-                                    </button>
-                                </motion.div>
-                            </div>
-
-                            {/* 快速操作栏 */}
-                            <div className="flex gap-3 mb-6">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => setShowQuickCapture(true)}
-                                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    <Zap className="w-4 h-4" />
-                                    {lang === 'zh' ? '快速捕捉' : 'Quick Capture'}
-                                </motion.button>
-                                
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={handleFeelingLucky}
-                                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-bold hover:border-indigo-400 dark:hover:border-indigo-500 transition-all"
-                                >
-                                    <Shuffle className="w-4 h-4" />
-                                    {lang === 'zh' ? '随机文档' : 'Feeling Lucky'}
-                                </motion.button>
-                            </div>
-
-                            {/* 新增功能区 - 4栏网格 */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                                {/* 📌 快速收藏夹 */}
-                                <motion.div
-                                    whileHover={{ scale: 1.02, y: -2 }}
-                                    className="col-span-1 p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-900/20 border border-amber-200/50 dark:border-amber-800/30 backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-2 rounded-lg bg-amber-500/10">
-                                            <Star className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                                        </div>
-                                        <h4 className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
-                                            {lang === 'zh' ? '收藏夹' : 'Favorites'}
-                                        </h4>
-                                    </div>
-                                    <div className="text-3xl font-black text-amber-600 dark:text-amber-400 mb-1 tabular-nums">
-                                        {docs.filter(d => d.isFavorite && !d.isDeleted).length}
-                                    </div>
-                                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                                        {lang === 'zh' ? '个收藏文档' : 'Favorited'}
-                                    </p>
-                                </motion.div>
-
-                                {/* 🏷️ 智能标签云 */}
-                                <motion.div
-                                    whileHover={{ scale: 1.02, y: -2 }}
-                                    className="col-span-1 lg:col-span-2 p-4 rounded-2xl bg-cyan-50/70 dark:bg-cyan-900/20 border border-cyan-200/50 dark:border-cyan-800/30 backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-2 rounded-lg bg-cyan-500/10">
-                                            <Hash className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                                        </div>
-                                        <h4 className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">
-                                            {lang === 'zh' ? '热门标签' : 'Tag Cloud'}
-                                        </h4>
-                                    </div>
-                                    <div className="flex flex-wrap gap-2">
-                                        {(() => {
-                                            const tagCounts: Record<string, number> = {};
-                                            docs.filter(d => !d.isDeleted).forEach(d => {
-                                                const words = (d.title + ' ' + d.content).toLowerCase().split(/\s+/);
-                                                words.forEach(word => {
-                                                    if (word.length > 2) {
-                                                        tagCounts[word] = (tagCounts[word] || 0) + 1;
-                                                    }
-                                                });
-                                            });
-                                            const topTags = Object.entries(tagCounts)
-                                                .sort((a, b) => b[1] - a[1])
-                                                .slice(0, 6);
-                                            return topTags.length > 0 ? topTags.map(([tag, count]) => (
-                                                <span key={tag} className="px-2 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 rounded-lg text-xs font-bold">
-                                                    #{tag} <span className="opacity-50">({count})</span>
-                                                </span>
-                                            )) : (
-                                                <span className="text-xs text-gray-500 dark:text-gray-400">
-                                                    {lang === 'zh' ? '暂无标签' : 'No tags yet'}
-                                                </span>
-                                            );
-                                        })()}
-                                    </div>
-                                </motion.div>
-
-                                {/* 📅 日历热力图 */}
-                                <motion.div
-                                    whileHover={{ scale: 1.02, y: -2 }}
-                                    className="col-span-1 p-4 rounded-2xl bg-violet-50/70 dark:bg-violet-900/20 border border-violet-200/50 dark:border-violet-800/30 backdrop-blur-md shadow-lg hover:shadow-xl transition-all"
-                                >
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-2 rounded-lg bg-violet-500/10">
-                                            <CalendarIcon className="w-4 h-4 text-violet-600 dark:text-violet-400" />
-                                        </div>
-                                        <h4 className="text-xs font-bold text-violet-600 dark:text-violet-400 uppercase tracking-wider">
-                                            {lang === 'zh' ? '活跃度' : 'Activity'}
-                                        </h4>
-                                    </div>
-                                    <div className="grid grid-cols-7 gap-1">
-                                        {Array.from({length: 28}).map((_, i) => {
-                                            const date = new Date();
-                                            date.setDate(date.getDate() - (27 - i));
-                                            const dayDocs = docs.filter(d => {
-                                                const docDate = new Date(d.lastModified);
-                                                return docDate.toDateString() === date.toDateString() && !d.isDeleted;
-                                            }).length;
-                                            const intensity = Math.min(dayDocs, 3);
-                                            return (
-                                                <div
-                                                    key={i}
-                                                    className="aspect-square rounded transition-all hover:ring-2 hover:ring-violet-400"
-                                                    style={{
-                                                        backgroundColor: intensity === 0 ? 'rgba(139, 92, 246, 0.1)' :
-                                                            intensity === 1 ? 'rgba(139, 92, 246, 0.3)' :
-                                                            intensity === 2 ? 'rgba(139, 92, 246, 0.6)' :
-                                                            'rgba(139, 92, 246, 0.9)'
-                                                    }}
-                                                    title={`${date.toLocaleDateString()}: ${dayDocs} docs`}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </motion.div>
-                            </div>
-                            
                             {/* 最近编辑标题 */}
                             <div className="mb-6">
                                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
@@ -1001,24 +722,69 @@ const App: React.FC = () => {
 
                         {/* Doc Grid */}
                         {filteredDocs.length > 0 ? (
-                            <div className={`${layoutMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' : 'flex flex-col gap-2'} pb-24`}>
-                                <AnimatePresence mode="popLayout">
-                                    {filteredDocs.map((doc) => (
-                                        <DocCard 
+                            <AnimatePresence mode="wait">
+                                <motion.div 
+                                    key={`${view}-${filterMode}-${layoutMode}`}
+                                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                                    animate={{ 
+                                        opacity: 1, 
+                                        y: 0,
+                                        scale: 1,
+                                        transition: {
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 28,
+                                            mass: 0.9
+                                        }
+                                    }}
+                                    exit={{ 
+                                        opacity: 0, 
+                                        y: -8,
+                                        scale: 0.98,
+                                        transition: {
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 32
+                                        }
+                                    }}
+                                    className={`${layoutMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' : 'flex flex-col gap-2'} pb-24`}
+                                >
+                                    {filteredDocs.map((doc, index) => (
+                                        <motion.div
                                             key={doc.id}
-                                            doc={doc} 
-                                            lang={lang}
-                                            layout={layoutMode}
-                                            onClick={handleOpenDoc}
-                                            onToggleFavorite={handleToggleFavorite}
-                                            onToggleLike={handleToggleLike}
-                                            onOpenSettings={handleOpenSettings}
-                                            onRestore={() => handleRestore(doc.id)}
-                                            onDeleteForever={() => handlePermanentDelete(doc.id)}
-                                        />
+                                            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                                            animate={{ 
+                                                opacity: 1, 
+                                                scale: 1,
+                                                y: 0,
+                                                transition: {
+                                                    type: "spring",
+                                                    stiffness: 350,
+                                                    damping: 25,
+                                                    mass: 0.8,
+                                                    delay: Math.min(index * 0.03, 0.4)
+                                                }
+                                            }}
+                                            style={{
+                                                transform: 'translate3d(0,0,0)',
+                                                transformStyle: 'preserve-3d'
+                                            }}
+                                        >
+                                            <DocCard 
+                                                doc={doc} 
+                                                lang={lang}
+                                                layout={layoutMode}
+                                                onClick={handleOpenDoc}
+                                                onToggleFavorite={handleToggleFavorite}
+                                                onToggleLike={handleToggleLike}
+                                                onOpenSettings={handleOpenSettings}
+                                                onRestore={() => handleRestore(doc.id)}
+                                                onDeleteForever={() => handlePermanentDelete(doc.id)}
+                                            />
+                                        </motion.div>
                                     ))}
-                                </AnimatePresence>
-                            </div>
+                                </motion.div>
+                            </AnimatePresence>
                         ) : (
                             <div className="flex flex-col items-center justify-center py-20 text-gray-400 dark:text-gray-600">
                                  {view === 'trash' ? (
@@ -1089,6 +855,12 @@ const App: React.FC = () => {
             setModalType(null);
         }}
         onToggleTheme={() => setTheme(prev => prev === 'dark' ? 'light' : 'dark')}
+      />
+      
+      <TagsManagementModal 
+        isOpen={modalType === 'tagsManagement'}
+        onClose={() => setModalType(null)}
+        lang={lang}
       />
 
       {modalDoc && (

@@ -23,7 +23,9 @@ interface SidebarProps {
   onOpenGlobalSettings: () => void;
   onOpenTemplates: () => void;
   onOpenSearch?: () => void;
+  onOpenTagsManagement?: () => void;
   onDateSelect: (date: Date) => void;
+  onOpenSettings?: (doc: Doc, e: React.MouseEvent) => void;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -79,7 +81,7 @@ const itemVariants = {
 
 const Sidebar: React.FC<SidebarProps> = React.memo(({ 
   spaces, activeSpaceId, currentView, lang, docs = [], activeDoc,
-  onNavigate, onCreateSpace, onBackToHome, onSelectDoc, onOpenGlobalSettings, onOpenTemplates, onOpenSearch, onDateSelect,
+  onNavigate, onCreateSpace, onBackToHome, onSelectDoc, onOpenGlobalSettings, onOpenTemplates, onOpenSearch, onOpenTagsManagement, onDateSelect, onOpenSettings,
   isOpen, onClose
 }) => {
   const t = TRANSLATIONS[lang];
@@ -143,6 +145,7 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
                             onOpenSettings={onOpenGlobalSettings}
                             onOpenTemplates={onOpenTemplates}
                             onOpenSearch={onOpenSearch}
+                            onOpenTagsManagement={onOpenTagsManagement}
                             onDateSelect={onDateSelect}
                             trashCount={trashCount}
                             onClose={onClose}
@@ -162,7 +165,8 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
                     >
                          <SpaceSidebarContent 
                             space={activeSpace} docs={docs} activeDoc={activeDoc} t={t} lang={lang}
-                            onBack={onBackToHome} onSelectDoc={onSelectDoc}
+                            onBack={onBackToHome} onSelectDoc={onSelectDoc} onOpenSettings={onOpenSettings}
+                            onOpenTagsManagement={onOpenTagsManagement}
                         />
                     </motion.div>
                 )}
@@ -354,9 +358,11 @@ const UserProfile = ({ t, onOpenSettings }: any) => (
 );
 
 // --- Space Sidebar Content ---
-const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelectDoc }: any) => {
+const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelectDoc, onOpenSettings, onOpenTagsManagement }: any) => {
     // State for folder drill-down navigation
     const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
+    // State for tags section
+    const [tagsExpanded, setTagsExpanded] = useState(true);
 
     // Sync sidebar with active doc
     useEffect(() => {
@@ -424,24 +430,53 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
             </motion.nav>
 
             <div className="flex-1 overflow-y-auto custom-scrollbar px-3 pb-4">
+                 {/* Tags Section */}
                  <motion.div variants={itemVariants} className="mb-6">
-                    <SectionHeader title={t.tags} />
-                    <div className="flex flex-wrap gap-2 mt-2 px-1">
-                        {[
-                            { label: 'colors', color: 'bg-rose-50 text-rose-600 border-rose-100' }, 
-                            { label: 'design', color: 'bg-indigo-50 text-indigo-600 border-indigo-100' }, 
-                            { label: 'planning', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' }
-                        ].map(tag => (
-                            <motion.button
-                                key={tag.label}
-                                whileHover={{ scale: 1.05, y: -1 }}
-                                className={`flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold border ${tag.color} dark:bg-white/5 dark:border-white/10 dark:text-gray-300 transition-all shadow-sm`}
-                            >
-                                <Hash className="w-2.5 h-2.5 mr-1 opacity-70" />
-                                <span>{tag.label}</span>
-                            </motion.button>
-                        ))}
+                    <div className="flex items-center justify-between mb-2 px-1">
+                        <button 
+                            onClick={() => setTagsExpanded(!tagsExpanded)}
+                            className="flex items-center gap-1.5 text-xs font-bold text-gray-400 uppercase tracking-wider hover:text-gray-600 dark:hover:text-gray-200 transition-colors group"
+                        >
+                            <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${tagsExpanded ? 'rotate-90' : ''}`} />
+                            <span>{t.tags}</span>
+                        </button>
+                        <button
+                            onClick={onOpenTagsManagement}
+                            className="p-1 rounded-md hover:bg-gray-200/50 dark:hover:bg-white/10 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                            title="管理标签"
+                        >
+                            <Settings className="w-3.5 h-3.5" />
+                        </button>
                     </div>
+                    
+                    <AnimatePresence>
+                        {tagsExpanded && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden"
+                            >
+                                <div className="flex flex-wrap gap-2 mt-2 px-1">
+                                    {[
+                                        { label: 'colors', color: 'bg-rose-50 text-rose-600 border-rose-100' }, 
+                                        { label: 'design', color: 'bg-indigo-50 text-indigo-600 border-indigo-100' }, 
+                                        { label: 'planning', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' }
+                                    ].map(tag => (
+                                        <motion.button
+                                            key={tag.label}
+                                            whileHover={{ scale: 1.05, y: -1 }}
+                                            className={`flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold border ${tag.color} dark:bg-white/5 dark:border-white/10 dark:text-gray-300 transition-all shadow-sm`}
+                                        >
+                                            <Hash className="w-2.5 h-2.5 mr-1 opacity-70" />
+                                            <span>{tag.label}</span>
+                                        </motion.button>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                  </motion.div>
 
                  <motion.div variants={staggerVariants}>
@@ -491,9 +526,10 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
                              <FolderTreeItem 
                                 key={doc.id} 
                                 doc={doc} 
-                                allDocs={docs} // Pass all docs to check for children count if needed
+                                allDocs={docs}
                                 onSelect={onSelectDoc} 
                                 onNavigate={(d: Doc) => setCurrentFolderId(d.id)}
+                                onOpenSettings={onOpenSettings}
                             />
                          )) : (
                              <div className="px-4 py-3 text-xs text-gray-400 italic text-center">Empty folder</div>
@@ -516,33 +552,21 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
 const DocSidebarContent = ({ doc, allDocs = [], t, onBack, lang, onSelectDoc }: { doc: Doc, allDocs?: Doc[], t: any, onBack: () => void, lang: Language, onSelectDoc?: (d: Doc) => void }) => {
     const [activeTab, setActiveTab] = useState('outline');
     
-    // 1. Parsing Outline
+    // 1. Parsing Outline - CRDT 格式不支持
     const outline = useMemo(() => {
-        if(!doc.content) return [];
-        return doc.content.split('\n')
-            .filter(l => l.startsWith('#'))
-            .map((text, i) => ({ 
-                text: text.replace(/#+\s/,''), 
-                level: (text.match(/^#+/)||[''])[0].length, 
-                id: i 
-            }));
-    }, [doc.content]);
+        return [];
+    }, []);
 
     // 2. Metadata Stats
     const stats = useMemo(() => {
-        const words = doc.content ? doc.content.split(/\s+/).length : 0;
-        const readTime = Math.max(1, Math.ceil(words / 200)) + ' min';
+        const words = 0; // CRDT 格式不再计算字数
+        const readTime = '1 min';
         return { words, readTime };
-    }, [doc.content]);
+    }, []);
 
-    // 3. Backlinks Logic
+    // 3. Backlinks Logic - CRDT 格式不支持内容搜索
     const backlinks = useMemo(() => {
-        if (!allDocs.length) return [];
-        return allDocs.filter(d => 
-            d.id !== doc.id && 
-            !d.isDeleted &&
-            d.content.toLowerCase().includes(doc.title.toLowerCase())
-        );
+        return [];
     }, [doc, allDocs]);
 
     return (
@@ -693,7 +717,7 @@ const SectionHeader = ({ title }: { title: string }) => (
     </div>
 );
 
-const FolderTreeItem = ({ doc, allDocs, onSelect, onNavigate, depth = 0 }: any) => {
+const FolderTreeItem = ({ doc, allDocs, onSelect, onNavigate, onOpenSettings, depth = 0 }: any) => {
     const [isOpen, setIsOpen] = useState(false);
     // If we have onNavigate, we assume "Drill-down" mode, so we don't render children recursively here
     // But we still calculate them to show indicator
@@ -711,35 +735,53 @@ const FolderTreeItem = ({ doc, allDocs, onSelect, onNavigate, depth = 0 }: any) 
                 />
             )}
             <div 
-                className="group flex items-center px-2 py-1.5 rounded-lg hover:bg-white/60 dark:hover:bg-white/10 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all relative z-10"
-                style={{ paddingLeft: isNavMode ? '10px' : `${10 + depth * 14}px` }}
-                onClick={() => {
-                    if (isNavMode && isFolder) {
-                        onNavigate(doc);
-                    } else {
-                        onSelect && onSelect(doc);
-                    }
-                }}
+                className="group flex items-center px-2 py-2 rounded-lg hover:bg-white/60 dark:hover:bg-white/10 cursor-pointer text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all relative z-10"
+                style={{ paddingLeft: isNavMode ? '10px' : `${10 + depth * 16}px` }}
             >
-                {/* Chevron: Hide in Nav Mode */}
-                {!isNavMode && (
-                    <div onClick={(e) => {e.stopPropagation(); setIsOpen(!isOpen)}} className={`mr-1.5 p-0.5 rounded-md hover:bg-black/5 dark:hover:bg-white/20 transition-colors ${!children.length && isFolder ? 'invisible' : ''}`}>
-                        <ChevronRight className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />
-                    </div>
-                )}
+                <div 
+                    className="flex items-center flex-1 min-w-0"
+                    onClick={() => {
+                        if (isNavMode && isFolder) {
+                            onNavigate(doc);
+                        } else {
+                            onSelect && onSelect(doc);
+                        }
+                    }}
+                >
+                    {/* Chevron: Hide in Nav Mode */}
+                    {!isNavMode && (
+                        <div onClick={(e) => {e.stopPropagation(); setIsOpen(!isOpen)}} className={`mr-2 p-0.5 rounded-md hover:bg-black/5 dark:hover:bg-white/20 transition-colors ${!children.length && isFolder ? 'invisible' : ''}`}>
+                            <ChevronRight className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />
+                        </div>
+                    )}
 
-                <div className="mr-2 text-gray-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">
-                    {isFolder ? (
-                        (isOpen && !isNavMode) ? <FolderOpen className="w-4 h-4 text-amber-400" /> : <Folder className="w-4 h-4 text-amber-400/80" />
-                    ) : (
-                        <FileText className="w-3.5 h-3.5" />
+                    <div className="mr-2.5 text-gray-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">
+                        {isFolder ? (
+                            (isOpen && !isNavMode) ? <FolderOpen className="w-5 h-5 text-amber-400" /> : <Folder className="w-5 h-5 text-amber-400/80" />
+                        ) : (
+                            <FileText className="w-4.5 h-4.5" />
+                        )}
+                    </div>
+                    <span className={`text-base truncate ${isFolder ? 'font-semibold text-gray-700 dark:text-gray-200' : 'font-medium text-gray-600 dark:text-gray-300'}`}>{doc.title || 'Untitled'}</span>
+                    
+                    {/* Drill-down indicator for Nav Mode */}
+                    {isNavMode && isFolder && (
+                        <ChevronRight className="w-4 h-4 ml-auto text-gray-300 group-hover:text-indigo-400" />
                     )}
                 </div>
-                <span className={`text-sm truncate ${isFolder ? 'font-semibold text-gray-700 dark:text-gray-200' : 'font-medium'}`}>{doc.title || 'Untitled'}</span>
                 
-                {/* Drill-down indicator for Nav Mode */}
-                {isNavMode && isFolder && (
-                    <ChevronRight className="w-3 h-3 ml-auto text-gray-300 group-hover:text-indigo-400" />
+                {/* Settings Button */}
+                {onOpenSettings && (
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onOpenSettings(doc, e);
+                        }}
+                        className="ml-2 p-1 opacity-0 group-hover:opacity-100 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-all"
+                        title="设置"
+                    >
+                        <MoreHorizontal className="w-4 h-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200" />
+                    </button>
                 )}
             </div>
             
@@ -752,7 +794,7 @@ const FolderTreeItem = ({ doc, allDocs, onSelect, onNavigate, depth = 0 }: any) 
                             animate={{ height: "auto", opacity: 1 }} 
                             exit={{ height: 0, opacity: 0 }}
                         >
-                            {children.map((child:Doc) => <FolderTreeItem key={child.id} doc={child} allDocs={allDocs} onSelect={onSelect} depth={depth + 1} />)}
+                            {children.map((child:Doc) => <FolderTreeItem key={child.id} doc={child} allDocs={allDocs} onSelect={onSelect} onOpenSettings={onOpenSettings} depth={depth + 1} />)}
                         </motion.div>
                     )}
                 </AnimatePresence>

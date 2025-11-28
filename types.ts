@@ -25,7 +25,7 @@ export interface Doc {
   parentId: string | null; // For nested folders/docs
   type: 'doc' | 'folder';
   title: string;
-  content: string; // Markdown or HTML content
+  content: any;
   lastModified: number;
   isFavorite: boolean;
   isLiked: boolean; // "Like" feature
