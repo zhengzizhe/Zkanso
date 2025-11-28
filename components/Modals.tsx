@@ -474,43 +474,122 @@ export const GlobalSettingsModal: React.FC<GlobalSettingsModalProps> = ({ isOpen
                                  <div className="space-y-6">
                                      <div>
                                          <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4 block">{t.theme}</label>
-                                         <div className="grid grid-cols-3 gap-4">
-                                             <ThemeOption 
-                                                label={t.light} 
-                                                isActive={theme === 'light'} 
-                                                onClick={() => setTheme('light')}
-                                                preview={<div className="w-full h-20 rounded-lg bg-gray-50 border border-gray-200"></div>}
-                                             />
-                                             <ThemeOption 
-                                                label={t.dark} 
-                                                isActive={theme === 'dark'} 
-                                                onClick={() => setTheme('dark')}
-                                                preview={<div className="w-full h-20 rounded-lg bg-gray-900 border border-gray-700"></div>}
-                                             />
-                                             <ThemeOption 
-                                                label={t.gradient} 
-                                                isActive={theme === 'gradient'} 
-                                                onClick={() => setTheme('gradient')}
-                                                preview={<div className="w-full h-20 rounded-lg bg-gradient-to-br from-indigo-100 to-purple-100 border border-indigo-200"></div>}
-                                             />
-                                             <ThemeOption 
-                                                label={t.paper} 
-                                                isActive={theme === 'paper'} 
-                                                onClick={() => setTheme('paper')}
-                                                preview={<div className="w-full h-20 rounded-lg bg-[#f5f5f0] border border-[#e8e8e0]"></div>}
-                                             />
-                                             <ThemeOption 
-                                                label={t.warm} 
-                                                isActive={theme === 'warm'} 
-                                                onClick={() => setTheme('warm')}
-                                                preview={<div className="w-full h-20 rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200"></div>}
-                                             />
-                                             <ThemeOption 
-                                                label={t.slate} 
-                                                isActive={theme === 'slate'} 
-                                                onClick={() => setTheme('slate')}
-                                                preview={<div className="w-full h-20 rounded-lg bg-slate-100 border border-slate-300"></div>}
-                                             />
+                                                                     
+                                         {/* 浅色主题 */}
+                                         <div className="mb-4">
+                                             <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3">浅色主题</h4>
+                                             <div className="grid grid-cols-4 gap-3">
+                                                 <ThemeOption 
+                                                    label="纯净" 
+                                                    isActive={theme === 'light'} 
+                                                    onClick={() => setTheme('light')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gray-50 border border-gray-200"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="纸张" 
+                                                    isActive={theme === 'paper'} 
+                                                    onClick={() => setTheme('paper')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-[#f5f5f0] border border-[#e8e8e0]"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="暖色" 
+                                                    isActive={theme === 'warm'} 
+                                                    onClick={() => setTheme('warm')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="石板" 
+                                                    isActive={theme === 'slate'} 
+                                                    onClick={() => setTheme('slate')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-slate-100 border border-slate-300"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="冰雪" 
+                                                    isActive={theme === 'snow'} 
+                                                    onClick={() => setTheme('snow')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-white to-slate-50 border border-gray-200"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="奶油" 
+                                                    isActive={theme === 'cream'} 
+                                                    onClick={() => setTheme('cream')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-amber-50 to-yellow-100 border border-amber-200"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="薄荷" 
+                                                    isActive={theme === 'mint'} 
+                                                    onClick={() => setTheme('mint')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-green-50 to-emerald-100 border border-green-200"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="玫瑰" 
+                                                    isActive={theme === 'rose'} 
+                                                    onClick={() => setTheme('rose')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-rose-50 to-pink-100 border border-rose-200"></div>}
+                                                 />
+                                             </div>
+                                         </div>
+                                                                     
+                                         {/* 深色主题 */}
+                                         <div className="mb-4">
+                                             <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3">深色主题</h4>
+                                             <div className="grid grid-cols-4 gap-3">
+                                                 <ThemeOption 
+                                                    label="深色" 
+                                                    isActive={theme === 'dark'} 
+                                                    onClick={() => setTheme('dark')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-slate-900 to-purple-900 border border-gray-700"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="午夜" 
+                                                    isActive={theme === 'midnight'} 
+                                                    onClick={() => setTheme('midnight')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-blue-950 to-indigo-900 border border-blue-800"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="深海" 
+                                                    isActive={theme === 'ocean'} 
+                                                    onClick={() => setTheme('ocean')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-cyan-900 to-blue-900 border border-cyan-700"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="森林" 
+                                                    isActive={theme === 'forest'} 
+                                                    onClick={() => setTheme('forest')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-green-950 to-emerald-900 border border-green-800"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="余烬" 
+                                                    isActive={theme === 'ember'} 
+                                                    onClick={() => setTheme('ember')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-red-950 to-orange-950 border border-red-800"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="紫梦" 
+                                                    isActive={theme === 'purple'} 
+                                                    onClick={() => setTheme('purple')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-purple-950 to-violet-900 border border-purple-700"></div>}
+                                                 />
+                                                 <ThemeOption 
+                                                    label="炭灰" 
+                                                    isActive={theme === 'charcoal'} 
+                                                    onClick={() => setTheme('charcoal')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-black to-gray-800 border border-gray-700"></div>}
+                                                 />
+                                             </div>
+                                         </div>
+                                                                     
+                                         {/* 特殊主题 */}
+                                         <div>
+                                             <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3">特殊主题</h4>
+                                             <div className="grid grid-cols-4 gap-3">
+                                                 <ThemeOption 
+                                                    label="极光" 
+                                                    isActive={theme === 'gradient'} 
+                                                    onClick={() => setTheme('gradient')}
+                                                    preview={<div className="w-full h-16 rounded-lg bg-gradient-to-br from-indigo-100 via-pink-100 to-blue-100 border border-indigo-200"></div>}
+                                                 />
+                                             </div>
                                          </div>
                                      </div>
                                  </div>

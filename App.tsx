@@ -90,8 +90,13 @@ const formatRelativeTime = (timestamp: number, lang: Language): string => {
   }
 };
 
-const ViewHeader = ({ title, showSearch, onSearch, layoutMode, setLayoutMode, onMenuClick, t, children, view, getGreeting, lang, formattedTime }: any) => (
-  <div className="fixed top-0 left-0 right-0 md:left-[320px] h-20 bg-transparent z-20 flex items-center justify-between px-6 md:px-10 transition-all duration-300">
+const ViewHeader = ({ title, showSearch, onSearch, layoutMode, setLayoutMode, onMenuClick, t, children, view, getGreeting, lang, formattedTime, isSidebarCollapsed }: any) => (
+  <div 
+    className="fixed top-0 left-0 right-0 h-20 bg-transparent z-20 flex items-center justify-between px-6 md:px-10 transition-all duration-300 ease-in-out"
+    style={{
+      marginLeft: isSidebarCollapsed ? 0 : 320
+    }}
+  >
     <div className="flex items-center gap-5 flex-1">
       {/* 移动菜单按钮 */}
       <button 
@@ -208,6 +213,7 @@ const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('zh'); 
   const [theme, setTheme] = useState<Theme>('light');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   
   // 创意功能状态
   const [showQuickCapture, setShowQuickCapture] = useState(false);
@@ -247,21 +253,21 @@ const App: React.FC = () => {
   // --- Theme Effect ---
   useEffect(() => {
     // 移除所有主题类
-    document.body.classList.remove('theme-light', 'theme-dark', 'theme-gradient', 'theme-paper', 'theme-warm', 'theme-slate');
+    document.body.classList.remove('theme-light', 'theme-dark', 'theme-gradient', 'theme-paper', 'theme-warm', 'theme-slate', 'theme-snow', 'theme-cream', 'theme-mint', 'theme-rose', 'theme-midnight', 'theme-ocean', 'theme-forest', 'theme-ember', 'theme-purple', 'theme-charcoal');
     document.documentElement.classList.remove('dark');
     
     // 应用新主题
     document.body.classList.add(`theme-${theme}`);
     
-    // 仅深色主题添加 dark 类
-    if (theme === 'dark') {
+    // 深色主题添加 dark 类
+    if (['dark', 'midnight', 'ocean', 'forest', 'ember', 'purple', 'charcoal'].includes(theme)) {
       document.documentElement.classList.add('dark');
     }
     
     // 控制 mesh-bg 的显示
     const meshBg = document.querySelector('.mesh-bg') as HTMLElement;
     if (meshBg) {
-      if (theme === 'light' || theme === 'paper' || theme === 'warm' || theme === 'slate') {
+      if (['light', 'paper', 'warm', 'slate', 'snow', 'cream', 'mint', 'rose'].includes(theme)) {
         meshBg.style.display = 'none';
       } else {
         meshBg.style.display = 'block';
@@ -565,7 +571,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen relative text-gray-900 dark:text-gray-100 overflow-hidden bg-gray-50 dark:bg-gray-950">
+    <div className="flex min-h-screen relative text-gray-900 dark:text-gray-100 overflow-hidden">
       
       {/* Sidebar Component handles its own mobile rendering via props */}
       <Sidebar 
@@ -588,11 +594,24 @@ const App: React.FC = () => {
         onOpenTagsManagement={() => setModalType('tagsManagement')}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
+        onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        isCollapsed={isSidebarCollapsed}
       />
 
       <AnimatePresence mode="wait">
         {view === 'doc' && activeDoc ? (
-             <main key="editor" className="flex-1 ml-0 md:ml-[320px] overflow-hidden relative min-h-screen">
+             <motion.main 
+                key="editor" 
+                className="flex-1 ml-0 overflow-hidden relative min-h-screen"
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                style={{
+                  marginLeft: isSidebarCollapsed ? 0 : 320,
+                  transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+             >
                  <TiptapEditor
                    docId={activeDoc.id}
                    pageTitle={activeDoc.title || 'Untitled'}
@@ -603,9 +622,20 @@ const App: React.FC = () => {
                    }}
                    onShare={handleOpenShare}
                  />
-             </main>
+             </motion.main>
         ) : (
-            <div key={`${view}-${activeSpaceId || 'home'}`} className="flex-1 ml-0 md:ml-[320px] flex flex-col h-screen overflow-hidden">
+            <motion.div 
+                key={`${view}-${activeSpaceId || 'home'}`} 
+                className="flex-1 ml-0 flex flex-col h-screen overflow-hidden"
+                variants={pageVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                style={{
+                  marginLeft: isSidebarCollapsed ? 0 : 320,
+                  transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+            >
                 {/* Unified Fixed Header */}
                 <ViewHeader 
                     title={view === 'dashboard' ? t.welcome : (view === 'trash' ? t.trash : activeSpace?.name)}
@@ -619,6 +649,7 @@ const App: React.FC = () => {
                     getGreeting={getGreeting}
                     lang={lang}
                     formattedTime={formattedTime}
+                    isSidebarCollapsed={isSidebarCollapsed}
                 >  
                     {view === 'dashboard' && (
                          <motion.button 
@@ -768,10 +799,10 @@ const App: React.FC = () => {
                                                 y: 0,
                                                 transition: {
                                                     type: "spring",
-                                                    stiffness: 350,
-                                                    damping: 25,
-                                                    mass: 0.8,
-                                                    delay: Math.min(index * 0.03, 0.4)
+                                                    stiffness: 400,
+                                                    damping: 28,
+                                                    mass: 0.6,
+                                                    delay: Math.min(index * 0.015, 0.15)
                                                 }
                                             }}
                                             style={{
@@ -831,7 +862,7 @@ const App: React.FC = () => {
                         )}
                     </motion.div>
                 </main>
-            </div>
+            </motion.div>
         )}
       </AnimatePresence>
 

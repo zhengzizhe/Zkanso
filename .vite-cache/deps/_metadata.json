@@ -1,0 +1,133 @@
+{
+  "hash": "ffaf3e01",
+  "configHash": "2fc9521c",
+  "lockfileHash": "c481d2ec",
+  "browserHash": "3fd7c2b4",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "fb119875",
+      "needsInterop": true
+    },
+    "react-dom": {
+      "src": "../../node_modules/react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "d297853a",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "c5ed872e",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../node_modules/react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "4ac5e7e3",
+      "needsInterop": true
+    },
+    "@tiptap/core": {
+      "src": "../../node_modules/@tiptap/core/dist/index.js",
+      "file": "@tiptap_core.js",
+      "fileHash": "22e2d7b7",
+      "needsInterop": false
+    },
+    "@tiptap/extension-collaboration": {
+      "src": "../../node_modules/@tiptap/extension-collaboration/dist/index.js",
+      "file": "@tiptap_extension-collaboration.js",
+      "fileHash": "0b8606e3",
+      "needsInterop": false
+    },
+    "@tiptap/extension-collaboration-cursor": {
+      "src": "../../node_modules/@tiptap/extension-collaboration-cursor/dist/index.js",
+      "file": "@tiptap_extension-collaboration-cursor.js",
+      "fileHash": "07671ec9",
+      "needsInterop": false
+    },
+    "@tiptap/extension-dropcursor": {
+      "src": "../../node_modules/@tiptap/extension-dropcursor/dist/index.js",
+      "file": "@tiptap_extension-dropcursor.js",
+      "fileHash": "b6376c2a",
+      "needsInterop": false
+    },
+    "@tiptap/extension-placeholder": {
+      "src": "../../node_modules/@tiptap/extension-placeholder/dist/index.js",
+      "file": "@tiptap_extension-placeholder.js",
+      "fileHash": "b499ded5",
+      "needsInterop": false
+    },
+    "@tiptap/react": {
+      "src": "../../node_modules/@tiptap/react/dist/index.js",
+      "file": "@tiptap_react.js",
+      "fileHash": "d485dd8d",
+      "needsInterop": false
+    },
+    "@tiptap/starter-kit": {
+      "src": "../../node_modules/@tiptap/starter-kit/dist/index.js",
+      "file": "@tiptap_starter-kit.js",
+      "fileHash": "0c825b87",
+      "needsInterop": false
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "b083cbf5",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "7ea69522",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "60d06e2c",
+      "needsInterop": true
+    },
+    "y-websocket": {
+      "src": "../../node_modules/y-websocket/src/y-websocket.js",
+      "file": "y-websocket.js",
+      "fileHash": "58241d25",
+      "needsInterop": false
+    },
+    "yjs": {
+      "src": "../../node_modules/yjs/dist/yjs.mjs",
+      "file": "yjs.js",
+      "fileHash": "74f73dbe",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-Z3L2R3BW": {
+      "file": "chunk-Z3L2R3BW.js"
+    },
+    "chunk-R5F65CVE": {
+      "file": "chunk-R5F65CVE.js"
+    },
+    "chunk-SXQQEW4N": {
+      "file": "chunk-SXQQEW4N.js"
+    },
+    "chunk-BENYXEMR": {
+      "file": "chunk-BENYXEMR.js"
+    },
+    "chunk-LMFW4JPK": {
+      "file": "chunk-LMFW4JPK.js"
+    },
+    "chunk-OUWKCDPP": {
+      "file": "chunk-OUWKCDPP.js"
+    },
+    "chunk-4BPZ7PBZ": {
+      "file": "chunk-4BPZ7PBZ.js"
+    },
+    "chunk-NWJVDFDO": {
+      "file": "chunk-NWJVDFDO.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}

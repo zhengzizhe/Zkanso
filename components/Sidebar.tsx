@@ -28,6 +28,8 @@ interface SidebarProps {
   onOpenSettings?: (doc: Doc, e: React.MouseEvent) => void;
   isOpen: boolean;
   onClose: () => void;
+  onToggle?: () => void;
+  isCollapsed?: boolean;
 }
 
 // Optimized Transition - Craft Style (干脆流畅)
@@ -82,7 +84,7 @@ const itemVariants = {
 const Sidebar: React.FC<SidebarProps> = React.memo(({ 
   spaces, activeSpaceId, currentView, lang, docs = [], activeDoc,
   onNavigate, onCreateSpace, onBackToHome, onSelectDoc, onOpenGlobalSettings, onOpenTemplates, onOpenSearch, onOpenTagsManagement, onDateSelect, onOpenSettings,
-  isOpen, onClose
+  isOpen, onClose, onToggle, isCollapsed = false
 }) => {
   const t = TRANSLATIONS[lang];
   const activeSpace = spaces.find(s => s.id === activeSpaceId);
@@ -109,16 +111,47 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
             )}
         </AnimatePresence>
 
+        {/* 收起状态的展开按钮 - 独立悬浮 */}
+        <AnimatePresence>
+          {isCollapsed && (
+            <motion.button
+              initial={{ opacity: 0, x: -20, scale: 0.8 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -20, scale: 0.8 }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 25,
+                delay: 0.2
+              }}
+              onClick={onToggle}
+              className="hidden md:flex fixed left-6 top-24 w-12 h-12 rounded-full bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 shadow-xl hover:shadow-2xl transition-all items-center justify-center z-[60] border-2 border-gray-200 dark:border-gray-700 group"
+            >
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
         {/* Sidebar Container */}
-        <div className={`fixed z-50 transition-transform duration-300 ease-in-out md:translate-x-0 
+        <motion.div 
+            className={`fixed z-50 top-0 left-0 bottom-0 w-[280px] md:left-4 md:top-4 md:bottom-4 perspective-[1200px]
             ${isOpen ? 'translate-x-0' : '-translate-x-[110%]'} 
-            top-0 left-0 bottom-0 w-[280px] md:left-4 md:top-4 md:bottom-4 perspective-[1200px] pointer-events-none`}
+            md:translate-x-0`}
+            animate={{
+                x: isCollapsed ? -320 : 0,
+                opacity: isCollapsed ? 0 : 1,
+                scale: isCollapsed ? 0.95 : 1
+            }}
+            transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 30,
+                mass: 0.8
+            }}
         >
           <motion.div 
-            className="pointer-events-auto relative w-full h-full md:rounded-[28px] overflow-hidden shadow-lg border-r md:border border-gray-200/80 dark:border-gray-700/50 will-change-transform bg-white dark:bg-gray-900"
+            className="pointer-events-auto relative w-full h-full md:rounded-[24px] overflow-visible shadow-xl border-r md:border border-gray-200/60 dark:border-gray-700/40 will-change-transform bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl"
           >
-            {/* 朗胧内光效 */}
-            
             <AnimatePresence initial={false} custom={direction} mode='popLayout'>
                 {(currentView === 'dashboard' || currentView === 'trash') && (
                     <motion.div 
@@ -141,6 +174,8 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
                             onDateSelect={onDateSelect}
                             trashCount={trashCount}
                             onClose={onClose}
+                            onToggle={onToggle}
+                            isCollapsed={isCollapsed}
                         />
                     </motion.div>
                 )}
@@ -160,6 +195,7 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
                             onBack={onBackToHome} onSelectDoc={onSelectDoc} onOpenSettings={onOpenSettings}
                             onOpenTagsManagement={onOpenTagsManagement}
                             onClose={onClose}
+                            onToggle={onToggle}
                         />
                     </motion.div>
                 )}
@@ -178,12 +214,14 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
                             doc={activeDoc} allDocs={docs} t={t} lang={lang}
                             onBack={() => onNavigate(activeDoc.spaceId ? 'space' : 'dashboard', activeDoc.spaceId)}
                             onSelectDoc={onSelectDoc}
+                            onClose={onClose}
+                            onToggle={onToggle}
                         />
                     </motion.div>
                 )}
             </AnimatePresence>
           </motion.div>
-        </div>
+        </motion.div>
     </>
   );
 }, (prev, next) => {
@@ -197,33 +235,37 @@ const Sidebar: React.FC<SidebarProps> = React.memo(({
         prev.spaces === next.spaces &&
         prev.lang === next.lang &&
         prev.isOpen === next.isOpen && 
+        prev.isCollapsed === next.isCollapsed &&
         prev.docs?.length === next.docs?.length
     );
 });
 
 // --- Home Sidebar Content ---
-const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreateSpace, onOpenSettings, onOpenTemplates, onOpenSearch, onDateSelect, trashCount, onClose }: any) => {
+const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreateSpace, onOpenSettings, onOpenTemplates, onOpenSearch, onDateSelect, trashCount, onClose, onToggle, isCollapsed }: any) => {
     const [spacesExpanded, setSpacesExpanded] = useState(spaces.length <= 5);
     const displaySpaces = spacesExpanded ? spaces : spaces.slice(0, 5);
     
     return (
     <motion.div className="flex flex-col h-full text-gray-800 dark:text-gray-100" variants={staggerVariants} initial="hidden" animate="visible">
         {/* Header */}
-        <motion.div variants={itemVariants} className="p-5 flex items-center justify-between gap-3">
+        <motion.div variants={itemVariants} className="p-4 flex items-center justify-between gap-3">
              <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-base shadow-lg ring-2 ring-white/20">
+                <div className="relative w-9 h-9 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-indigo-500/20">
                     K
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/20 to-transparent"></div>
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-semibold text-gray-900 dark:text-gray-100 tracking-tight text-base leading-tight">Kanso</span>
-                    <span className="text-[9px] font-bold text-indigo-500 uppercase tracking-widest">Workspace</span>
+                    <span className="font-bold text-gray-900 dark:text-white tracking-tight text-sm leading-tight">Kanso</span>
+                    <span className="text-[8px] font-bold text-indigo-500 uppercase tracking-widest opacity-60">Workspace</span>
                 </div>
              </div>
-             <div className="flex items-center gap-2">
-                <button onClick={onClose} className="hidden md:inline-flex items-center justify-center w-6 h-6 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
-                    <SidebarClose className="w-3.5 h-3.5" />
-                </button>
-                <button onClick={onClose} className="md:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400">
+             <div className="flex items-center gap-1.5">
+                {!isCollapsed && (
+                  <button onClick={onToggle} className="hidden md:inline-flex items-center justify-center w-7 h-7 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all hover:scale-105 active:scale-95">
+                      <SidebarClose className="w-3.5 h-3.5" />
+                  </button>
+                )}
+                <button onClick={onClose} className="md:hidden p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 transition-all hover:scale-105 active:scale-95">
                     <X className="w-4 h-4" />
                 </button>
              </div>
@@ -232,11 +274,11 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
         <motion.div variants={itemVariants} className="px-4 mb-4">
             <button 
                 onClick={onOpenSearch}
-                className="w-full flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all text-gray-400 dark:text-gray-500 text-xs"
+                className="w-full flex items-center gap-2.5 px-3.5 py-2.5 bg-gradient-to-br from-gray-50 to-gray-100/50 dark:from-gray-800 dark:to-gray-800/50 hover:from-indigo-50 hover:to-purple-50 dark:hover:from-gray-700 dark:hover:to-gray-700 rounded-xl transition-all text-gray-400 dark:text-gray-500 text-xs border border-gray-200/50 dark:border-gray-700/50 hover:border-indigo-200 dark:hover:border-indigo-900/30 shadow-sm hover:shadow group"
             >
-                <Search className="w-3.5 h-3.5" />
-                <span>{t.search}</span>
-                <span className="ml-auto text-[10px] text-gray-400">(Cmd+K)</span>
+                <Search className="w-3.5 h-3.5 group-hover:text-indigo-500 transition-colors" />
+                <span className="flex-1 text-left group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">{t.search}</span>
+                <kbd className="px-2 py-0.5 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md text-[9px] font-bold text-gray-400 shadow-sm">⌘K</kbd>
             </button>
         </motion.div>
 
@@ -292,12 +334,12 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
                         <motion.button
                             key={space.id}
                             variants={itemVariants}
-                            whileHover={{ x: 2 }}
+                            whileHover={{ x: 3, scale: 1.01 }}
                             onClick={() => { onNavigate('space', space.id); onClose(); }}
-                            className="flex items-center w-full px-2 py-1.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
+                            className="flex items-center w-full px-3 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 dark:hover:from-gray-800/50 dark:hover:to-gray-700/50 transition-all group border border-transparent hover:border-gray-200/50 dark:hover:border-gray-700/50 shadow-sm hover:shadow"
                         >
-                            <span className="mr-2.5 text-base">{space.icon}</span>
-                            <span className="text-[13px] font-normal text-gray-700 dark:text-gray-300">{space.name}</span>
+                            <span className="mr-2.5 text-lg transition-transform group-hover:scale-110">{space.icon}</span>
+                            <span className="text-[13px] font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{space.name}</span>
                         </motion.button>
                     ))}
                  </div>
@@ -331,17 +373,18 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
 
 // --- User Profile Component ---
 const UserProfile = ({ t, onOpenSettings }: any) => (
-    <motion.div variants={itemVariants} className="p-3 mt-auto border-t border-gray-100 dark:border-gray-800">
-        <div className="p-2 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group cursor-pointer">
+    <motion.div variants={itemVariants} className="p-3 mt-auto border-t border-gray-200/60 dark:border-gray-800/60">
+        <div className="p-2.5 rounded-2xl hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100/50 dark:hover:from-gray-800/50 dark:hover:to-gray-700/50 transition-all group cursor-pointer border border-transparent hover:border-gray-200/50 dark:hover:border-gray-700/50 shadow-sm hover:shadow">
             <div className="flex items-center gap-3">
-                 <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-fuchsia-500 flex items-center justify-center text-white text-xs font-bold">
+                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-indigo-500/20 relative overflow-hidden">
                     ME
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent"></div>
                  </div>
                  <div className="flex flex-col flex-1 min-w-0">
-                    <span className="text-xs font-medium text-gray-800 dark:text-gray-100 truncate">Creator</span>
-                    <span className="text-[10px] text-gray-400 dark:text-gray-500">Free Plan</span>
+                    <span className="text-xs font-semibold text-gray-800 dark:text-gray-100 truncate">Creator</span>
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">Free Plan</span>
                  </div>
-                 <button onClick={onOpenSettings} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+                 <button onClick={onOpenSettings} className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-all hover:scale-105 active:scale-95">
                     <Settings className="w-3.5 h-3.5" />
                  </button>
             </div>
@@ -350,7 +393,7 @@ const UserProfile = ({ t, onOpenSettings }: any) => (
 );
 
 // --- Space Sidebar Content ---
-const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelectDoc, onOpenSettings, onOpenTagsManagement, onClose }: any) => {
+const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelectDoc, onOpenSettings, onOpenTagsManagement, onClose, onToggle }: any) => {
     // State for folder drill-down navigation
     const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
     // State for tags section
@@ -404,8 +447,11 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
                     <span className="text-2xl filter drop-shadow-sm">{space.icon}</span>
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">{space.name}</h2>
                 </div>
-                <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+                <button onClick={onToggle} className="hidden md:inline-flex p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
                     <SidebarClose className="w-4 h-4" />
+                </button>
+                <button onClick={onClose} className="md:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 transition-colors">
+                    <X className="w-4 h-4" />
                 </button>
             </motion.div>
 
@@ -544,7 +590,7 @@ const SpaceSidebarContent = ({ space, docs, activeDoc, t, onBack, lang, onSelect
 };
 
 // --- Doc Sidebar Content ---
-const DocSidebarContent = ({ doc, allDocs = [], t, onBack, lang, onSelectDoc }: { doc: Doc, allDocs?: Doc[], t: any, onBack: () => void, lang: Language, onSelectDoc?: (d: Doc) => void }) => {
+const DocSidebarContent = ({ doc, allDocs = [], t, onBack, lang, onSelectDoc, onClose, onToggle }: { doc: Doc, allDocs?: Doc[], t: any, onBack: () => void, lang: Language, onSelectDoc?: (d: Doc) => void, onClose?: () => void, onToggle?: () => void }) => {
     const [activeTab, setActiveTab] = useState('outline');
     
     // 1. Parsing Outline - CRDT 格式不支持
@@ -567,8 +613,11 @@ const DocSidebarContent = ({ doc, allDocs = [], t, onBack, lang, onSelectDoc }: 
     return (
         <motion.div className="flex flex-col h-full" variants={staggerVariants} initial="hidden" animate="visible">
             {/* Top Bar */}
-            <motion.div variants={itemVariants} className="px-4 py-5 flex items-center gap-3">
-                <button onClick={onBack} className="p-2 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 text-gray-500 hover:text-gray-900 transition-colors shadow-sm ring-1 ring-black/5 hover:ring-black/10 bg-white/40">
+            <motion.div variants={itemVariants} className="px-4 py-5 flex items-center justify-between gap-3">
+                <button onClick={onBack} className="hidden md:inline-flex p-2 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 text-gray-500 hover:text-gray-900 transition-colors shadow-sm ring-1 ring-black/5 hover:ring-black/10 bg-white/40">
+                    <ArrowLeft className="w-4 h-4" />
+                </button>
+                <button onClick={onClose} className="md:hidden p-2 rounded-xl hover:bg-white/60 dark:hover:bg-white/10 text-gray-500 hover:text-gray-900 transition-colors shadow-sm ring-1 ring-black/5 hover:ring-black/10 bg-white/40">
                     <ArrowLeft className="w-4 h-4" />
                 </button>
                 <div className="flex-1 min-w-0">
@@ -578,6 +627,12 @@ const DocSidebarContent = ({ doc, allDocs = [], t, onBack, lang, onSelectDoc }: 
                         <span className="text-[10px] text-gray-400 font-medium">Synced</span>
                     </div>
                 </div>
+                <button onClick={onToggle} className="hidden md:inline-flex p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+                    <SidebarClose className="w-4 h-4" />
+                </button>
+                <button onClick={onClose} className="md:hidden p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 transition-colors">
+                    <X className="w-4 h-4" />
+                </button>
             </motion.div>
 
             <div className="flex-1 overflow-y-auto px-4 custom-scrollbar pb-6 space-y-6">
@@ -666,19 +721,35 @@ const EmptyState = ({ label }: { label: string }) => (
 const NavItem = ({ icon, label, isActive, color, bgColor, onClick, count }: any) => (
     <motion.button
         variants={itemVariants}
-        whileHover={{ x: 2 }}
+        whileHover={{ x: 3, scale: 1.01 }}
         whileTap={{ scale: 0.98 }}
         onClick={onClick}
-        className={`relative flex items-center justify-between w-full px-2 py-2 rounded-lg transition-all group ${isActive ? 'bg-gray-100 dark:bg-gray-800' : 'hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
+        className={`relative flex items-center justify-between w-full px-3 py-2.5 rounded-xl transition-all group ${
+            isActive 
+                ? 'bg-gray-100 dark:bg-gray-800 shadow-sm' 
+                : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 dark:hover:from-gray-800/50 dark:hover:to-gray-700/50'
+        }`}
     >
         <div className="flex items-center gap-2.5">
-            <div className={`${isActive ? color : 'text-gray-400'} transition-colors`}>
-                 {icon}
+            <div className={`p-1.5 rounded-lg transition-all ${
+                isActive 
+                    ? `${color} ${bgColor}` 
+                    : 'text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:bg-gray-100 dark:group-hover:bg-gray-700/50'
+            }`}>
+                {icon}
             </div>
-            <span className={`text-[13px] font-normal ${isActive ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>{label}</span>
+            <span className={`text-[13px] font-medium transition-colors ${
+                isActive 
+                    ? 'text-gray-900 dark:text-white font-semibold' 
+                    : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200'
+            }`}>{label}</span>
         </div>
         {count !== undefined && count > 0 && (
-            <span className="text-[11px] text-gray-400 dark:text-gray-500">
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg transition-all ${
+                isActive 
+                    ? 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300' 
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
+            }`}>
                 {count}
             </span>
         )}
@@ -688,14 +759,14 @@ const NavItem = ({ icon, label, isActive, color, bgColor, onClick, count }: any)
 const SpaceNavItem = ({ icon, label, count, color, bgColor }: any) => (
     <motion.div 
         variants={itemVariants}
-        whileHover={{ x: 2 }}
-        className="flex items-center justify-between px-2 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors group"
+        whileHover={{ x: 3, scale: 1.01 }}
+        className="flex items-center justify-between px-3 py-2.5 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/50 dark:hover:from-gray-800/50 dark:hover:to-gray-700/50 cursor-pointer transition-all group border border-transparent hover:border-gray-200/50 dark:hover:border-gray-700/50"
     >
         <div className="flex items-center gap-2.5">
-            <div className={`${color} transition-colors`}>{icon}</div>
-            <span className="text-[13px] font-normal">{label}</span>
+            <div className={`p-1.5 rounded-lg ${color} bg-opacity-10 group-hover:bg-opacity-100 group-hover:text-white transition-all duration-300 shadow-sm`}>{icon}</div>
+            <span className="text-[13px] font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{label}</span>
         </div>
-        {count !== undefined && <span className="text-[11px] text-gray-400 dark:text-gray-500">{count}</span>}
+        {count !== undefined && <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-600">{count}</span>}
     </motion.div>
 );
 
@@ -808,7 +879,7 @@ const MiniCalendar = ({ onDateSelect }: { onDateSelect: (d: Date) => void }) => 
                  </div>
             </div>
             <div className="grid grid-cols-7 gap-1 text-center mb-2">
-                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => <span key={d} className="text-[9px] font-extrabold text-gray-300 dark:text-gray-600">{d}</span>)}
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => <span key={`day-${i}`} className="text-[9px] font-extrabold text-gray-300 dark:text-gray-600">{d}</span>)}
             </div>
             <div className="grid grid-cols-7 gap-1 text-center">
                 {Array.from({length: firstDay}).map((_, i) => <div key={`empty-${i}`} />)}

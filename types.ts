@@ -3,7 +3,7 @@ export type ViewMode = 'dashboard' | 'space' | 'doc' | 'trash';
 
 export type Language = 'en' | 'zh';
 
-export type Theme = 'light' | 'dark' | 'gradient' | 'paper' | 'warm' | 'slate';
+export type Theme = 'light' | 'dark' | 'gradient' | 'paper' | 'warm' | 'slate' | 'snow' | 'cream' | 'mint' | 'rose' | 'midnight' | 'ocean' | 'forest' | 'ember' | 'purple' | 'charcoal';
 
 export interface Space {
   id: string;
