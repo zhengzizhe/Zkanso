@@ -1,81 +1,45 @@
 import {
-  Dropcursor
-} from "./chunk-Z3L2R3BW.js";
+  Paragraph
+} from "./chunk-CWW3MIFO.js";
 import {
-  Decoration,
-  DecorationSet,
+  Blockquote
+} from "./chunk-46HKWORX.js";
+import {
+  gapCursor
+} from "./chunk-SFPZWY4L.js";
+import {
+  CodeBlock
+} from "./chunk-OEXCJYHQ.js";
+import {
+  Heading
+} from "./chunk-SOYP5Y3S.js";
+import {
+  Dropcursor
+} from "./chunk-EPPNAHQI.js";
+import {
+  HorizontalRule
+} from "./chunk-FRS7RISY.js";
+import {
   Extension,
-  Fragment,
-  Mapping,
   Mark,
   Node,
-  NodeSelection,
-  Plugin,
-  PluginKey,
-  Selection,
-  Slice,
-  TextSelection,
   callOrReturn,
-  canInsertNode,
   getExtensionField,
-  isNodeSelection,
-  keydownHandler,
   markInputRule,
   markPasteRule,
   mergeAttributes,
-  nodeInputRule,
-  textblockTypeInputRule,
   wrappingInputRule
-} from "./chunk-NWJVDFDO.js";
-import "./chunk-G3PMV62Z.js";
-
-// node_modules/@tiptap/extension-blockquote/dist/index.js
-var inputRegex = /^\s*>\s$/;
-var Blockquote = Node.create({
-  name: "blockquote",
-  addOptions() {
-    return {
-      HTMLAttributes: {}
-    };
-  },
-  content: "block+",
-  group: "block",
-  defining: true,
-  parseHTML() {
-    return [
-      { tag: "blockquote" }
-    ];
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ["blockquote", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-  },
-  addCommands() {
-    return {
-      setBlockquote: () => ({ commands }) => {
-        return commands.wrapIn(this.name);
-      },
-      toggleBlockquote: () => ({ commands }) => {
-        return commands.toggleWrap(this.name);
-      },
-      unsetBlockquote: () => ({ commands }) => {
-        return commands.lift(this.name);
-      }
-    };
-  },
-  addKeyboardShortcuts() {
-    return {
-      "Mod-Shift-b": () => this.editor.commands.toggleBlockquote()
-    };
-  },
-  addInputRules() {
-    return [
-      wrappingInputRule({
-        find: inputRegex,
-        type: this.type
-      })
-    ];
-  }
-});
+} from "./chunk-6PXAZMSB.js";
+import "./chunk-CQKIUDK6.js";
+import "./chunk-EWFAMD4O.js";
+import "./chunk-B4TIPZG3.js";
+import "./chunk-7G5SGB4X.js";
+import {
+  Mapping,
+  Plugin,
+  PluginKey
+} from "./chunk-WZRAXKK4.js";
+import "./chunk-2TUXWMP5.js";
 
 // node_modules/@tiptap/extension-bold/dist/index.js
 var starInputRegex = /(?:^|\s)(\*\*(?!\s+\*\*)((?:[^*]+))\*\*(?!\s+\*\*))$/;
@@ -159,7 +123,7 @@ var Bold = Mark.create({
 // node_modules/@tiptap/extension-bullet-list/dist/index.js
 var ListItemName = "listItem";
 var TextStyleName = "textStyle";
-var inputRegex2 = /^\s*([-+*])\s$/;
+var inputRegex = /^\s*([-+*])\s$/;
 var BulletList = Node.create({
   name: "bulletList",
   addOptions() {
@@ -199,12 +163,12 @@ var BulletList = Node.create({
   },
   addInputRules() {
     let inputRule = wrappingInputRule({
-      find: inputRegex2,
+      find: inputRegex,
       type: this.type
     });
     if (this.options.keepMarks || this.options.keepAttributes) {
       inputRule = wrappingInputRule({
-        find: inputRegex2,
+        find: inputRegex,
         type: this.type,
         keepMarks: this.options.keepMarks,
         keepAttributes: this.options.keepAttributes,
@@ -221,7 +185,7 @@ var BulletList = Node.create({
 });
 
 // node_modules/@tiptap/extension-code/dist/index.js
-var inputRegex3 = /(^|[^`])`([^`]+)`(?!`)/;
+var inputRegex2 = /(^|[^`])`([^`]+)`(?!`)/;
 var pasteRegex = /(^|[^`])`([^`]+)`(?!`)/g;
 var Code = Mark.create({
   name: "code",
@@ -262,7 +226,7 @@ var Code = Mark.create({
   addInputRules() {
     return [
       markInputRule({
-        find: inputRegex3,
+        find: inputRegex2,
         type: this.type
       })
     ];
@@ -277,416 +241,12 @@ var Code = Mark.create({
   }
 });
 
-// node_modules/@tiptap/extension-code-block/dist/index.js
-var backtickInputRegex = /^```([a-z]+)?[\s\n]$/;
-var tildeInputRegex = /^~~~([a-z]+)?[\s\n]$/;
-var CodeBlock = Node.create({
-  name: "codeBlock",
-  addOptions() {
-    return {
-      languageClassPrefix: "language-",
-      exitOnTripleEnter: true,
-      exitOnArrowDown: true,
-      defaultLanguage: null,
-      HTMLAttributes: {}
-    };
-  },
-  content: "text*",
-  marks: "",
-  group: "block",
-  code: true,
-  defining: true,
-  addAttributes() {
-    return {
-      language: {
-        default: this.options.defaultLanguage,
-        parseHTML: (element) => {
-          var _a;
-          const { languageClassPrefix } = this.options;
-          const classNames = [...((_a = element.firstElementChild) === null || _a === void 0 ? void 0 : _a.classList) || []];
-          const languages = classNames.filter((className) => className.startsWith(languageClassPrefix)).map((className) => className.replace(languageClassPrefix, ""));
-          const language = languages[0];
-          if (!language) {
-            return null;
-          }
-          return language;
-        },
-        rendered: false
-      }
-    };
-  },
-  parseHTML() {
-    return [
-      {
-        tag: "pre",
-        preserveWhitespace: "full"
-      }
-    ];
-  },
-  renderHTML({ node, HTMLAttributes }) {
-    return [
-      "pre",
-      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-      [
-        "code",
-        {
-          class: node.attrs.language ? this.options.languageClassPrefix + node.attrs.language : null
-        },
-        0
-      ]
-    ];
-  },
-  addCommands() {
-    return {
-      setCodeBlock: (attributes) => ({ commands }) => {
-        return commands.setNode(this.name, attributes);
-      },
-      toggleCodeBlock: (attributes) => ({ commands }) => {
-        return commands.toggleNode(this.name, "paragraph", attributes);
-      }
-    };
-  },
-  addKeyboardShortcuts() {
-    return {
-      "Mod-Alt-c": () => this.editor.commands.toggleCodeBlock(),
-      // remove code block when at start of document or code block is empty
-      Backspace: () => {
-        const { empty, $anchor } = this.editor.state.selection;
-        const isAtStart = $anchor.pos === 1;
-        if (!empty || $anchor.parent.type.name !== this.name) {
-          return false;
-        }
-        if (isAtStart || !$anchor.parent.textContent.length) {
-          return this.editor.commands.clearNodes();
-        }
-        return false;
-      },
-      // exit node on triple enter
-      Enter: ({ editor }) => {
-        if (!this.options.exitOnTripleEnter) {
-          return false;
-        }
-        const { state } = editor;
-        const { selection } = state;
-        const { $from, empty } = selection;
-        if (!empty || $from.parent.type !== this.type) {
-          return false;
-        }
-        const isAtEnd = $from.parentOffset === $from.parent.nodeSize - 2;
-        const endsWithDoubleNewline = $from.parent.textContent.endsWith("\n\n");
-        if (!isAtEnd || !endsWithDoubleNewline) {
-          return false;
-        }
-        return editor.chain().command(({ tr }) => {
-          tr.delete($from.pos - 2, $from.pos);
-          return true;
-        }).exitCode().run();
-      },
-      // exit node on arrow down
-      ArrowDown: ({ editor }) => {
-        if (!this.options.exitOnArrowDown) {
-          return false;
-        }
-        const { state } = editor;
-        const { selection, doc } = state;
-        const { $from, empty } = selection;
-        if (!empty || $from.parent.type !== this.type) {
-          return false;
-        }
-        const isAtEnd = $from.parentOffset === $from.parent.nodeSize - 2;
-        if (!isAtEnd) {
-          return false;
-        }
-        const after = $from.after();
-        if (after === void 0) {
-          return false;
-        }
-        const nodeAfter = doc.nodeAt(after);
-        if (nodeAfter) {
-          return editor.commands.command(({ tr }) => {
-            tr.setSelection(Selection.near(doc.resolve(after)));
-            return true;
-          });
-        }
-        return editor.commands.exitCode();
-      }
-    };
-  },
-  addInputRules() {
-    return [
-      textblockTypeInputRule({
-        find: backtickInputRegex,
-        type: this.type,
-        getAttributes: (match) => ({
-          language: match[1]
-        })
-      }),
-      textblockTypeInputRule({
-        find: tildeInputRegex,
-        type: this.type,
-        getAttributes: (match) => ({
-          language: match[1]
-        })
-      })
-    ];
-  },
-  addProseMirrorPlugins() {
-    return [
-      // this plugin creates a code block for pasted content from VS Code
-      // we can also detect the copied code language
-      new Plugin({
-        key: new PluginKey("codeBlockVSCodeHandler"),
-        props: {
-          handlePaste: (view, event) => {
-            if (!event.clipboardData) {
-              return false;
-            }
-            if (this.editor.isActive(this.type.name)) {
-              return false;
-            }
-            const text = event.clipboardData.getData("text/plain");
-            const vscode = event.clipboardData.getData("vscode-editor-data");
-            const vscodeData = vscode ? JSON.parse(vscode) : void 0;
-            const language = vscodeData === null || vscodeData === void 0 ? void 0 : vscodeData.mode;
-            if (!text || !language) {
-              return false;
-            }
-            const { tr, schema } = view.state;
-            const textNode = schema.text(text.replace(/\r\n?/g, "\n"));
-            tr.replaceSelectionWith(this.type.create({ language }, textNode));
-            if (tr.selection.$from.parent.type !== this.type) {
-              tr.setSelection(TextSelection.near(tr.doc.resolve(Math.max(0, tr.selection.from - 2))));
-            }
-            tr.setMeta("paste", true);
-            view.dispatch(tr);
-            return true;
-          }
-        }
-      })
-    ];
-  }
-});
-
 // node_modules/@tiptap/extension-document/dist/index.js
 var Document = Node.create({
   name: "doc",
   topNode: true,
   content: "block+"
 });
-
-// node_modules/prosemirror-gapcursor/dist/index.js
-var GapCursor = class _GapCursor extends Selection {
-  /**
-  Create a gap cursor.
-  */
-  constructor($pos) {
-    super($pos, $pos);
-  }
-  map(doc, mapping) {
-    let $pos = doc.resolve(mapping.map(this.head));
-    return _GapCursor.valid($pos) ? new _GapCursor($pos) : Selection.near($pos);
-  }
-  content() {
-    return Slice.empty;
-  }
-  eq(other) {
-    return other instanceof _GapCursor && other.head == this.head;
-  }
-  toJSON() {
-    return { type: "gapcursor", pos: this.head };
-  }
-  /**
-  @internal
-  */
-  static fromJSON(doc, json) {
-    if (typeof json.pos != "number")
-      throw new RangeError("Invalid input for GapCursor.fromJSON");
-    return new _GapCursor(doc.resolve(json.pos));
-  }
-  /**
-  @internal
-  */
-  getBookmark() {
-    return new GapBookmark(this.anchor);
-  }
-  /**
-  @internal
-  */
-  static valid($pos) {
-    let parent = $pos.parent;
-    if (parent.isTextblock || !closedBefore($pos) || !closedAfter($pos))
-      return false;
-    let override = parent.type.spec.allowGapCursor;
-    if (override != null)
-      return override;
-    let deflt = parent.contentMatchAt($pos.index()).defaultType;
-    return deflt && deflt.isTextblock;
-  }
-  /**
-  @internal
-  */
-  static findGapCursorFrom($pos, dir, mustMove = false) {
-    search: for (; ; ) {
-      if (!mustMove && _GapCursor.valid($pos))
-        return $pos;
-      let pos = $pos.pos, next = null;
-      for (let d = $pos.depth; ; d--) {
-        let parent = $pos.node(d);
-        if (dir > 0 ? $pos.indexAfter(d) < parent.childCount : $pos.index(d) > 0) {
-          next = parent.child(dir > 0 ? $pos.indexAfter(d) : $pos.index(d) - 1);
-          break;
-        } else if (d == 0) {
-          return null;
-        }
-        pos += dir;
-        let $cur = $pos.doc.resolve(pos);
-        if (_GapCursor.valid($cur))
-          return $cur;
-      }
-      for (; ; ) {
-        let inside = dir > 0 ? next.firstChild : next.lastChild;
-        if (!inside) {
-          if (next.isAtom && !next.isText && !NodeSelection.isSelectable(next)) {
-            $pos = $pos.doc.resolve(pos + next.nodeSize * dir);
-            mustMove = false;
-            continue search;
-          }
-          break;
-        }
-        next = inside;
-        pos += dir;
-        let $cur = $pos.doc.resolve(pos);
-        if (_GapCursor.valid($cur))
-          return $cur;
-      }
-      return null;
-    }
-  }
-};
-GapCursor.prototype.visible = false;
-GapCursor.findFrom = GapCursor.findGapCursorFrom;
-Selection.jsonID("gapcursor", GapCursor);
-var GapBookmark = class _GapBookmark {
-  constructor(pos) {
-    this.pos = pos;
-  }
-  map(mapping) {
-    return new _GapBookmark(mapping.map(this.pos));
-  }
-  resolve(doc) {
-    let $pos = doc.resolve(this.pos);
-    return GapCursor.valid($pos) ? new GapCursor($pos) : Selection.near($pos);
-  }
-};
-function needsGap(type) {
-  return type.isAtom || type.spec.isolating || type.spec.createGapCursor;
-}
-function closedBefore($pos) {
-  for (let d = $pos.depth; d >= 0; d--) {
-    let index = $pos.index(d), parent = $pos.node(d);
-    if (index == 0) {
-      if (parent.type.spec.isolating)
-        return true;
-      continue;
-    }
-    for (let before = parent.child(index - 1); ; before = before.lastChild) {
-      if (before.childCount == 0 && !before.inlineContent || needsGap(before.type))
-        return true;
-      if (before.inlineContent)
-        return false;
-    }
-  }
-  return true;
-}
-function closedAfter($pos) {
-  for (let d = $pos.depth; d >= 0; d--) {
-    let index = $pos.indexAfter(d), parent = $pos.node(d);
-    if (index == parent.childCount) {
-      if (parent.type.spec.isolating)
-        return true;
-      continue;
-    }
-    for (let after = parent.child(index); ; after = after.firstChild) {
-      if (after.childCount == 0 && !after.inlineContent || needsGap(after.type))
-        return true;
-      if (after.inlineContent)
-        return false;
-    }
-  }
-  return true;
-}
-function gapCursor() {
-  return new Plugin({
-    props: {
-      decorations: drawGapCursor,
-      createSelectionBetween(_view, $anchor, $head) {
-        return $anchor.pos == $head.pos && GapCursor.valid($head) ? new GapCursor($head) : null;
-      },
-      handleClick,
-      handleKeyDown,
-      handleDOMEvents: { beforeinput }
-    }
-  });
-}
-var handleKeyDown = keydownHandler({
-  "ArrowLeft": arrow("horiz", -1),
-  "ArrowRight": arrow("horiz", 1),
-  "ArrowUp": arrow("vert", -1),
-  "ArrowDown": arrow("vert", 1)
-});
-function arrow(axis, dir) {
-  const dirStr = axis == "vert" ? dir > 0 ? "down" : "up" : dir > 0 ? "right" : "left";
-  return function(state, dispatch, view) {
-    let sel = state.selection;
-    let $start = dir > 0 ? sel.$to : sel.$from, mustMove = sel.empty;
-    if (sel instanceof TextSelection) {
-      if (!view.endOfTextblock(dirStr) || $start.depth == 0)
-        return false;
-      mustMove = false;
-      $start = state.doc.resolve(dir > 0 ? $start.after() : $start.before());
-    }
-    let $found = GapCursor.findGapCursorFrom($start, dir, mustMove);
-    if (!$found)
-      return false;
-    if (dispatch)
-      dispatch(state.tr.setSelection(new GapCursor($found)));
-    return true;
-  };
-}
-function handleClick(view, pos, event) {
-  if (!view || !view.editable)
-    return false;
-  let $pos = view.state.doc.resolve(pos);
-  if (!GapCursor.valid($pos))
-    return false;
-  let clickPos = view.posAtCoords({ left: event.clientX, top: event.clientY });
-  if (clickPos && clickPos.inside > -1 && NodeSelection.isSelectable(view.state.doc.nodeAt(clickPos.inside)))
-    return false;
-  view.dispatch(view.state.tr.setSelection(new GapCursor($pos)));
-  return true;
-}
-function beforeinput(view, event) {
-  if (event.inputType != "insertCompositionText" || !(view.state.selection instanceof GapCursor))
-    return false;
-  let { $from } = view.state.selection;
-  let insert = $from.parent.contentMatchAt($from.index()).findWrapping(view.state.schema.nodes.text);
-  if (!insert)
-    return false;
-  let frag = Fragment.empty;
-  for (let i = insert.length - 1; i >= 0; i--)
-    frag = Fragment.from(insert[i].createAndFill(null, frag));
-  let tr = view.state.tr.replace($from.pos, $from.pos, new Slice(frag, 0, 0));
-  tr.setSelection(TextSelection.near(tr.doc.resolve($from.pos + 1)));
-  view.dispatch(tr);
-  return false;
-}
-function drawGapCursor(state) {
-  if (!(state.selection instanceof GapCursor))
-    return null;
-  let node = document.createElement("div");
-  node.className = "ProseMirror-gapcursor";
-  return DecorationSet.create(state.doc, [Decoration.widget(state.selection.head, node, { key: "gapcursor" })]);
-}
 
 // node_modules/@tiptap/extension-gapcursor/dist/index.js
 var Gapcursor = Extension.create({
@@ -763,74 +323,6 @@ var HardBreak = Node.create({
       "Mod-Enter": () => this.editor.commands.setHardBreak(),
       "Shift-Enter": () => this.editor.commands.setHardBreak()
     };
-  }
-});
-
-// node_modules/@tiptap/extension-heading/dist/index.js
-var Heading = Node.create({
-  name: "heading",
-  addOptions() {
-    return {
-      levels: [1, 2, 3, 4, 5, 6],
-      HTMLAttributes: {}
-    };
-  },
-  content: "inline*",
-  group: "block",
-  defining: true,
-  addAttributes() {
-    return {
-      level: {
-        default: 1,
-        rendered: false
-      }
-    };
-  },
-  parseHTML() {
-    return this.options.levels.map((level) => ({
-      tag: `h${level}`,
-      attrs: { level }
-    }));
-  },
-  renderHTML({ node, HTMLAttributes }) {
-    const hasLevel = this.options.levels.includes(node.attrs.level);
-    const level = hasLevel ? node.attrs.level : this.options.levels[0];
-    return [`h${level}`, mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-  },
-  addCommands() {
-    return {
-      setHeading: (attributes) => ({ commands }) => {
-        if (!this.options.levels.includes(attributes.level)) {
-          return false;
-        }
-        return commands.setNode(this.name, attributes);
-      },
-      toggleHeading: (attributes) => ({ commands }) => {
-        if (!this.options.levels.includes(attributes.level)) {
-          return false;
-        }
-        return commands.toggleNode(this.name, "paragraph", attributes);
-      }
-    };
-  },
-  addKeyboardShortcuts() {
-    return this.options.levels.reduce((items, level) => ({
-      ...items,
-      ...{
-        [`Mod-Alt-${level}`]: () => this.editor.commands.toggleHeading({ level })
-      }
-    }), {});
-  },
-  addInputRules() {
-    return this.options.levels.map((level) => {
-      return textblockTypeInputRule({
-        find: new RegExp(`^(#{${Math.min(...this.options.levels)},${level}})\\s$`),
-        type: this.type,
-        getAttributes: {
-          level
-        }
-      });
-    });
   }
 });
 
@@ -1406,81 +898,6 @@ var History = Extension.create({
   }
 });
 
-// node_modules/@tiptap/extension-horizontal-rule/dist/index.js
-var HorizontalRule = Node.create({
-  name: "horizontalRule",
-  addOptions() {
-    return {
-      HTMLAttributes: {}
-    };
-  },
-  group: "block",
-  parseHTML() {
-    return [{ tag: "hr" }];
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ["hr", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)];
-  },
-  addCommands() {
-    return {
-      setHorizontalRule: () => ({ chain, state }) => {
-        if (!canInsertNode(state, state.schema.nodes[this.name])) {
-          return false;
-        }
-        const { selection } = state;
-        const { $from: $originFrom, $to: $originTo } = selection;
-        const currentChain = chain();
-        if ($originFrom.parentOffset === 0) {
-          currentChain.insertContentAt({
-            from: Math.max($originFrom.pos - 1, 0),
-            to: $originTo.pos
-          }, {
-            type: this.name
-          });
-        } else if (isNodeSelection(selection)) {
-          currentChain.insertContentAt($originTo.pos, {
-            type: this.name
-          });
-        } else {
-          currentChain.insertContent({ type: this.name });
-        }
-        return currentChain.command(({ tr, dispatch }) => {
-          var _a;
-          if (dispatch) {
-            const { $to } = tr.selection;
-            const posAfter = $to.end();
-            if ($to.nodeAfter) {
-              if ($to.nodeAfter.isTextblock) {
-                tr.setSelection(TextSelection.create(tr.doc, $to.pos + 1));
-              } else if ($to.nodeAfter.isBlock) {
-                tr.setSelection(NodeSelection.create(tr.doc, $to.pos));
-              } else {
-                tr.setSelection(TextSelection.create(tr.doc, $to.pos));
-              }
-            } else {
-              const node = (_a = $to.parent.type.contentMatch.defaultType) === null || _a === void 0 ? void 0 : _a.create();
-              if (node) {
-                tr.insert(posAfter, node);
-                tr.setSelection(TextSelection.create(tr.doc, posAfter + 1));
-              }
-            }
-            tr.scrollIntoView();
-          }
-          return true;
-        }).run();
-      }
-    };
-  },
-  addInputRules() {
-    return [
-      nodeInputRule({
-        find: /^(?:---|—-|___\s|\*\*\*\s)$/,
-        type: this.type
-      })
-    ];
-  }
-});
-
 // node_modules/@tiptap/extension-italic/dist/index.js
 var starInputRegex2 = /(?:^|\s)(\*(?!\s+\*)((?:[^*]+))\*(?!\s+\*))$/;
 var starPasteRegex2 = /(?:^|\s)(\*(?!\s+\*)((?:[^*]+))\*(?!\s+\*))/g;
@@ -1593,7 +1010,7 @@ var ListItem = Node.create({
 // node_modules/@tiptap/extension-ordered-list/dist/index.js
 var ListItemName2 = "listItem";
 var TextStyleName2 = "textStyle";
-var inputRegex4 = /^(\d+)\.\s$/;
+var inputRegex3 = /^(\d+)\.\s$/;
 var OrderedList = Node.create({
   name: "orderedList",
   addOptions() {
@@ -1650,14 +1067,14 @@ var OrderedList = Node.create({
   },
   addInputRules() {
     let inputRule = wrappingInputRule({
-      find: inputRegex4,
+      find: inputRegex3,
       type: this.type,
       getAttributes: (match) => ({ start: +match[1] }),
       joinPredicate: (match, node) => node.childCount + node.attrs.start === +match[1]
     });
     if (this.options.keepMarks || this.options.keepAttributes) {
       inputRule = wrappingInputRule({
-        find: inputRegex4,
+        find: inputRegex3,
         type: this.type,
         keepMarks: this.options.keepMarks,
         keepAttributes: this.options.keepAttributes,
@@ -1672,41 +1089,8 @@ var OrderedList = Node.create({
   }
 });
 
-// node_modules/@tiptap/extension-paragraph/dist/index.js
-var Paragraph = Node.create({
-  name: "paragraph",
-  priority: 1e3,
-  addOptions() {
-    return {
-      HTMLAttributes: {}
-    };
-  },
-  group: "block",
-  content: "inline*",
-  parseHTML() {
-    return [
-      { tag: "p" }
-    ];
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ["p", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-  },
-  addCommands() {
-    return {
-      setParagraph: () => ({ commands }) => {
-        return commands.setNode(this.name);
-      }
-    };
-  },
-  addKeyboardShortcuts() {
-    return {
-      "Mod-Alt-0": () => this.editor.commands.setParagraph()
-    };
-  }
-});
-
 // node_modules/@tiptap/extension-strike/dist/index.js
-var inputRegex5 = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))$/;
+var inputRegex4 = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))$/;
 var pasteRegex2 = /(?:^|\s)(~~(?!\s+~~)((?:[^~]+))~~(?!\s+~~))/g;
 var Strike = Mark.create({
   name: "strike",
@@ -1757,7 +1141,7 @@ var Strike = Mark.create({
   addInputRules() {
     return [
       markInputRule({
-        find: inputRegex5,
+        find: inputRegex4,
         type: this.type
       })
     ];

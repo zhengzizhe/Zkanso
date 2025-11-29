@@ -6,15 +6,21 @@ import {
   yUndoPlugin,
   yUndoPluginKey,
   yXmlFragmentToProsemirrorJSON
-} from "./chunk-SXQQEW4N.js";
+} from "./chunk-QM234VUE.js";
 import "./chunk-BENYXEMR.js";
 import "./chunk-LMFW4JPK.js";
 import {
-  Extension,
+  Extension
+} from "./chunk-6PXAZMSB.js";
+import "./chunk-CQKIUDK6.js";
+import "./chunk-EWFAMD4O.js";
+import "./chunk-B4TIPZG3.js";
+import "./chunk-7G5SGB4X.js";
+import {
   Plugin,
   PluginKey
-} from "./chunk-NWJVDFDO.js";
-import "./chunk-G3PMV62Z.js";
+} from "./chunk-WZRAXKK4.js";
+import "./chunk-2TUXWMP5.js";
 
 // node_modules/@tiptap/extension-collaboration/dist/index.js
 var Collaboration = Extension.create({

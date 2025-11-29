@@ -373,7 +373,7 @@ const HomeSidebarContent = ({ spaces, t, lang, currentView, onNavigate, onCreate
 
 // --- User Profile Component ---
 const UserProfile = ({ t, onOpenSettings }: any) => (
-    <motion.div variants={itemVariants} className="p-3 mt-auto border-t border-gray-200/60 dark:border-gray-800/60">
+    <motion.div variants={itemVariants} className="p-3 mt-auto">
         <div className="p-2.5 rounded-2xl hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100/50 dark:hover:from-gray-800/50 dark:hover:to-gray-700/50 transition-all group cursor-pointer border border-transparent hover:border-gray-200/50 dark:hover:border-gray-700/50 shadow-sm hover:shadow">
             <div className="flex items-center gap-3">
                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-indigo-500/20 relative overflow-hidden">

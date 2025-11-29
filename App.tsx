@@ -3,11 +3,13 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from './components/Sidebar';
 import DocCard from './components/DocCard';
-import TiptapEditor from './components/TiptapEditor';
+import { CraftEditorWrapper as CraftEditor } from './components/Editor';
+import { SlashCommandDemo } from './components/SlashCommand/SlashCommandDemo';
+import CraftEditorDemo from './pages/craft-editor-demo';
 import mockData from './mock-data.json';
 import { ShareModal, SettingsModal, GlobalSettingsModal, TemplatesModal, CommandPalette, TagsManagementModal } from './components/Modals';
 import { Space, Doc, ViewMode, Language, Theme, TRANSLATIONS, Template } from './types';
-import { Search, Plus, Grid, List as ListIcon, CloudSun, AlignJustify, Trash2, ArrowLeft, Clock, FileText, Sparkles, TrendingUp, Timer, Zap, Shuffle, X, Star, Hash, Calendar as CalendarIcon } from 'lucide-react';
+import { Search, Plus, Grid, List as ListIcon, CloudSun, AlignJustify, Trash2, ArrowLeft, Clock, FileText, Sparkles, TrendingUp, Timer, Zap, Shuffle, X, Star, Hash, Calendar as CalendarIcon, TestTube, Slash } from 'lucide-react';
 
 const MOCK_SPACES: Space[] = [
   {
@@ -198,15 +200,34 @@ const App: React.FC = () => {
   const [spaces, setSpaces] = useState<Space[]>(MOCK_SPACES);
   const [docs, setDocs] = useState<Doc[]>(() => {
     // 加载假数据
-    return mockData.docs.map(doc => ({
+    const loadedDocs = mockData.docs.map(doc => ({
       ...doc,
       lastModified: doc.lastModified || Date.now()
     }));
+    
+    // 添加demo文档
+    const demoDoc: Doc = {
+      id: 'demo-document',
+      spaceId: null,
+      parentId: null,
+      type: 'doc',
+      title: '🎨 Kanso编辑器完整功能展示',
+      content: '',
+      lastModified: Date.now(),
+      isFavorite: false,
+      isLiked: false,
+      isShared: false,
+      isDeleted: false
+    };
+    
+    return [demoDoc, ...loadedDocs];
   });
   
   const [activeSpaceId, setActiveSpaceId] = useState<string | null>(null);
-  const [activeDocId, setActiveDocId] = useState<string | null>(null);
-  const [view, setView] = useState<ViewMode>('dashboard');
+  const [activeDocId, setActiveDocId] = useState<string | null>('demo-document'); // 默认打开demo文档
+  const [view, setView] = useState<ViewMode>('doc'); // 默认进入编辑模式
+  const [showSlashTest, setShowSlashTest] = useState(false);
+  const [showCraftEditorDemo, setShowCraftEditorDemo] = useState(false);
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterMode, setFilterMode] = useState<'all' | 'shared' | 'favorites'>('all');
@@ -612,10 +633,17 @@ const App: React.FC = () => {
                   transition: 'margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
              >
-                 <TiptapEditor
+                 <CraftEditor
                    docId={activeDoc.id}
                    pageTitle={activeDoc.title || 'Untitled'}
-                   collaborationUrl="ws://localhost:1234"
+                   spaceName={activeSpace?.name || 'Personal'}
+                   coverImage={activeDoc.coverImage}
+                   author={{
+                     name: activeDoc.author || 'Anonymous',
+                     avatar: activeDoc.authorAvatar
+                   }}
+                   createdAt={activeDoc.createdAt}
+                   updatedAt={activeDoc.updatedAt}
                    onBack={() => {
                      setView(activeSpaceId ? 'space' : 'dashboard');
                      setActiveDocId(null);
@@ -652,7 +680,44 @@ const App: React.FC = () => {
                     isSidebarCollapsed={isSidebarCollapsed}
                 >  
                     {view === 'dashboard' && (
-                         <motion.button 
+                        <>
+                        <motion.button 
+                            whileHover={{ 
+                              scale: 1.02, 
+                              y: -2,
+                              transition: { type: "spring", stiffness: 400, damping: 25 }
+                            }}
+                            whileTap={{ 
+                              scale: 0.98,
+                              transition: { type: "spring", stiffness: 600, damping: 30 }
+                            }}
+                            onClick={() => setShowCraftEditorDemo(true)}
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 hover:from-orange-600 hover:via-red-600 hover:to-pink-700 text-white rounded-xl shadow-lg hover:shadow-xl font-bold will-change-transform"
+                            style={{ transform: 'translate3d(0,0,0)' }}
+                            title="Craft 编辑器完整演示"
+                        >
+                            <Sparkles className="w-5 h-5" />
+                            <span className="hidden sm:inline">Craft Demo</span>
+                        </motion.button>
+                        <motion.button 
+                            whileHover={{ 
+                              scale: 1.02, 
+                              y: -2,
+                              transition: { type: "spring", stiffness: 400, damping: 25 }
+                            }}
+                            whileTap={{ 
+                              scale: 0.98,
+                              transition: { type: "spring", stiffness: 600, damping: 30 }
+                            }}
+                            onClick={() => setShowSlashTest(true)}
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl shadow-lg hover:shadow-xl font-bold will-change-transform"
+                            style={{ transform: 'translate3d(0,0,0)' }}
+                            title="斜杠命令测试"
+                        >
+                            <Slash className="w-5 h-5" />
+                            <span className="hidden sm:inline">命令测试</span>
+                        </motion.button>
+                        <motion.button 
                             whileHover={{ 
                               scale: 1.02, 
                               y: -2,
@@ -670,6 +735,7 @@ const App: React.FC = () => {
                             <Plus className="w-5 h-5" />
                             <span className="hidden sm:inline">{t.newDoc}</span>
                         </motion.button>
+                        </>
                     )}
                     {view === 'space' && activeSpace && (
                          <motion.button 
@@ -988,6 +1054,76 @@ const App: React.FC = () => {
               </div>
             </motion.div>
           </div>
+        )}
+      </AnimatePresence>
+
+      {/* Craft 编辑器完整演示 */}
+      <AnimatePresence>
+        {showCraftEditorDemo && (
+          <motion.div 
+            className="fixed inset-0 z-[200] flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div 
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+              onClick={() => setShowCraftEditorDemo(false)}
+            />
+            <motion.div
+              className="relative w-full h-full max-w-7xl max-h-[95vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden m-4"
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+            >
+              <div className="absolute top-4 right-4 z-10">
+                <button
+                  onClick={() => setShowCraftEditorDemo(false)}
+                  className="p-3 rounded-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 transition-colors shadow-lg"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="w-full h-full overflow-auto">
+                <CraftEditorDemo />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 斜杠命令测试页面 */}
+      <AnimatePresence>
+        {showSlashTest && (
+          <motion.div 
+            className="fixed inset-0 z-[200] flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div 
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+              onClick={() => setShowSlashTest(false)}
+            />
+            <motion.div
+              className="relative w-full h-full max-w-7xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden m-4"
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+            >
+              <div className="absolute top-4 right-4 z-10">
+                <button
+                  onClick={() => setShowSlashTest(false)}
+                  className="p-3 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400 transition-colors shadow-lg"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="w-full h-full overflow-auto">
+                <SlashCommandDemo />
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
 

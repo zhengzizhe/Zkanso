@@ -287,13 +287,14 @@
         perspective: 1000px;
       }
       
-      /* 编辑器基础样式 - 段落块风格 */
+      /* 编辑器基础样式 - 现代化风格 */
       .ProseMirror {
         outline: none;
         font-size: 16px;
-        line-height: 1.75;
-        color: #1f2937;
+        line-height: 1.7;
+        color: #374151;
         min-height: 200px;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       }
       
       html.dark .ProseMirror {
@@ -303,14 +304,14 @@
       /* 确保所有块都可见 */
       .ProseMirror > * {
         position: relative;
-        animation: blockFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: blockFadeIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       }
       
       /* 块出现动画 */
       @keyframes blockFadeIn {
         from {
           opacity: 0;
-          transform: translateY(8px);
+          transform: translateY(4px);
         }
         to {
           opacity: 1;
@@ -318,320 +319,200 @@
         }
       }
       
-      /* 段落和标题 - 块风格 */
+      /* 段落 - Notion 风格 */
       .ProseMirror p {
-        margin: 8px 0;
-        padding: 14px 18px;
-        min-height: 2.8em;
-        border-radius: 12px;
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.035) 0%, rgba(0, 0, 0, 0.055) 100%);
-        border: 2px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: text;
-        position: relative;
-      }
-      
-      /* 段落左侧装饰线 */
-      .ProseMirror p::before {
-        content: '';
-        position: absolute;
-        left: 6px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 3px;
-        height: 60%;
-        background: linear-gradient(180deg, rgba(99, 102, 241, 0.3), rgba(99, 102, 241, 0.1));
-        border-radius: 2px;
-        opacity: 0;
-        transition: opacity 0.2s;
-      }
-      
-      .ProseMirror p:hover::before {
-        opacity: 1;
-      }
-      
-      /* 空段落也显示块 */
-      .ProseMirror p:empty::before {
-        content: '\00a0';
-        color: transparent;
-      }
-      
-      .ProseMirror p:hover {
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.055) 0%, rgba(0, 0, 0, 0.075) 100%);
-        border-color: rgba(0, 0, 0, 0.14);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      /* 聚焦样式 */
-      .ProseMirror p:focus-within {
-        background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(99, 102, 241, 0.08) 100%);
-        border-color: rgba(99, 102, 241, 0.35);
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12), 0 4px 12px rgba(99, 102, 241, 0.15);
-        transform: translateY(-1px);
-      }
-      
-      .ProseMirror p:focus-within::before {
-        opacity: 1;
-        background: linear-gradient(180deg, rgba(99, 102, 241, 0.6), rgba(99, 102, 241, 0.3));
+        margin: 4px 0;
+        padding: 3px 2px;
+        min-height: 1.5em;
+        line-height: 1.7;
+        color: #374151;
       }
       
       html.dark .ProseMirror p {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.06) 100%);
-        border-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        color: #d1d5db;
       }
       
-      html.dark .ProseMirror p::before {
-        background: linear-gradient(180deg, rgba(129, 140, 248, 0.4), rgba(129, 140, 248, 0.15));
-      }
-      
-      html.dark .ProseMirror p:hover {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.09) 100%);
-        border-color: rgba(255, 255, 255, 0.18);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      html.dark .ProseMirror p:focus-within {
-        background: linear-gradient(135deg, rgba(129, 140, 248, 0.1) 0%, rgba(129, 140, 248, 0.12) 100%);
-        border-color: rgba(129, 140, 248, 0.4);
-        box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2), 0 4px 12px rgba(129, 140, 248, 0.25);
-        transform: translateY(-1px);
-      }
-      
-      html.dark .ProseMirror p:focus-within::before {
-        opacity: 1;
-        background: linear-gradient(180deg, rgba(129, 140, 248, 0.7), rgba(129, 140, 248, 0.4));
-      }
-      
+      /* 标题 - 现代化设计增强版 */
       .ProseMirror h1 {
-        font-size: 2em;
-        font-weight: 700;
-        margin: 1em 0 0.5em;
-        padding: 12px 16px;
-        line-height: 1.3;
-        border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.045);
-        border: 1.5px solid rgba(0, 0, 0, 0.06);
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      .ProseMirror h1:hover {
-        background-color: rgba(0, 0, 0, 0.065);
-        border-color: rgba(0, 0, 0, 0.12);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      .ProseMirror h1:focus-within {
-        background-color: rgba(99, 102, 241, 0.04);
-        border-color: rgba(99, 102, 241, 0.2);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
-        transform: translateY(-1px);
+        font-size: 2.5em;
+        font-weight: 800;
+        margin: 1.5em 0 0.6em;
+        padding: 0 0 0.3em;
+        line-height: 1.2;
+        color: #111827;
+        letter-spacing: -0.03em;
+        border-bottom: 3px solid rgba(99, 102, 241, 0.15);
       }
       
       html.dark .ProseMirror h1 {
-        background-color: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.08);
-      }
-      
-      html.dark .ProseMirror h1:hover {
-        background-color: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      html.dark .ProseMirror h1:focus-within {
-        background-color: rgba(129, 140, 248, 0.08);
-        border-color: rgba(129, 140, 248, 0.3);
-        box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3);
-        transform: translateY(-1px);
+        color: #f9fafb;
+        border-bottom-color: rgba(129, 140, 248, 0.2);
       }
       
       .ProseMirror h2 {
-        font-size: 1.5em;
+        font-size: 1.875em;
         font-weight: 700;
-        margin: 0.8em 0 0.4em;
-        padding: 12px 16px;
-        line-height: 1.4;
-        border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.045);
-        border: 1.5px solid rgba(0, 0, 0, 0.06);
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      .ProseMirror h2:hover {
-        background-color: rgba(0, 0, 0, 0.065);
-        border-color: rgba(0, 0, 0, 0.12);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      .ProseMirror h2:focus-within {
-        background-color: rgba(99, 102, 241, 0.04);
-        border-color: rgba(99, 102, 241, 0.2);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
-        transform: translateY(-1px);
+        margin: 1.4em 0 0.5em;
+        padding: 0 0 0.25em;
+        line-height: 1.3;
+        color: #1f2937;
+        letter-spacing: -0.02em;
+        border-bottom: 2px solid rgba(99, 102, 241, 0.1);
       }
       
       html.dark .ProseMirror h2 {
-        background-color: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.08);
-      }
-      
-      html.dark .ProseMirror h2:hover {
-        background-color: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      html.dark .ProseMirror h2:focus-within {
-        background-color: rgba(129, 140, 248, 0.08);
-        border-color: rgba(129, 140, 248, 0.3);
-        box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3);
-        transform: translateY(-1px);
+        color: #f3f4f6;
+        border-bottom-color: rgba(129, 140, 248, 0.15);
       }
       
       .ProseMirror h3 {
-        font-size: 1.25em;
-        font-weight: 700;
-        margin: 0.6em 0 0.3em;
-        padding: 12px 16px;
+        font-size: 1.5em;
+        font-weight: 600;
+        margin: 1.2em 0 0.4em;
+        padding: 0;
         line-height: 1.4;
-        border-radius: 10px;
-        background-color: rgba(0, 0, 0, 0.045);
-        border: 1.5px solid rgba(0, 0, 0, 0.06);
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      .ProseMirror h3:hover {
-        background-color: rgba(0, 0, 0, 0.065);
-        border-color: rgba(0, 0, 0, 0.12);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      .ProseMirror h3:focus-within {
-        background-color: rgba(99, 102, 241, 0.04);
-        border-color: rgba(99, 102, 241, 0.2);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
-        transform: translateY(-1px);
+        color: #374151;
+        letter-spacing: -0.01em;
       }
       
       html.dark .ProseMirror h3 {
-        background-color: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.08);
+        color: #e5e7eb;
       }
       
-      html.dark .ProseMirror h3:hover {
-        background-color: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-        transform: translateY(-1px) scale(1.002);
-      }
-      
-      html.dark .ProseMirror h3:focus-within {
-        background-color: rgba(129, 140, 248, 0.08);
-        border-color: rgba(129, 140, 248, 0.3);
-        box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15), 0 2px 8px rgba(0, 0, 0, 0.3);
-        transform: translateY(-1px);
-      }
-      
-      /* 列表样式 */
+      /* 列表 - 现代化间距 */
       .ProseMirror ul,
       .ProseMirror ol {
-        padding-left: 1.5em;
-        margin: 0.5em 0;
+        padding-left: 1.625em;
+        margin: 0.75em 0;
       }
       
       .ProseMirror li {
-        margin: 2px 0;
-        padding: 6px 10px;
-        border-radius: 6px;
-        background-color: rgba(0, 0, 0, 0.02);
-        transition: all 0.15s;
-      }
-      
-      .ProseMirror li:hover {
-        background-color: rgba(0, 0, 0, 0.04);
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+        margin: 4px 0;
+        padding: 2px 0;
+        line-height: 1.7;
+        color: #374151;
       }
       
       html.dark .ProseMirror li {
-        background-color: rgba(255, 255, 255, 0.03);
+        color: #d1d5db;
       }
       
-      html.dark .ProseMirror li:hover {
-        background-color: rgba(255, 255, 255, 0.06);
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+      .ProseMirror ul > li {
+        list-style-type: disc;
       }
       
-      /* 引用样式 */
+      .ProseMirror ul ul > li {
+        list-style-type: circle;
+      }
+      
+      /* 引用块 - Notion 风格增强版 */
       .ProseMirror blockquote {
-        border-left: 3px solid #6366f1;
-        padding: 8px 12px 8px 1em;
-        margin: 0.5em 0;
-        color: #6b7280;
-        font-style: italic;
-        border-radius: 6px;
-        background-color: rgba(99, 102, 241, 0.05);
-        transition: all 0.15s;
+        border-left: 4px solid #6366f1;
+        padding: 16px 20px;
+        margin: 16px 0;
+        color: #4b5563;
+        font-style: normal;
+        background: linear-gradient(90deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0.02) 100%);
+        border-radius: 0 8px 8px 0;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(99, 102, 241, 0.1);
       }
       
-      .ProseMirror blockquote:hover {
-        background-color: rgba(99, 102, 241, 0.08);
-        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.1);
+      .ProseMirror blockquote::before {
+        content: '“';
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        font-size: 32px;
+        color: rgba(99, 102, 241, 0.2);
+        font-weight: 700;
+        line-height: 1;
       }
       
       html.dark .ProseMirror blockquote {
         border-left-color: #818cf8;
         color: #9ca3af;
-        background-color: rgba(129, 140, 248, 0.1);
+        background: linear-gradient(90deg, rgba(129, 140, 248, 0.1) 0%, rgba(129, 140, 248, 0.03) 100%);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       }
       
-      html.dark .ProseMirror blockquote:hover {
-        background-color: rgba(129, 140, 248, 0.15);
-        box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.2);
+      html.dark .ProseMirror blockquote::before {
+        color: rgba(129, 140, 248, 0.3);
       }
       
-      /* 代码块样式 */
-      .ProseMirror pre {
-        background: rgba(0, 0, 0, 0.04);
-        border-radius: 8px;
-        padding: 12px 16px;
-        margin: 0.5em 0;
-        overflow-x: auto;
-        transition: all 0.15s;
+      /* 代码块 - 现代化设计 */
+      .code-block-wrapper {
+        position: relative;
+        background: linear-gradient(135deg, #2d2d2d 0%, #1e1e1e 100%);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 16px 0;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
       }
       
-      .ProseMirror pre:hover {
-        background: rgba(0, 0, 0, 0.06);
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+      .code-block-wrapper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 32px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       }
       
-      html.dark .ProseMirror pre {
-        background: rgba(255, 255, 255, 0.05);
+      .code-block-wrapper pre {
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 12px 0 0 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
       }
       
-      html.dark .ProseMirror pre:hover {
-        background: rgba(255, 255, 255, 0.08);
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+      .code-block-wrapper code {
+        background: transparent !important;
+        color: #d4d4d4 !important;
+        font-family: 'SF Mono', 'Monaco', 'Menlo', 'Courier New', monospace !important;
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+        padding: 0 !important;
+        font-weight: 400;
       }
       
+      /* 亮色主题代码块 */
+      html:not(.dark) .code-block-wrapper {
+        background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      }
+      
+      html:not(.dark) .code-block-wrapper::before {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+        border-bottom: 1px solid #e5e7eb;
+      }
+      
+      html:not(.dark) .code-block-wrapper code {
+        color: #24292e !important;
+      }
+      
+      /* 内联代码 - Notion 风格 */
       .ProseMirror code {
-        background: #f3f4f6;
-        padding: 0.2em 0.4em;
+        background: rgba(135, 131, 120, 0.15);
+        color: #eb5757;
+        padding: 3px 6px;
         border-radius: 4px;
         font-size: 0.9em;
-        font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+        font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+        font-weight: 500;
+        border: 1px solid rgba(135, 131, 120, 0.2);
       }
       
       html.dark .ProseMirror code {
-        background: #374151;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ff6b6b;
+        border: 1px solid rgba(255, 255, 255, 0.15);
       }
       
       /* 占位符 */
@@ -650,65 +531,43 @@
       /* 选中状态 */
       .ProseMirror-selectednode {
         outline: none;
-        background-color: rgba(99, 102, 241, 0.1);
-        border-radius: 4px;
-        animation: selectedPulse 1.5s ease-in-out infinite;
+        background-color: transparent;
+        border-radius: 0;
+        animation: none;
       }
       
       /* 块被选中时的样式 */
       .block-wrapper .ProseMirror-selectednode .block-content,
       .block-content:has(.ProseMirror-selectednode),
       .block-wrapper.ProseMirror-selectednode .block-content {
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(236, 72, 153, 0.08) 50%, rgba(251, 146, 60, 0.08) 100%) !important;
-        box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15), 0 4px 12px rgba(139, 92, 246, 0.1) !important;
-        transform: translateY(-1px) !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        transform: none !important;
       }
       
       .block-content:has(.ProseMirror-selectednode)::before,
       .block-wrapper.ProseMirror-selectednode .block-content::before {
-        opacity: 1 !important;
-        background: linear-gradient(180deg, rgba(139, 92, 246, 0.5), rgba(236, 72, 153, 0.5)) !important;
-      }
-      
-      @keyframes selectedPulse {
-        0%, 100% {
-          background-color: rgba(99, 102, 241, 0.1);
-        }
-        50% {
-          background-color: rgba(99, 102, 241, 0.15);
-        }
+        opacity: 0 !important;
+        background: transparent !important;
       }
       
       html.dark .ProseMirror-selectednode {
-        background-color: rgba(99, 102, 241, 0.2);
+        background-color: transparent;
       }
       
       /* 暗黑模式下的选中样式 */
       html.dark .block-wrapper .ProseMirror-selectednode .block-content,
       html.dark .block-content:has(.ProseMirror-selectednode),
       html.dark .block-wrapper.ProseMirror-selectednode .block-content {
-        background: linear-gradient(135deg, rgba(167, 139, 250, 0.12) 0%, rgba(244, 114, 182, 0.12) 50%, rgba(251, 191, 36, 0.12) 100%) !important;
-        box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.25), 0 4px 12px rgba(167, 139, 250, 0.2) !important;
-        transform: translateY(-1px) !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        transform: none !important;
       }
       
       html.dark .block-content:has(.ProseMirror-selectednode)::before,
       html.dark .block-wrapper.ProseMirror-selectednode .block-content::before {
-        opacity: 1 !important;
-        background: linear-gradient(180deg, rgba(167, 139, 250, 0.6), rgba(244, 114, 182, 0.6)) !important;
-      }
-      
-      @keyframes selectedPulseDark {
-        0%, 100% {
-          background-color: rgba(99, 102, 241, 0.2);
-        }
-        50% {
-          background-color: rgba(99, 102, 241, 0.25);
-        }
-      }
-      
-      html.dark .ProseMirror-selectednode {
-        animation: selectedPulseDark 1.5s ease-in-out infinite;
+        opacity: 0 !important;
+        background: transparent !important;
       }
       
       /* 光标闪烁动画 */
@@ -819,7 +678,7 @@
       .block-wrapper:has(.ProseMirror:focus) .block-content,
       .block-wrapper.is-focused .block-content,
       .block-wrapper:has(.ProseMirror.ProseMirror-focused) .block-content {
-        background: rgba(99, 102, 241, 0.12) !important;
+        background: transparent !important;
         border: none !important;
         box-shadow: none !important;
       }
@@ -849,6 +708,14 @@
       .drag-handle-area {
         opacity: 0;
         transition: opacity 0.15s ease;
+      }
+      
+      /* 普通列表（ul, ol）中，拖拽手柄显示在左侧外部，避免与emoji重叠 */
+      .ProseMirror ul:not([data-type="taskList"]) .drag-handle-area,
+      .ProseMirror ol .drag-handle-area {
+        position: absolute;
+        left: -45px;
+        top: 0;
       }
       
       /* 拖拽指示线 - 蓝色横条 */
@@ -935,6 +802,471 @@
         top: -1.4em;
         user-select: none;
         white-space: nowrap;
+      }
+      
+      /* 任务列表 - Notion/Linear 风格 - 增强版 */
+      .ProseMirror ul[data-type="taskList"] {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li {
+        display: flex;
+        align-items: flex-start;
+        margin: 6px 0;
+        padding: 12px 16px;
+        border-radius: 8px;
+        background: rgba(99, 102, 241, 0.02);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        border: 1px solid transparent;
+        margin-left: 0 !important;
+      }
+      
+      /* 任务列表项显示拖拽手柄 - 在复选框左侧内部 */
+      .ProseMirror ul[data-type="taskList"] li .drag-handle-area {
+        position: relative;
+        left: 0;
+        display: flex !important;
+        align-items: center;
+        gap: 2px;
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      
+      /* 任务列表项悬停时显示拖拽手柄 */
+      .ProseMirror ul[data-type="taskList"] li:not(:hover) .drag-handle-area {
+        opacity: 0;
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li:hover .drag-handle-area {
+        opacity: 1;
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li:hover {
+        background: rgba(99, 102, 241, 0.05);
+        border-color: rgba(99, 102, 241, 0.1);
+        box-shadow: 0 2px 4px rgba(99, 102, 241, 0.08);
+        transform: translateY(-1px);
+      }
+      
+      html.dark .ProseMirror ul[data-type="taskList"] li {
+        background: rgba(129, 140, 248, 0.03);
+      }
+      
+      html.dark .ProseMirror ul[data-type="taskList"] li:hover {
+        background: rgba(129, 140, 248, 0.08);
+        border-color: rgba(129, 140, 248, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li label {
+        flex: 0 0 auto;
+        margin-right: 12px;
+        user-select: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding-top: 1px;
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        border: 2.5px solid #d1d5db;
+        border-radius: 6px;
+        appearance: none;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        background: #ffffff;
+        position: relative;
+        flex-shrink: 0;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+      
+      html.dark .ProseMirror ul[data-type="taskList"] li input[type="checkbox"] {
+        border-color: #6b7280;
+        background: rgba(31, 41, 55, 0.6);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li input[type="checkbox"]:hover {
+        border-color: #6366f1;
+        background: #eef2ff;
+        transform: scale(1.1);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+      }
+      
+      html.dark .ProseMirror ul[data-type="taskList"] li input[type="checkbox"]:hover {
+        border-color: #818cf8;
+        background: rgba(99, 102, 241, 0.15);
+        box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2);
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li input[type="checkbox"]:checked {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-color: #6366f1;
+        animation: checkboxPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+      }
+      
+      @keyframes checkboxPop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2) rotate(5deg); }
+        100% { transform: scale(1); }
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li input[type="checkbox"]:checked::after {
+        content: '✓';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li[data-checked="true"] {
+        opacity: 0.6;
+      }
+      
+      .ProseMirror ul[data-type="taskList"] li[data-checked="true"] > div > p {
+        color: #9ca3af;
+        text-decoration: line-through;
+        text-decoration-thickness: 2px;
+        text-decoration-color: #d1d5db;
+      }
+      
+      html.dark .ProseMirror ul[data-type="taskList"] li[data-checked="true"] > div > p {
+        color: #6b7280;
+        text-decoration-color: #4b5563;
+      }
+      
+      /* 分割线 - 简洁现代 */
+      .ProseMirror hr {
+        border: none;
+        border-top: 1.5px solid #e5e7eb;
+        margin: 32px 0;
+        position: relative;
+        transition: all 0.2s;
+      }
+      
+      html.dark .ProseMirror hr {
+        border-top-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      /* 高亮样式 */
+      .ProseMirror mark {
+        background-color: #fef08a;
+        border-radius: 2px;
+        padding: 0 2px;
+        color: inherit;
+      }
+      
+      html.dark .ProseMirror mark {
+        background-color: #a16207;
+        color: #fef08a;
+      }
+      
+      /* 图片样式 */
+      .ProseMirror img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 16px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      
+      .ProseMirror img:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        transform: scale(1.01);
+      }
+      
+      html.dark .ProseMirror img {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      }
+      
+      html.dark .ProseMirror img:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+      }
+      
+      .ProseMirror img.ProseMirror-selectednode {
+        outline: 2px solid #6366f1;
+        outline-offset: 2px;
+      }
+      
+      /* 链接样式 */
+      .ProseMirror a {
+        color: #6366f1;
+        text-decoration: underline;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      
+      .ProseMirror a:hover {
+        color: #4f46e5;
+        text-decoration: none;
+      }
+      
+      html.dark .ProseMirror a {
+        color: #818cf8;
+      }
+      
+      html.dark .ProseMirror a:hover {
+        color: #a5b4fc;
+      }
+      
+      /* 折叠块样式 */
+      .ProseMirror details {
+        margin: 16px 0;
+        padding: 16px;
+        background: rgba(0, 0, 0, 0.02);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        transition: all 0.2s;
+      }
+      
+      html.dark .ProseMirror details {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .ProseMirror details:hover {
+        background: rgba(0, 0, 0, 0.04);
+        border-color: rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      
+      html.dark .ProseMirror details:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      
+      .ProseMirror details summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: #374151;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 0;
+        list-style: none;
+      }
+      
+      html.dark .ProseMirror details summary {
+        color: #e5e7eb;
+      }
+      
+      .ProseMirror details summary::-webkit-details-marker {
+        display: none;
+      }
+      
+      .ProseMirror details summary::before {
+        content: '▶';
+        display: inline-block;
+        font-size: 10px;
+        color: #6b7280;
+        transition: transform 0.2s;
+      }
+      
+      .ProseMirror details[open] summary::before {
+        transform: rotate(90deg);
+      }
+      
+      .ProseMirror details summary:hover {
+        color: #6366f1;
+      }
+      
+      html.dark .ProseMirror details summary:hover {
+        color: #818cf8;
+      }
+      
+      .ProseMirror details > div {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      
+      html.dark .ProseMirror details > div {
+        border-top-color: rgba(255, 255, 255, 0.05);
+      }
+      
+      /* 标注块样式 */
+      .callout {
+        margin: 16px 0;
+        padding: 16px;
+        border-radius: 8px;
+        border-left: 4px solid;
+        display: flex;
+        gap: 12px;
+        transition: all 0.2s;
+      }
+      
+      .callout-icon {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+      }
+      
+      .callout-content {
+        flex: 1;
+      }
+      
+      /* 信息类型 */
+      .callout-info {
+        background: rgba(59, 130, 246, 0.05);
+        border-left-color: #3b82f6;
+        color: #1e40af;
+      }
+      
+      html.dark .callout-info {
+        background: rgba(59, 130, 246, 0.1);
+        color: #93c5fd;
+      }
+      
+      .callout-info .callout-icon {
+        color: #3b82f6;
+      }
+      
+      /* 警告类型 */
+      .callout-warning {
+        background: rgba(245, 158, 11, 0.05);
+        border-left-color: #f59e0b;
+        color: #92400e;
+      }
+      
+      html.dark .callout-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: #fcd34d;
+      }
+      
+      .callout-warning .callout-icon {
+        color: #f59e0b;
+      }
+      
+      /* 错误类型 */
+      .callout-error {
+        background: rgba(239, 68, 68, 0.05);
+        border-left-color: #ef4444;
+        color: #991b1b;
+      }
+      
+      html.dark .callout-error {
+        background: rgba(239, 68, 68, 0.1);
+        color: #fca5a5;
+      }
+      
+      .callout-error .callout-icon {
+        color: #ef4444;
+      }
+      
+      /* 成功类型 */
+      .callout-success {
+        background: rgba(34, 197, 94, 0.05);
+        border-left-color: #22c55e;
+        color: #14532d;
+      }
+      
+      html.dark .callout-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #86efac;
+      }
+      
+      .callout-success .callout-icon {
+        color: #22c55e;
+      }
+      
+      /* 提示类型 */
+      .callout-tip {
+        background: rgba(168, 85, 247, 0.05);
+        border-left-color: #a855f7;
+        color: #6b21a8;
+      }
+      
+      html.dark .callout-tip {
+        background: rgba(168, 85, 247, 0.1);
+        color: #e9d5ff;
+      }
+      
+      .callout-tip .callout-icon {
+        color: #a855f7;
+      }
+      
+      /* 焦点模式 */
+      .focus-mode .ProseMirror > * {
+        opacity: 0.3;
+        transition: opacity 0.3s;
+      }
+      
+      .focus-mode .ProseMirror > *:hover,
+      .focus-mode .ProseMirror > *.has-focus {
+        opacity: 1;
+      }
+      
+      .focus-mode .ProseMirror .is-active {
+        opacity: 1 !important;
+      }
+      
+      /* 数学公式 */
+      .ProseMirror .math-node {
+        display: inline-block;
+        padding: 2px 6px;
+        margin: 0 2px;
+        background: rgba(99, 102, 241, 0.05);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        border-radius: 4px;
+        font-family: 'KaTeX_Main', serif;
+        transition: all 0.2s;
+      }
+      
+      html.dark .ProseMirror .math-node {
+        background: rgba(129, 140, 248, 0.1);
+        border-color: rgba(129, 140, 248, 0.3);
+      }
+      
+      .ProseMirror .math-node:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: rgba(99, 102, 241, 0.3);
+      }
+      
+      html.dark .ProseMirror .math-node:hover {
+        background: rgba(129, 140, 248, 0.15);
+        border-color: rgba(129, 140, 248, 0.4);
+      }
+      
+      /* 自定义滚动条 */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+      }
+      
+      html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+      
+      html.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
       }
     </style>
   <script type="importmap">

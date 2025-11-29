@@ -1,0 +1,228 @@
+/**
+ * Craft 设计系统 - CSS 变量
+ * 
+ * 基于 Craft.do 官方应用的设计规范
+ * 完整的颜色、字体、间距、阴影、动画系统
+ */
+
+:root {
+  /* ===== 颜色系统 ===== */
+  
+  /* 品牌色 */
+  --craft-primary: #FF6C47;
+  --craft-primary-light: #FF8A6B;
+  --craft-primary-dark: #E65A3A;
+  
+  /* 中性色 - 亮色模式 */
+  --craft-gray-50: #FAFAFA;
+  --craft-gray-100: #F5F5F5;
+  --craft-gray-200: #EEEEEE;
+  --craft-gray-300: #E0E0E0;
+  --craft-gray-400: #BDBDBD;
+  --craft-gray-500: #9E9E9E;
+  --craft-gray-600: #757575;
+  --craft-gray-700: #616161;
+  --craft-gray-800: #424242;
+  --craft-gray-900: #212121;
+  
+  /* 语义色 */
+  --craft-success: #4CAF50;
+  --craft-success-light: #81C784;
+  --craft-success-dark: #388E3C;
+  
+  --craft-warning: #FF9800;
+  --craft-warning-light: #FFB74D;
+  --craft-warning-dark: #F57C00;
+  
+  --craft-error: #F44336;
+  --craft-error-light: #E57373;
+  --craft-error-dark: #D32F2F;
+  
+  --craft-info: #2196F3;
+  --craft-info-light: #64B5F6;
+  --craft-info-dark: #1976D2;
+  
+  /* 编辑器高亮色 */
+  --craft-highlight-yellow: #FFF9C4;
+  --craft-highlight-green: #C8E6C9;
+  --craft-highlight-blue: #BBDEFB;
+  --craft-highlight-pink: #F8BBD0;
+  
+  /* 选中状态 */
+  --craft-selection: rgba(255, 108, 71, 0.1);
+  --craft-selection-border: rgba(255, 108, 71, 0.3);
+  
+  /* 悬停状态 */
+  --craft-hover: rgba(0, 0, 0, 0.04);
+  --craft-hover-dark: rgba(255, 255, 255, 0.08);
+  
+  /* ===== 字体系统 ===== */
+  
+  /* 字体家族 */
+  --craft-font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", 
+                   "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --craft-font-content: "SF Pro Display", -apple-system, BlinkMacSystemFont, 
+                        "Segoe UI", "Roboto", sans-serif;
+  --craft-font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", 
+                     Consolas, monospace;
+  
+  /* 字号系统 (Major Third Scale) */
+  --craft-text-xs: 12px;
+  --craft-text-sm: 13px;
+  --craft-text-base: 16px;
+  --craft-text-lg: 18px;
+  --craft-text-xl: 20px;
+  --craft-text-2xl: 24px;
+  --craft-text-3xl: 30px;
+  --craft-text-4xl: 36px;
+  --craft-text-5xl: 48px;
+  
+  /* 字重系统 */
+  --craft-font-weight-regular: 400;
+  --craft-font-weight-medium: 500;
+  --craft-font-weight-semibold: 600;
+  --craft-font-weight-bold: 700;
+  
+  /* 行高系统 */
+  --craft-line-height-tight: 1.25;
+  --craft-line-height-snug: 1.375;
+  --craft-line-height-normal: 1.5;
+  --craft-line-height-relaxed: 1.625;
+  --craft-line-height-loose: 2;
+  
+  /* ===== 间距系统 (8px Grid) ===== */
+  
+  --craft-space-0: 0;
+  --craft-space-1: 4px;
+  --craft-space-2: 8px;
+  --craft-space-3: 12px;
+  --craft-space-4: 16px;
+  --craft-space-5: 20px;
+  --craft-space-6: 24px;
+  --craft-space-8: 32px;
+  --craft-space-10: 40px;
+  --craft-space-12: 48px;
+  --craft-space-16: 64px;
+  --craft-space-20: 80px;
+  --craft-space-24: 96px;
+  
+  /* 组件内边距 */
+  --craft-padding-compact: 8px 12px;
+  --craft-padding-default: 10px 16px;
+  --craft-padding-comfortable: 12px 20px;
+  --craft-padding-large: 14px 24px;
+  
+  /* 容器最大宽度 */
+  --craft-container-sm: 640px;
+  --craft-container-md: 768px;
+  --craft-container-lg: 1024px;
+  --craft-container-xl: 1280px;
+  
+  /* ===== 阴影系统 ===== */
+  
+  /* Z轴深度 (Elevation) */
+  --craft-shadow-0: none;
+  
+  --craft-shadow-1: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  
+  --craft-shadow-2: 
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 4px 6px rgba(0, 0, 0, 0.05);
+  
+  --craft-shadow-3: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  --craft-shadow-4: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --craft-shadow-5: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  --craft-shadow-6: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* 内阴影 */
+  --craft-shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  --craft-shadow-inner-strong: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  /* 发光效果 */
+  --craft-shadow-focus: 0 0 0 3px rgba(33, 150, 243, 0.1);
+  --craft-shadow-error: 0 0 0 3px rgba(244, 67, 54, 0.1);
+  --craft-shadow-success: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  
+  /* ===== 动画系统 ===== */
+  
+  /* 动画时长 */
+  --craft-duration-instant: 50ms;
+  --craft-duration-fast: 100ms;
+  --craft-duration-normal: 150ms;
+  --craft-duration-slow: 250ms;
+  --craft-duration-slower: 350ms;
+  
+  /* 缓动函数 */
+  --craft-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --craft-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --craft-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --craft-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --craft-ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* ===== 圆角系统 ===== */
+  
+  --craft-radius-sm: 4px;
+  --craft-radius-md: 6px;
+  --craft-radius-lg: 8px;
+  --craft-radius-xl: 10px;
+  --craft-radius-2xl: 12px;
+  --craft-radius-full: 9999px;
+  
+  /* ===== 图标尺寸 ===== */
+  
+  --craft-icon-xs: 12px;
+  --craft-icon-sm: 16px;
+  --craft-icon-md: 20px;
+  --craft-icon-lg: 24px;
+  --craft-icon-xl: 32px;
+  
+  /* ===== Z-Index 层级 ===== */
+  
+  --craft-z-base: 0;
+  --craft-z-dropdown: 1000;
+  --craft-z-sticky: 1100;
+  --craft-z-fixed: 1200;
+  --craft-z-modal-backdrop: 1300;
+  --craft-z-modal: 1400;
+  --craft-z-popover: 1500;
+  --craft-z-tooltip: 1600;
+}
+
+/* ===== 暗黑模式 ===== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 暗色模式颜色覆盖 */
+    --craft-dark-bg: #1A1A1A;
+    --craft-dark-surface: #2D2D2D;
+    --craft-dark-border: #404040;
+    --craft-dark-text: #E0E0E0;
+    
+    /* 覆盖中性色 */
+    --craft-gray-50: #2D2D2D;
+    --craft-gray-100: #333333;
+    --craft-gray-200: #404040;
+    --craft-gray-300: #4D4D4D;
+    --craft-gray-400: #666666;
+    --craft-gray-500: #808080;
+    --craft-gray-600: #999999;
+    --craft-gray-700: #B3B3B3;
+    --craft-gray-800: #CCCCCC;
+    --craft-gray-900: #E0E0E0;
+    
+    /* 覆盖悬停状态 */
+    --craft-hover: rgba(255, 255, 255, 0.08);
+  }
+}

@@ -1,0 +1,656 @@
+/* ===== Craft 编辑器组件样式 ===== */
+
+@import './craft-variables.css';
+
+/* =====================
+   悬浮工具栏样式
+   ===================== */
+
+.craft-floating-toolbar {
+  pointer-events: auto;
+  user-select: none;
+}
+
+.craft-toolbar-container {
+  display: flex;
+  align-items: center;
+  gap: var(--craft-space-1);
+  padding: 6px;
+  background: #FFFFFF;
+  border: 1px solid var(--craft-gray-200);
+  border-radius: var(--craft-radius-lg);
+  box-shadow: var(--craft-shadow-4);
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.craft-toolbar-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: var(--craft-radius-md);
+  background: transparent;
+  color: var(--craft-gray-700);
+  cursor: pointer;
+  transition: all var(--craft-duration-fast) var(--craft-ease-standard);
+}
+
+.craft-toolbar-button:hover {
+  background: var(--craft-hover);
+  color: var(--craft-gray-900);
+}
+
+.craft-toolbar-button.active {
+  background: var(--craft-primary);
+  color: #FFFFFF;
+}
+
+.craft-toolbar-button:active {
+  transform: scale(0.95);
+}
+
+.craft-toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--craft-gray-300);
+  margin: 0 var(--craft-space-1);
+}
+
+/* =====================
+   斜杠菜单样式
+   ===================== */
+
+.craft-slash-menu {
+  pointer-events: auto;
+  user-select: none;
+}
+
+.craft-slash-menu-container {
+  width: 320px;
+  max-height: 400px;
+  background: #FFFFFF;
+  border: 1px solid var(--craft-gray-200);
+  border-radius: var(--craft-radius-xl);
+  box-shadow: var(--craft-shadow-5);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.craft-slash-menu-header {
+  padding: var(--craft-space-3) var(--craft-space-4);
+  border-bottom: 1px solid var(--craft-gray-200);
+  font-size: var(--craft-text-sm);
+  font-weight: var(--craft-font-weight-medium);
+  color: var(--craft-gray-600);
+}
+
+.craft-slash-menu-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: var(--craft-space-2);
+}
+
+.craft-slash-menu-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.craft-slash-menu-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.craft-slash-menu-list::-webkit-scrollbar-thumb {
+  background: var(--craft-gray-300);
+  border-radius: var(--craft-radius-full);
+}
+
+.craft-slash-menu-list::-webkit-scrollbar-thumb:hover {
+  background: var(--craft-gray-400);
+}
+
+.craft-slash-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--craft-space-3);
+  padding: var(--craft-space-2) var(--craft-space-3);
+  border-radius: var(--craft-radius-md);
+  cursor: pointer;
+  transition: background var(--craft-duration-fast) var(--craft-ease-standard);
+}
+
+.craft-slash-menu-item:hover {
+  background: var(--craft-hover);
+}
+
+.craft-slash-menu-item.selected {
+  background: var(--craft-selection);
+}
+
+.craft-slash-menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--craft-radius-md);
+  background: var(--craft-gray-100);
+  color: var(--craft-gray-700);
+  flex-shrink: 0;
+}
+
+.craft-slash-menu-item.selected .craft-slash-menu-item-icon {
+  background: var(--craft-primary);
+  color: #FFFFFF;
+}
+
+.craft-slash-menu-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.craft-slash-menu-item-title {
+  font-size: var(--craft-text-base);
+  font-weight: var(--craft-font-weight-medium);
+  color: var(--craft-gray-900);
+  line-height: var(--craft-line-height-snug);
+}
+
+.craft-slash-menu-item-description {
+  font-size: var(--craft-text-sm);
+  color: var(--craft-gray-600);
+  line-height: var(--craft-line-height-snug);
+  margin-top: 2px;
+}
+
+.craft-slash-menu-empty {
+  padding: var(--craft-space-8) var(--craft-space-4);
+  text-align: center;
+  color: var(--craft-gray-500);
+  font-size: var(--craft-text-sm);
+}
+
+.craft-slash-menu-footer {
+  padding: var(--craft-space-2) var(--craft-space-4);
+  border-top: 1px solid var(--craft-gray-200);
+  background: var(--craft-gray-50);
+  text-align: center;
+}
+
+/* =====================
+   段落块组件样式
+   ===================== */
+
+.craft-paragraph-block,
+.craft-heading-block,
+.craft-code-block,
+.craft-blockquote,
+.craft-callout {
+  position: relative;
+  display: flex;
+  gap: var(--craft-space-2);
+  margin: var(--craft-space-1) 0;
+  padding-left: 40px; /* 为左侧控制区域留空间 */
+}
+
+.craft-block-controls {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--craft-space-1);
+}
+
+.craft-block-controls-container {
+  display: flex;
+  gap: 2px;
+}
+
+.craft-block-handle,
+.craft-block-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: var(--craft-radius-sm);
+  background: transparent;
+  color: var(--craft-gray-400);
+  cursor: pointer;
+  transition: all var(--craft-duration-fast) var(--craft-ease-standard);
+}
+
+.craft-block-handle:hover,
+.craft-block-add:hover {
+  background: var(--craft-gray-100);
+  color: var(--craft-gray-700);
+}
+
+.craft-block-handle {
+  cursor: grab;
+}
+
+.craft-block-handle:active {
+  cursor: grabbing;
+}
+
+.craft-block-content {
+  flex: 1;
+  min-width: 0;
+  outline: none;
+}
+
+/* =====================
+   标题块样式
+   ===================== */
+
+.craft-heading-1 .craft-block-content {
+  font-size: var(--craft-text-4xl);
+  font-weight: var(--craft-font-weight-bold);
+  line-height: var(--craft-line-height-tight);
+  color: var(--craft-gray-900);
+  margin: var(--craft-space-4) 0 var(--craft-space-3) 0;
+}
+
+.craft-heading-2 .craft-block-content {
+  font-size: var(--craft-text-3xl);
+  font-weight: var(--craft-font-weight-semibold);
+  line-height: var(--craft-line-height-tight);
+  color: var(--craft-gray-900);
+  margin: var(--craft-space-3) 0 var(--craft-space-2) 0;
+}
+
+.craft-heading-3 .craft-block-content {
+  font-size: var(--craft-text-2xl);
+  font-weight: var(--craft-font-weight-semibold);
+  line-height: var(--craft-line-height-snug);
+  color: var(--craft-gray-900);
+  margin: var(--craft-space-3) 0 var(--craft-space-2) 0;
+}
+
+/* =====================
+   代码块样式
+   ===================== */
+
+.craft-code-block-container {
+  width: 100%;
+  border-radius: var(--craft-radius-lg);
+  background: var(--craft-gray-50);
+  border: 1px solid var(--craft-gray-200);
+  overflow: hidden;
+}
+
+.craft-code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--craft-space-2) var(--craft-space-3);
+  border-bottom: 1px solid var(--craft-gray-200);
+  background: #FFFFFF;
+}
+
+.craft-code-language-select {
+  padding: 4px 8px;
+  border: 1px solid var(--craft-gray-300);
+  border-radius: var(--craft-radius-sm);
+  background: #FFFFFF;
+  font-size: var(--craft-text-xs);
+  font-family: var(--craft-font-mono);
+  color: var(--craft-gray-700);
+  cursor: pointer;
+  outline: none;
+}
+
+.craft-code-language-select:focus {
+  border-color: var(--craft-primary);
+  box-shadow: var(--craft-shadow-focus);
+}
+
+.craft-code-copy-btn {
+  padding: 4px 12px;
+  border: none;
+  border-radius: var(--craft-radius-sm);
+  background: var(--craft-gray-100);
+  font-size: var(--craft-text-xs);
+  font-weight: var(--craft-font-weight-medium);
+  color: var(--craft-gray-700);
+  cursor: pointer;
+  transition: all var(--craft-duration-fast) var(--craft-ease-standard);
+}
+
+.craft-code-copy-btn:hover {
+  background: var(--craft-gray-200);
+}
+
+.craft-code-content {
+  margin: 0;
+  padding: var(--craft-space-4);
+  font-family: var(--craft-font-mono);
+  font-size: var(--craft-text-sm);
+  line-height: var(--craft-line-height-relaxed);
+  overflow-x: auto;
+}
+
+.craft-code-content code {
+  font-family: inherit;
+  color: var(--craft-gray-900);
+}
+
+/* =====================
+   引用块样式
+   ===================== */
+
+.craft-blockquote-container {
+  position: relative;
+  width: 100%;
+  padding-left: var(--craft-space-4);
+}
+
+.craft-blockquote-border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--craft-primary);
+  border-radius: var(--craft-radius-full);
+}
+
+.craft-blockquote-content {
+  font-size: var(--craft-text-base);
+  line-height: var(--craft-line-height-relaxed);
+  color: var(--craft-gray-700);
+  font-style: italic;
+}
+
+/* =====================
+   Callout 提示框样式
+   ===================== */
+
+.craft-callout-container {
+  display: flex;
+  gap: var(--craft-space-3);
+  width: 100%;
+  padding: var(--craft-space-4);
+  border-radius: var(--craft-radius-lg);
+  border-left: 3px solid;
+}
+
+.craft-callout-info .craft-callout-container {
+  background: rgba(33, 150, 243, 0.05);
+  border-left-color: var(--craft-info);
+}
+
+.craft-callout-tip .craft-callout-container {
+  background: rgba(76, 175, 80, 0.05);
+  border-left-color: var(--craft-success);
+}
+
+.craft-callout-warning .craft-callout-container {
+  background: rgba(255, 152, 0, 0.05);
+  border-left-color: var(--craft-warning);
+}
+
+.craft-callout-error .craft-callout-container {
+  background: rgba(244, 67, 54, 0.05);
+  border-left-color: var(--craft-error);
+}
+
+.craft-callout-icon {
+  font-size: var(--craft-text-xl);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.craft-callout-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.craft-callout-content {
+  font-size: var(--craft-text-base);
+  line-height: var(--craft-line-height-relaxed);
+  color: var(--craft-gray-800);
+}
+
+/* =====================
+   块级操作菜单
+   ===================== */
+
+.craft-block-menu {
+  position: absolute;
+  left: 40px;
+  top: 32px;
+  z-index: var(--craft-z-dropdown);
+  display: flex;
+  flex-direction: column;
+  gap: var(--craft-space-1);
+  min-width: 160px;
+  padding: var(--craft-space-2);
+  background: #FFFFFF;
+  border: 1px solid var(--craft-gray-200);
+  border-radius: var(--craft-radius-lg);
+  box-shadow: var(--craft-shadow-4);
+}
+
+.craft-block-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--craft-space-2);
+  padding: var(--craft-space-2) var(--craft-space-3);
+  border: none;
+  border-radius: var(--craft-radius-md);
+  background: transparent;
+  font-size: var(--craft-text-sm);
+  font-weight: var(--craft-font-weight-medium);
+  color: var(--craft-gray-700);
+  cursor: pointer;
+  transition: all var(--craft-duration-fast) var(--craft-ease-standard);
+  text-align: left;
+}
+
+.craft-block-menu-item:hover {
+  background: var(--craft-hover);
+  color: var(--craft-gray-900);
+}
+
+/* =====================
+   编辑器容器样式
+   ===================== */
+
+.craft-editor-container {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  font-family: var(--craft-font-content);
+}
+
+.craft-editor-wrapper {
+  max-width: var(--craft-container-md);
+  margin: 0 auto;
+  padding: var(--craft-space-8) var(--craft-space-6);
+}
+
+.craft-editor-content {
+  outline: none;
+  min-height: 400px;
+}
+
+/* 段落样式 */
+.craft-editor-content p {
+  font-size: var(--craft-text-base);
+  line-height: var(--craft-line-height-relaxed);
+  color: var(--craft-gray-800);
+  margin: var(--craft-space-3) 0;
+}
+
+/* 空编辑器提示 */
+.craft-editor-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--craft-gray-400);
+  pointer-events: none;
+  height: 0;
+}
+
+/* 链接样式 */
+.craft-link {
+  color: var(--craft-primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 108, 71, 0.3);
+  transition: all var(--craft-duration-fast) var(--craft-ease-standard);
+}
+
+.craft-link:hover {
+  border-bottom-color: var(--craft-primary);
+}
+
+/* 图片样式 */
+.craft-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--craft-radius-lg);
+  margin: var(--craft-space-4) 0;
+  display: block;
+}
+
+/* 任务列表样式 */
+.craft-task-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--craft-space-3) 0;
+}
+
+.craft-task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--craft-space-2);
+  margin: var(--craft-space-2) 0;
+}
+
+.craft-task-item input[type="checkbox"] {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--craft-gray-400);
+  border-radius: var(--craft-radius-sm);
+  cursor: pointer;
+  appearance: none;
+  background: #FFFFFF;
+  transition: all var(--craft-duration-fast) var(--craft-ease-standard);
+}
+
+.craft-task-item input[type="checkbox"]:checked {
+  background: var(--craft-primary);
+  border-color: var(--craft-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.craft-task-item input[type="checkbox"]:hover {
+  border-color: var(--craft-primary);
+}
+
+/* 列表样式 */
+.craft-editor-content ul,
+.craft-editor-content ol {
+  padding-left: var(--craft-space-6);
+  margin: var(--craft-space-3) 0;
+}
+
+.craft-editor-content li {
+  font-size: var(--craft-text-base);
+  line-height: var(--craft-line-height-relaxed);
+  color: var(--craft-gray-800);
+  margin: var(--craft-space-1) 0;
+}
+
+.craft-editor-content ul li::marker {
+  color: var(--craft-primary);
+}
+
+.craft-editor-content ol li::marker {
+  color: var(--craft-gray-600);
+  font-weight: var(--craft-font-weight-semibold);
+}
+
+/* 水平线样式 */
+.craft-editor-content hr {
+  border: none;
+  border-top: 2px solid var(--craft-gray-200);
+  margin: var(--craft-space-6) 0;
+}
+
+/* 选中文本样式 */
+.craft-editor-content ::selection {
+  background: var(--craft-selection);
+}
+
+/* =====================
+   原生 HTML5 拖拽支持 + 飞书风格手柄
+   ===================== */
+
+.craft-editor-content p,
+.craft-editor-content h1,
+.craft-editor-content h2,
+.craft-editor-content h3,
+.craft-editor-content blockquote,
+.craft-editor-content pre {
+  position: relative;
+  cursor: grab;
+  user-select: text;
+}
+
+.craft-editor-content p:active,
+.craft-editor-content h1:active,
+.craft-editor-content h2:active,
+.craft-editor-content h3:active,
+.craft-editor-content blockquote:active,
+.craft-editor-content pre:active {
+  cursor: grabbing;
+}
+
+/* 拖拽时的样式 */
+.ProseMirror-selectednode {
+  opacity: 0.5;
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =====================
+   暗色模式支持
+   ===================== */
+
+@media (prefers-color-scheme: dark) {
+  .craft-toolbar-container,
+  .craft-slash-menu-container,
+  .craft-code-block-header,
+  .craft-block-menu {
+    background: rgba(45, 45, 45, 0.98);
+    border-color: var(--craft-gray-200);
+  }
+
+  .craft-toolbar-button,
+  .craft-slash-menu-item-title,
+  .craft-heading-1 .craft-block-content,
+  .craft-heading-2 .craft-block-content,
+  .craft-heading-3 .craft-block-content {
+    color: var(--craft-gray-900);
+  }
+
+  .craft-code-block-container {
+    background: var(--craft-gray-100);
+    border-color: var(--craft-gray-200);
+  }
+
+  .craft-slash-menu-footer {
+    background: var(--craft-gray-100);
+  }
+}

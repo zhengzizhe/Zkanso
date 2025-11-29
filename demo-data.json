@@ -1,0 +1,466 @@
+{
+  "demo_document": {
+    "title": "Kanso编辑器完整功能演示文档",
+    "content": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "heading",
+          "attrs": { "level": 1 },
+          "content": [{ "type": "text", "text": "🎨 Kanso编辑器完整功能展示" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "这是一个包含所有功能的演示文档，展示Kanso编辑器的全部能力。" }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "📝 文本格式化" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "这是" },
+            { "type": "text", "marks": [{ "type": "bold" }], "text": "粗体" },
+            { "type": "text", "text": "、" },
+            { "type": "text", "marks": [{ "type": "italic" }], "text": "斜体" },
+            { "type": "text", "text": "、" },
+            { "type": "text", "marks": [{ "type": "underline" }], "text": "下划线" },
+            { "type": "text", "text": "、" },
+            { "type": "text", "marks": [{ "type": "strike" }], "text": "删除线" },
+            { "type": "text", "text": "、" },
+            { "type": "text", "marks": [{ "type": "code" }], "text": "内联代码" },
+            { "type": "text", "text": "和" },
+            { "type": "text", "marks": [{ "type": "textStyle", "attrs": { "color": "#ef4444" } }], "text": "红色文字" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "还支持" },
+            { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "#fef08a" } }], "text": "黄色高亮" },
+            { "type": "text", "text": "、" },
+            { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "#bfdbfe" } }], "text": "蓝色高亮" },
+            { "type": "text", "text": "和" },
+            { "type": "text", "marks": [{ "type": "highlight", "attrs": { "color": "#fecaca" } }], "text": "粉色高亮" }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "📋 列表功能" }]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 3 },
+          "content": [{ "type": "text", "text": "无序列表：" }]
+        },
+        {
+          "type": "bulletList",
+          "content": [
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "第一项" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "第二项" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "第三项" }] }] }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 3 },
+          "content": [{ "type": "text", "text": "有序列表：" }]
+        },
+        {
+          "type": "orderedList",
+          "content": [
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "步骤一" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "步骤二" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "步骤三" }] }] }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 3 },
+          "content": [{ "type": "text", "text": "任务列表：" }]
+        },
+        {
+          "type": "taskList",
+          "content": [
+            { "type": "taskItem", "attrs": { "checked": true }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "已完成的任务" }] }] },
+            { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "未完成的任务" }] }] },
+            { "type": "taskItem", "attrs": { "checked": false }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "待处理的任务" }] }] }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "💬 引用块" }]
+        },
+        {
+          "type": "blockquote",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [{ "type": "text", "text": "这是一个引用块的示例。可以用来引用他人的话语或重要的提示信息。" }]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "💻 代码块" }]
+        },
+        {
+          "type": "codeBlock",
+          "attrs": { "language": "javascript" },
+          "content": [
+            {
+              "type": "text",
+              "text": "// 这是一个带语法高亮的JavaScript代码块\nfunction greet(name) {\n  console.log(`Hello, ${name}!`);\n  return true;\n}\n\ngreet('Kanso');"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "📊 表格" }]
+        },
+        {
+          "type": "table",
+          "content": [
+            {
+              "type": "tableRow",
+              "content": [
+                { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "功能模块" }] }] },
+                { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "状态" }] }] },
+                { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "完成度" }] }] },
+                { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "优先级" }] }] }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "content": [
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "富文本编辑" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 完成" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "100%" }] }] },
+                { "type": "tableCell", "attrs": { "background": "#fee2e2" }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "🔴 P0" }] }] }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "content": [
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "实时协作" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 完成" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "100%" }] }] },
+                { "type": "tableCell", "attrs": { "background": "#fee2e2" }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "🔴 P0" }] }] }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "content": [
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "多媒体支持" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 完成" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "95%" }] }] },
+                { "type": "tableCell", "attrs": { "background": "#fef3c7" }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "🟡 P1" }] }] }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "content": [
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "AI助手" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "🚧 进行中" }] }] },
+                { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "60%" }] }] },
+                { "type": "tableCell", "attrs": { "background": "#d9f99d" }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "🟢 P2" }] }] }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "🖼️ 图片" }]
+        },
+        {
+          "type": "image",
+          "attrs": {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Crect fill='%236366f1' width='600' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='32' fill='white'%3E这是一个示例图片%3C/text%3E%3C/svg%3E",
+            "alt": "示例图片",
+            "width": 600
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "text": "图片支持拖拽调整大小，尝试选中图片并拖动左右两侧的手柄！" }]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "🔽 折叠块" }]
+        },
+        {
+          "type": "details",
+          "attrs": { "open": false },
+          "content": [
+            { "type": "detailsSummary", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "点击展开查看更多内容" }] }] },
+            {
+              "type": "detailsContent",
+              "content": [
+                { "type": "paragraph", "content": [{ "type": "text", "text": "这是折叠块中的内容。可以隐藏不常用的信息，保持文档整洁。" }] }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "📐 数学公式" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "行内公式：" },
+            { "type": "mathInline", "attrs": { "latex": "E = mc^2" } },
+            { "type": "text", "text": " 是爱因斯坦的质能方程" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "复杂公式：" },
+            { "type": "mathInline", "attrs": { "latex": "\\int_{0}^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}" } }
+          ]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "📈 Mermaid流程图" }]
+        },
+        {
+          "type": "mermaid",
+          "attrs": {
+            "code": "graph TD\n  A[开始] --> B{是否满足条件?}\n  B -->|是| C[执行操作A]\n  B -->|否| D[执行操作B]\n  C --> E[结束]\n  D --> E"
+          }
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "🎬 视频嵌入" }]
+        },
+        {
+          "type": "video",
+          "attrs": {
+            "src": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+          }
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "text": "支持YouTube和Bilibili视频嵌入，只需粘贴链接！" }]
+        },
+        {
+          "type": "horizontalRule"
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "✨ 特色功能" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "1. 实时协作：" }, { "type": "text", "text": "多人同时编辑，实时看到其他人的光标和修改" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "2. 焦点模式：" }, { "type": "text", "text": "淡化其他段落，专注当前编辑" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "3. 目录导航：" }, { "type": "text", "text": "自动提取标题，快速跳转" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "4. AI写作助手：" }, { "type": "text", "text": "输入提示词，AI帮你生成内容" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "5. 快捷键：" }, { "type": "text", "text": "按Cmd+/查看所有快捷键" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "6. 右键菜单：" }, { "type": "text", "text": "右键任意位置，查看上下文操作" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [{ "type": "text", "marks": [{ "type": "bold" }], "text": "7. Slash命令：" }, { "type": "text", "text": "输入/呼出命令菜单，按分类查找" }]
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "🎨 文本对齐" }]
+        },
+        {
+          "type": "paragraph",
+          "attrs": { "textAlign": "left" },
+          "content": [{ "type": "text", "text": "这段文字左对齐" }]
+        },
+        {
+          "type": "paragraph",
+          "attrs": { "textAlign": "center" },
+          "content": [{ "type": "text", "text": "这段文字居中对齐" }]
+        },
+        {
+          "type": "paragraph",
+          "attrs": { "textAlign": "right" },
+          "content": [{ "type": "text", "text": "这段文字右对齐" }]
+        },
+        {
+          "type": "horizontalRule"
+        },
+        {
+          "type": "heading",
+          "attrs": { "level": 2 },
+          "content": [{ "type": "text", "text": "🎯 总结" }]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "Kanso编辑器是一个功能完整的" },
+            { "type": "text", "marks": [{ "type": "bold" }], "text": "企业级文档编辑器" },
+            { "type": "text", "text": "，包含：" }
+          ]
+        },
+        {
+          "type": "bulletList",
+          "content": [
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 所有常用富文本格式" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 实时协作（Yjs CRDT）" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 多媒体支持（图片、视频）" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 高级块（表格、折叠、公式、图表）" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ AI功能（UI演示）" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 深色/浅色主题" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 流畅动画（Framer Motion）" }] }] },
+            { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "✅ 响应式设计" }] }] }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            { "type": "text", "text": "现在就开始使用吧！按" },
+            { "type": "text", "marks": [{ "type": "code" }], "text": "/" },
+            { "type": "text", "text": "呼出命令菜单，或右键查看更多操作。" }
+          ]
+        }
+      ]
+    }
+  },
+  "shortcuts": [
+    { "category": "基础编辑", "keys": ["Cmd", "B"], "description": "加粗" },
+    { "category": "基础编辑", "keys": ["Cmd", "I"], "description": "斜体" },
+    { "category": "基础编辑", "keys": ["Cmd", "U"], "description": "下划线" },
+    { "category": "基础编辑", "keys": ["Cmd", "Shift", "X"], "description": "删除线" },
+    { "category": "基础编辑", "keys": ["Cmd", "E"], "description": "内联代码" },
+    { "category": "基础编辑", "keys": ["Cmd", "K"], "description": "链接" },
+    { "category": "段落格式", "keys": ["Cmd", "Alt", "1"], "description": "标题 1" },
+    { "category": "段落格式", "keys": ["Cmd", "Alt", "2"], "description": "标题 2" },
+    { "category": "段落格式", "keys": ["Cmd", "Alt", "3"], "description": "标题 3" },
+    { "category": "段落格式", "keys": ["Cmd", "Shift", "7"], "description": "有序列表" },
+    { "category": "段落格式", "keys": ["Cmd", "Shift", "8"], "description": "无序列表" },
+    { "category": "段落格式", "keys": ["Cmd", "Shift", "9"], "description": "任务列表" },
+    { "category": "功能", "keys": ["Cmd", "F"], "description": "搜索" },
+    { "category": "功能", "keys": ["Cmd", "Z"], "description": "撤销" },
+    { "category": "功能", "keys": ["Cmd", "Shift", "Z"], "description": "重做" },
+    { "category": "功能", "keys": ["/"], "description": "呼出命令菜单" },
+    { "category": "功能", "keys": ["Cmd", "/"], "description": "快捷键帮助" },
+    { "category": "功能", "keys": ["Esc"], "description": "关闭弹窗" }
+  ],
+  "features_checklist": {
+    "rich_text": {
+      "name": "富文本编辑",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "粗体/斜体/下划线/删除线", "done": true },
+        { "name": "文字颜色（8种）", "done": true },
+        { "name": "高亮标记（7种）", "done": true },
+        { "name": "内联代码", "done": true },
+        { "name": "文本对齐", "done": true },
+        { "name": "链接", "done": true }
+      ]
+    },
+    "lists": {
+      "name": "列表功能",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "无序列表", "done": true },
+        { "name": "有序列表", "done": true },
+        { "name": "任务列表", "done": true },
+        { "name": "引用块", "done": true }
+      ]
+    },
+    "media": {
+      "name": "多媒体",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "图片插入", "done": true },
+        { "name": "图片拖拽调整", "done": true },
+        { "name": "视频嵌入（YouTube/Bilibili）", "done": true }
+      ]
+    },
+    "advanced_blocks": {
+      "name": "高级块",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "表格（完整工具栏）", "done": true },
+        { "name": "折叠块", "done": true },
+        { "name": "数学公式（LaTeX）", "done": true },
+        { "name": "Mermaid图表", "done": true },
+        { "name": "代码块（语法高亮）", "done": true },
+        { "name": "分割线", "done": true }
+      ]
+    },
+    "collaboration": {
+      "name": "协作功能",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "实时协作（Yjs CRDT）", "done": true },
+        { "name": "协作光标", "done": true },
+        { "name": "同步状态显示", "done": true }
+      ]
+    },
+    "search_navigation": {
+      "name": "搜索与导航",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "文档内搜索（Cmd+F）", "done": true },
+        { "name": "目录导航（TOC）", "done": true },
+        { "name": "快捷键面板", "done": true },
+        { "name": "上/下结果导航", "done": true }
+      ]
+    },
+    "ui_ux": {
+      "name": "UI/UX",
+      "status": "完成",
+      "progress": 100,
+      "items": [
+        { "name": "BubbleMenu（选中工具栏）", "done": true },
+        { "name": "Plus菜单（块侧边栏）", "done": true },
+        { "name": "Slash菜单（分类）", "done": true },
+        { "name": "右键菜单（上下文）", "done": true },
+        { "name": "表格工具栏", "done": true },
+        { "name": "搜索面板", "done": true },
+        { "name": "目录面板", "done": true },
+        { "name": "AI助手面板（UI）", "done": true },
+        { "name": "导出菜单（UI）", "done": true },
+        { "name": "全屏模式", "done": true },
+        { "name": "焦点模式", "done": true },
+        { "name": "深色/浅色主题", "done": true },
+        { "name": "流畅动画", "done": true }
+      ]
+    }
+  }
+}
