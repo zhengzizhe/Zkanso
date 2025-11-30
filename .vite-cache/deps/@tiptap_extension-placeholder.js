@@ -1,19 +1,14 @@
 import {
+  Decoration,
+  DecorationSet,
   Extension,
   isNodeEmpty
-} from "./chunk-6PXAZMSB.js";
-import "./chunk-CQKIUDK6.js";
-import "./chunk-EWFAMD4O.js";
-import "./chunk-B4TIPZG3.js";
-import {
-  Decoration,
-  DecorationSet
-} from "./chunk-7G5SGB4X.js";
+} from "./chunk-DLFEES4I.js";
 import {
   Plugin,
   PluginKey
-} from "./chunk-WZRAXKK4.js";
-import "./chunk-2TUXWMP5.js";
+} from "./chunk-POEM2MVD.js";
+import "./chunk-G3PMV62Z.js";
 
 // node_modules/@tiptap/extension-placeholder/dist/index.js
 var Placeholder = Extension.create({

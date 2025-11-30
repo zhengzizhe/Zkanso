@@ -23,21 +23,24 @@ export const ParagraphNodeView: React.FC<NodeViewProps> = ({
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      draggable="true"
-      data-drag-handle
     >
       {/* 飞书风格手柄容器 */}
       <div 
         className="block-handle"
+        draggable="true"
+        data-drag-handle
+        onDragStart={(e) => {
+          e.stopPropagation();
+        }}
         style={{
           position: 'absolute',
-          left: '-32px',
+          left: '-24px',
           top: '4px',
           display: 'flex',
           alignItems: 'center',
           gap: '2px',
-          opacity: isHovered ? 1 : 0,
-          transition: 'opacity 0.15s ease',
+          opacity: isHovered ? 0.6 : 0,
+          transition: 'opacity 150ms ease',
           cursor: 'grab',
         }}
       >
@@ -58,6 +61,7 @@ export const ParagraphNodeView: React.FC<NodeViewProps> = ({
             fontWeight: 600,
             color: '#9CA3AF',
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+            opacity: 0.5,
           }}
         >
           T

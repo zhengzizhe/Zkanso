@@ -6,6 +6,7 @@ import DocCard from './components/DocCard';
 import { CraftEditorWrapper as CraftEditor } from './components/Editor';
 import { SlashCommandDemo } from './components/SlashCommand/SlashCommandDemo';
 import CraftEditorDemo from './pages/craft-editor-demo';
+import FloatingToolbarCraftedTest from './pages/floating-toolbar-crafted-test';
 import mockData from './mock-data.json';
 import { ShareModal, SettingsModal, GlobalSettingsModal, TemplatesModal, CommandPalette, TagsManagementModal } from './components/Modals';
 import { Space, Doc, ViewMode, Language, Theme, TRANSLATIONS, Template } from './types';
@@ -224,8 +225,8 @@ const App: React.FC = () => {
   });
   
   const [activeSpaceId, setActiveSpaceId] = useState<string | null>(null);
-  const [activeDocId, setActiveDocId] = useState<string | null>('demo-document'); // 默认打开demo文档
-  const [view, setView] = useState<ViewMode>('doc'); // 默认进入编辑模式
+  const [activeDocId, setActiveDocId] = useState<string | null>(null);
+  const [view, setView] = useState<ViewMode>('dashboard'); // 默认显示 Dashboard
   const [showSlashTest, setShowSlashTest] = useState(false);
   const [showCraftEditorDemo, setShowCraftEditorDemo] = useState(false);
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');

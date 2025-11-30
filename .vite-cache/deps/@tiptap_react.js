@@ -1,9 +1,9 @@
 import {
   require_react_dom
-} from "./chunk-ZDFUGJYA.js";
+} from "./chunk-OUWKCDPP.js";
 import {
   require_react
-} from "./chunk-642SEM5W.js";
+} from "./chunk-4BPZ7PBZ.js";
 import {
   CommandManager,
   Editor,
@@ -98,18 +98,14 @@ import {
   textPasteRule,
   textblockTypeInputRule,
   wrappingInputRule
-} from "./chunk-6PXAZMSB.js";
-import "./chunk-CQKIUDK6.js";
-import "./chunk-EWFAMD4O.js";
-import "./chunk-B4TIPZG3.js";
-import "./chunk-7G5SGB4X.js";
+} from "./chunk-DLFEES4I.js";
 import {
   Plugin,
   PluginKey
-} from "./chunk-WZRAXKK4.js";
+} from "./chunk-POEM2MVD.js";
 import {
   __toESM
-} from "./chunk-2TUXWMP5.js";
+} from "./chunk-G3PMV62Z.js";
 
 // node_modules/@popperjs/core/lib/enums.js
 var top = "top";

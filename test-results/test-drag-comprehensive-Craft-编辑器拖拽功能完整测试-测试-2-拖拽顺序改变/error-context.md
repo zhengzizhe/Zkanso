@@ -1,0 +1,112 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - button [ref=e9] [cursor=pointer]:
+        - img [ref=e10]
+      - generic [ref=e12]:
+        - heading "🎨 Kanso编辑器完整功能展示" [level=2] [ref=e13]
+        - generic [ref=e16]: Synced
+      - button [ref=e17] [cursor=pointer]:
+        - img [ref=e18]
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - img [ref=e25]
+            - generic [ref=e27]: 字数
+          - generic [ref=e28]: "0"
+        - generic [ref=e29]:
+          - generic [ref=e30]:
+            - img [ref=e31]
+            - generic [ref=e34]: 阅读时长
+          - generic [ref=e35]: 1 min
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - generic [ref=e40]: 更新时间
+          - generic [ref=e41]: Today
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e47]: 被引用
+          - generic [ref=e48]: "0"
+      - generic [ref=e49]:
+        - button "大纲" [ref=e50] [cursor=pointer]
+        - button "引用" [ref=e51] [cursor=pointer]
+        - button "附件" [ref=e52] [cursor=pointer]
+      - generic [ref=e55]:
+        - img [ref=e56]
+        - generic [ref=e59]: Empty Outline
+  - main [ref=e60]:
+    - generic [ref=e61]:
+      - generic [ref=e63]:
+        - button "返回" [ref=e64] [cursor=pointer]:
+          - img [ref=e65]
+        - generic [ref=e67]:
+          - heading "🎨 Kanso编辑器完整功能展示" [level=1] [ref=e68]
+          - paragraph [ref=e69]: Personal
+        - generic [ref=e70]:
+          - button "协同编辑" [ref=e71] [cursor=pointer]:
+            - img [ref=e72]
+          - button "标记" [ref=e78] [cursor=pointer]:
+            - img [ref=e79]
+          - button "全屏" [ref=e81] [cursor=pointer]:
+            - img [ref=e82]
+          - button "分享" [ref=e87] [cursor=pointer]:
+            - img [ref=e88]
+      - main [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - heading "🎨 Kanso编辑器完整功能展示" [level=1] [ref=e97]
+            - generic [ref=e100]:
+              - img [ref=e102]
+              - generic [ref=e105]: Anonymous
+          - generic [ref=e107]:
+            - generic [active] [ref=e110]:
+              - generic [ref=e112]:
+                - generic [ref=e115]: T
+                - paragraph [ref=e116]:
+                  - generic [ref=e117]: 第一段
+              - generic [ref=e119]:
+                - generic [ref=e122]: T
+                - paragraph [ref=e123]:
+                  - generic [ref=e124]: 第二段
+              - generic [ref=e126]:
+                - generic [ref=e129]: T
+                - paragraph [ref=e130]:
+                  - generic [ref=e131]: 第三段
+              - generic [ref=e133]:
+                - generic [ref=e136]: T
+                - paragraph [ref=e137]:
+                  - generic [ref=e138]: 第四段
+            - generic [ref=e140]:
+              - button "粗体 (Cmd+B)" [ref=e141] [cursor=pointer]:
+                - img [ref=e142]
+              - button "斜体 (Cmd+I)" [ref=e144] [cursor=pointer]:
+                - img [ref=e145]
+              - button "下划线 (Cmd+U)" [ref=e147] [cursor=pointer]:
+                - img [ref=e148]
+              - button "删除线" [ref=e150] [cursor=pointer]:
+                - img [ref=e151]
+              - button "行内代码" [ref=e154] [cursor=pointer]:
+                - img [ref=e155]
+              - button "标题 1" [ref=e159] [cursor=pointer]:
+                - img [ref=e160]
+              - button "标题 2" [ref=e162] [cursor=pointer]:
+                - img [ref=e163]
+              - button "标题 3" [ref=e165] [cursor=pointer]:
+                - img [ref=e166]
+              - button "无序列表" [ref=e170] [cursor=pointer]:
+                - img [ref=e171]
+              - button "有序列表" [ref=e172] [cursor=pointer]:
+                - img [ref=e173]
+              - button "引用" [ref=e176] [cursor=pointer]:
+                - img [ref=e177]
+              - button "插入链接" [ref=e181] [cursor=pointer]:
+                - img [ref=e182]
+              - button "更多选项" [ref=e185] [cursor=pointer]:
+                - img [ref=e186]
+```
