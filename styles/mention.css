@@ -1,0 +1,23 @@
+/* @提及功能样式 */
+.ProseMirror .mention {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  color: #6366f1;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ProseMirror .mention:hover {
+  background-color: rgba(99, 102, 241, 0.2);
+}
+
+.dark .ProseMirror .mention {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+.dark .ProseMirror .mention:hover {
+  background-color: rgba(99, 102, 241, 0.3);
+}

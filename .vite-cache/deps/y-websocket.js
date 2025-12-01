@@ -32,7 +32,7 @@ import {
   writeVarUint,
   writeVarUint8Array
 } from "./chunk-LMFW4JPK.js";
-import "./chunk-G3PMV62Z.js";
+import "./chunk-DLJ4GP37.js";
 
 // node_modules/lib0/broadcastchannel.js
 var channels = /* @__PURE__ */ new Map();

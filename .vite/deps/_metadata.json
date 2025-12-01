@@ -1,0 +1,118 @@
+{
+  "hash": "3dfa5bb5",
+  "configHash": "985940f3",
+  "lockfileHash": "09ebd94b",
+  "browserHash": "f041bb93",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "e546e83a",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "53ca5b59",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "80f6904c",
+      "needsInterop": true
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "dc34a562",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "f325485a",
+      "needsInterop": false
+    },
+    "@tiptap/react": {
+      "src": "../../node_modules/@tiptap/react/dist/index.js",
+      "file": "@tiptap_react.js",
+      "fileHash": "976ce70c",
+      "needsInterop": false
+    },
+    "@tiptap/starter-kit": {
+      "src": "../../node_modules/@tiptap/starter-kit/dist/index.js",
+      "file": "@tiptap_starter-kit.js",
+      "fileHash": "d1c3b9a2",
+      "needsInterop": false
+    },
+    "@tiptap/extension-placeholder": {
+      "src": "../../node_modules/@tiptap/extension-placeholder/dist/index.js",
+      "file": "@tiptap_extension-placeholder.js",
+      "fileHash": "614cc3d5",
+      "needsInterop": false
+    },
+    "@tiptap/extension-collaboration": {
+      "src": "../../node_modules/@tiptap/extension-collaboration/dist/index.js",
+      "file": "@tiptap_extension-collaboration.js",
+      "fileHash": "fc1862ce",
+      "needsInterop": false
+    },
+    "@tiptap/extension-collaboration-cursor": {
+      "src": "../../node_modules/@tiptap/extension-collaboration-cursor/dist/index.js",
+      "file": "@tiptap_extension-collaboration-cursor.js",
+      "fileHash": "2221da9d",
+      "needsInterop": false
+    },
+    "@tiptap/extension-dropcursor": {
+      "src": "../../node_modules/@tiptap/extension-dropcursor/dist/index.js",
+      "file": "@tiptap_extension-dropcursor.js",
+      "fileHash": "5d3d332e",
+      "needsInterop": false
+    },
+    "yjs": {
+      "src": "../../node_modules/yjs/dist/yjs.mjs",
+      "file": "yjs.js",
+      "fileHash": "a9fc5029",
+      "needsInterop": false
+    },
+    "y-websocket": {
+      "src": "../../node_modules/y-websocket/src/y-websocket.js",
+      "file": "y-websocket.js",
+      "fileHash": "7d677ca4",
+      "needsInterop": false
+    },
+    "@tiptap/core": {
+      "src": "../../node_modules/@tiptap/core/dist/index.js",
+      "file": "@tiptap_core.js",
+      "fileHash": "9346247b",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-SXQQEW4N": {
+      "file": "chunk-SXQQEW4N.js"
+    },
+    "chunk-BENYXEMR": {
+      "file": "chunk-BENYXEMR.js"
+    },
+    "chunk-LMFW4JPK": {
+      "file": "chunk-LMFW4JPK.js"
+    },
+    "chunk-JF7IVAG4": {
+      "file": "chunk-JF7IVAG4.js"
+    },
+    "chunk-4BPZ7PBZ": {
+      "file": "chunk-4BPZ7PBZ.js"
+    },
+    "chunk-Z3L2R3BW": {
+      "file": "chunk-Z3L2R3BW.js"
+    },
+    "chunk-NWJVDFDO": {
+      "file": "chunk-NWJVDFDO.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
+}

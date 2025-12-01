@@ -1,0 +1,345 @@
+/* ========================================
+   Craft 风格现代化设计系统
+   ======================================== */
+
+/* ========= 设计Token ========= */
+:root {
+  /* 主题色 */
+  --craft-primary: #409EFF;
+  --craft-primary-light: #66B1FF;
+  --craft-primary-lighter: #A0CFFF;
+  --craft-primary-dark: #3A8EE6;
+  
+  /* 功能色 */
+  --craft-success: #10b981;
+  --craft-warning: #f59e0b;
+  --craft-error: #ef4444;
+  --craft-info: #3b82f6;
+  
+  /* 中性色 - 浅色模式 */
+  --craft-text-primary: #1a1a1a;
+  --craft-text-secondary: #6b7280;
+  --craft-text-tertiary: #9ca3af;
+  --craft-text-disabled: #d1d5db;
+  
+  /* 背景色 */
+  --craft-bg-base: #ffffff;
+  --craft-bg-elevated: #fafafa;
+  --craft-bg-hover: #f5f5f5;
+  --craft-bg-active: #eeeeee;
+  
+  /* 边框色 */
+  --craft-border-light: #f0f0f0;
+  --craft-border-base: #e5e7eb;
+  --craft-border-dark: #d1d5db;
+  
+  /* 阴影 */
+  --craft-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --craft-shadow-base: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --craft-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --craft-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --craft-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.18);
+  
+  /* 圆角 */
+  --craft-radius-sm: 6px;
+  --craft-radius-base: 8px;
+  --craft-radius-md: 10px;
+  --craft-radius-lg: 12px;
+  --craft-radius-xl: 16px;
+  
+  /* 间距 */
+  --craft-space-xs: 0.5rem;
+  --craft-space-sm: 0.75rem;
+  --craft-space-base: 1rem;
+  --craft-space-md: 1.5rem;
+  --craft-space-lg: 2rem;
+  --craft-space-xl: 3rem;
+  
+  /* 动画 */
+  --craft-transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --craft-transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --craft-transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 暗色模式 Token */
+html.dark {
+  --craft-text-primary: #f9fafb;
+  --craft-text-secondary: #d1d5db;
+  --craft-text-tertiary: #9ca3af;
+  --craft-text-disabled: #6b7280;
+  
+  --craft-bg-base: #1a1a1a;
+  --craft-bg-elevated: #2d2d2d;
+  --craft-bg-hover: #3a3a3a;
+  --craft-bg-active: #4a4a4a;
+  
+  --craft-border-light: #2d2d2d;
+  --craft-border-base: #3e3e42;
+  --craft-border-dark: #4b5563;
+  
+  --craft-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --craft-shadow-base: 0 2px 6px rgba(0, 0, 0, 0.4);
+  --craft-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --craft-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --craft-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* ========= 通用卡片样式 ========= */
+.craft-card {
+  background: var(--craft-bg-base);
+  border: 1px solid var(--craft-border-base);
+  border-radius: var(--craft-radius-lg);
+  box-shadow: var(--craft-shadow-base);
+  transition: all var(--craft-transition-base);
+  margin: var(--craft-space-md) 0;
+  overflow: hidden;
+}
+
+.craft-card:hover {
+  border-color: var(--craft-border-dark);
+  box-shadow: var(--craft-shadow-md);
+  transform: translateY(-1px);
+}
+
+.craft-card-elevated {
+  background: var(--craft-bg-elevated);
+  box-shadow: var(--craft-shadow-lg);
+}
+
+/* ========= 按钮系统 ========= */
+.craft-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--craft-radius-base);
+  border: 1px solid var(--craft-border-base);
+  background: var(--craft-bg-base);
+  color: var(--craft-text-primary);
+  cursor: pointer;
+  transition: all var(--craft-transition-fast);
+  user-select: none;
+}
+
+.craft-btn:hover {
+  background: var(--craft-bg-hover);
+  border-color: var(--craft-border-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--craft-shadow-sm);
+}
+
+.craft-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.craft-btn-primary {
+  background: var(--craft-primary);
+  border-color: var(--craft-primary);
+  color: white;
+}
+
+.craft-btn-primary:hover {
+  background: var(--craft-primary-dark);
+  border-color: var(--craft-primary-dark);
+  box-shadow: 0 4px 12px rgba(64, 158, 255, 0.3);
+}
+
+.craft-btn-success {
+  background: var(--craft-success);
+  border-color: var(--craft-success);
+  color: white;
+}
+
+.craft-btn-warning {
+  background: var(--craft-warning);
+  border-color: var(--craft-warning);
+  color: white;
+}
+
+.craft-btn-danger {
+  background: var(--craft-error);
+  border-color: var(--craft-error);
+  color: white;
+}
+
+/* ========= 输入框样式 ========= */
+.craft-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--craft-text-primary);
+  background: var(--craft-bg-base);
+  border: 1px solid var(--craft-border-base);
+  border-radius: var(--craft-radius-base);
+  transition: all var(--craft-transition-fast);
+  outline: none;
+}
+
+.craft-input:hover {
+  border-color: var(--craft-border-dark);
+}
+
+.craft-input:focus {
+  border-color: var(--craft-primary);
+  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.1);
+}
+
+/* ========= 标签样式 ========= */
+.craft-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--craft-radius-sm);
+  background: var(--craft-bg-hover);
+  color: var(--craft-text-secondary);
+  border: 1px solid var(--craft-border-base);
+}
+
+.craft-tag-primary {
+  background: rgba(64, 158, 255, 0.1);
+  color: var(--craft-primary);
+  border-color: var(--craft-primary-lighter);
+}
+
+.craft-tag-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--craft-success);
+  border-color: #86efac;
+}
+
+.craft-tag-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--craft-warning);
+  border-color: #fcd34d;
+}
+
+.craft-tag-error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--craft-error);
+  border-color: #fca5a5;
+}
+
+/* ========= 工具提示 ========= */
+.craft-tooltip {
+  position: absolute;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: var(--craft-radius-base);
+  box-shadow: var(--craft-shadow-lg);
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  animation: craft-tooltip-fade-in 0.2s ease;
+}
+
+@keyframes craft-tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========= 加载动画 ========= */
+.craft-loading {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(64, 158, 255, 0.2);
+  border-top-color: var(--craft-primary);
+  border-radius: 50%;
+  animation: craft-spin 0.6s linear infinite;
+}
+
+@keyframes craft-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========= 分割线 ========= */
+.craft-divider {
+  height: 1px;
+  margin: var(--craft-space-md) 0;
+  background: linear-gradient(90deg, transparent, var(--craft-border-base), transparent);
+}
+
+/* ========= 徽章 ========= */
+.craft-badge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: white;
+  background: var(--craft-error);
+  border-radius: 0.625rem;
+  border: 2px solid var(--craft-bg-base);
+  box-shadow: var(--craft-shadow-sm);
+}
+
+/* ========= 进度条 ========= */
+.craft-progress {
+  width: 100%;
+  height: 0.5rem;
+  background: var(--craft-bg-hover);
+  border-radius: var(--craft-radius-base);
+  overflow: hidden;
+}
+
+.craft-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--craft-primary), var(--craft-primary-light));
+  border-radius: var(--craft-radius-base);
+  transition: width var(--craft-transition-base);
+  box-shadow: 0 0 8px rgba(64, 158, 255, 0.5);
+}
+
+/* ========= 响应式工具 ========= */
+@media (max-width: 768px) {
+  .craft-card {
+    margin: var(--craft-space-sm) 0;
+    border-radius: var(--craft-radius-base);
+  }
+  
+  .craft-btn {
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.875rem;
+  }
+}
+
+/* ========= 无障碍增强 ========= */
+.craft-focus-visible:focus-visible {
+  outline: 2px solid var(--craft-primary);
+  outline-offset: 2px;
+}
+
+/* 减少动画（用户偏好） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

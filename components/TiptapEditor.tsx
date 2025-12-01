@@ -12,7 +12,12 @@ import { WebsocketProvider } from 'y-websocket';
 import { ArrowLeft, Share2, MoreHorizontal, Maximize2, SplitSquareHorizontal, Plus, GripVertical, Type, Heading1, Heading2, Heading3, List, ListOrdered, Quote, Code } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DraggableBlock } from './DraggableBlockExtension';
-import { BubbleMenu } from './BubbleMenu';
+import { FloatingToolbar } from './Editor/FloatingToolbar';
+import { SlashCommandMenu } from './SlashCommandMenu';
+import { useSlashCommand } from '../hooks/useSlashCommand';
+import { EnhancedCodeBlock } from '../extensions/EnhancedCodeBlock';
+import SlashCommand from '../extensions/SlashCommandExtension';
+import '../styles/enhanced-code-block.css';
 
 interface TiptapEditorProps {
   docId: string;
@@ -48,6 +53,7 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
     {
       extensions: [
         ...DraggableBlock,
+        SlashCommand,
         Dropcursor.configure({
           color: '#3b82f6',
           width: 2,
@@ -56,8 +62,19 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
           heading: {
             levels: [1, 2, 3],
           },
+          codeBlock: false,
           paragraph: false,
           dropcursor: false,
+        }),
+        EnhancedCodeBlock.configure({
+          defaultLanguage: 'javascript',
+        }),
+        Underline,
+        Link.configure({
+          openOnClick: false,
+          HTMLAttributes: {
+            class: 'text-blue-600 underline cursor-pointer',
+          },
         }),
         Placeholder.configure({
           placeholder: ({ node }) => {
@@ -89,12 +106,10 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
             'focus:outline-none text-[15px] leading-7 text-gray-800 dark:text-gray-200',
         },
         handleKeyDown: (view, event) => {
-          // 检测 '/' 键来显示块菜单
-          if (event.key === '/') {
-            const { from } = view.state.selection;
-            const coords = view.coordsAtPos(from);
-            setBlockMenuPosition({ x: coords.left, y: coords.top + 24 });
-            setShowBlockMenu(true);
+          // 只在斜杠菜单关闭时才处理 '/' 键
+          if (event.key === '/' && !slashCommand.isOpen) {
+            // 斜杠菜单会通过 useSlashCommand hook 自动打开
+            return false;
           }
           return false;
         },
@@ -102,6 +117,9 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
     },
     [provider, ydoc],
   );
+
+  // 斜杠命令菜单状态——在 editor 初始化后
+  const slashCommand = useSlashCommand(editor);
 
   if (!editor) return null;
 
@@ -120,7 +138,7 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
     { icon: <List className="w-4 h-4" />, label: '无序列表', command: () => editor.chain().focus().toggleBulletList().run() },
     { icon: <ListOrdered className="w-4 h-4" />, label: '有序列表', command: () => editor.chain().focus().toggleOrderedList().run() },
     { icon: <Quote className="w-4 h-4" />, label: '引用', command: () => editor.chain().focus().toggleBlockquote().run() },
-    { icon: <Code className="w-4 h-4" />, label: '代码块', command: () => editor.chain().focus().toggleCodeBlock().run() },
+    { icon: <Code className="w-4 h-4" />, label: '代码块', command: () => (editor.chain().focus() as any).setEnhancedCodeBlock({ language: 'javascript' }).run() },
   ];
 
   const handleBlockTypeSelect = (command: () => void) => {
@@ -238,6 +256,19 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
               {/* 段落编辑区域（TipTap） */}
               <div className="min-h-[320px] pb-8 relative">
                 <EditorContent editor={editor} />
+                
+                {/* 斜杠菜单 */}
+                <SlashCommandMenu
+                  editor={editor}
+                  isOpen={slashCommand.isOpen}
+                  position={slashCommand.position}
+                  onClose={slashCommand.closeMenu}
+                  query={slashCommand.query}
+                  onSelect={slashCommand.executeCommand}
+                />
+                
+                {/* 白色悬浮工具栏 */}
+                <FloatingToolbar editor={editor} theme="feishu" />
                 
                 {/* 块类型选择菜单 */}
                 <AnimatePresence>

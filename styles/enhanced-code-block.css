@@ -1,0 +1,402 @@
+/* ========================================
+   增强代码块样式 - Craft 风格
+   ======================================== */
+.enhanced-code-block-wrapper {
+  margin: 1.5rem 0;
+}
+
+.enhanced-code-block {
+  border: 1px solid var(--craft-border-base, #e5e7eb);
+  border-radius: var(--craft-radius-lg, 12px);
+  overflow: hidden;
+  background: var(--craft-bg-base, #ffffff);
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Courier New', monospace;
+  box-shadow: var(--craft-shadow-base, 0 2px 6px rgba(0, 0, 0, 0.08));
+  transition: all var(--craft-transition-base, 0.2s cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.enhanced-code-block:hover {
+  border-color: var(--craft-border-dark, #d1d5db);
+  box-shadow: var(--craft-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.12));
+  transform: translateY(-1px);
+}
+
+/* 标题栏 */
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, var(--craft-bg-elevated, #fafafa) 0%, var(--craft-bg-hover, #f5f5f5) 100%);
+  border-bottom: 1px solid var(--craft-border-base, #e5e7eb);
+}
+
+.code-block-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.code-block-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 折叠按钮 */
+.collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--craft-bg-base, white);
+  border: 1px solid var(--craft-border-base, #d1d5db);
+  border-radius: var(--craft-radius-sm, 6px);
+  cursor: pointer;
+  color: var(--craft-text-secondary, #6b7280);
+  transition: all var(--craft-transition-fast, 0.15s);
+}
+
+.collapse-btn:hover {
+  background: var(--craft-primary, #409EFF);
+  border-color: var(--craft-primary, #409EFF);
+  color: white;
+  box-shadow: 0 2px 6px rgba(64, 158, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* 标签 */
+.code-block-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* 语言选择器 */
+.language-selector-wrapper {
+  position: relative;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--craft-border-base, #d1d5db);
+  border-radius: var(--craft-radius-base, 8px);
+  background: var(--craft-bg-base, white);
+  color: var(--craft-primary, #409EFF);
+  cursor: pointer;
+  outline: none;
+  transition: all var(--craft-transition-fast, 0.15s);
+}
+
+.language-selector:hover {
+  border-color: var(--craft-primary, #409EFF);
+  background: rgba(64, 158, 255, 0.05);
+  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.1);
+}
+
+.language-selector:focus {
+  border-color: var(--craft-primary, #409EFF);
+  box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.15);
+}
+
+.language-display {
+  flex: 1;
+  text-align: left;
+}
+
+/* 语言下拉菜单 */
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  max-height: 300px;
+  overflow-y: auto;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.language-option {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.language-option:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.language-option.active {
+  background: #ede9fe;
+  color: #6366f1;
+  font-weight: 500;
+}
+
+/* 暗色模式 - 语言选择器 */
+html.dark .language-selector {
+  background: #3c3c3c;
+  border-color: #5a5a5a;
+  color: #cccccc;
+}
+
+html.dark .language-selector:hover {
+  background: #505050;
+  border-color: #6a6a6a;
+}
+
+html.dark .language-dropdown {
+  background: #2d2d2d;
+  border-color: #3e3e42;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark .language-option {
+  color: #a0a0a0;
+}
+
+html.dark .language-option:hover {
+  background: #3c3c3c;
+  color: #ffffff;
+}
+
+html.dark .language-option.active {
+  background: #4c1d95;
+  color: #a78bfa;
+}
+
+/* 头部按钮 */
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.header-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.header-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 运行按钮样式 */
+.header-btn-run {
+  color: #059669;
+  border-color: #86efac;
+}
+
+.header-btn-run:hover {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+/* 复制按钮样式 */
+.header-btn-copy {
+  color: #0ea5e9;
+  border-color: #cffafe;
+}
+
+.header-btn-copy:hover {
+  background: #cffafe;
+  border-color: #06b6d4;
+  color: #0369a1;
+}
+
+/* 已复制状态 */
+.header-btn-copied {
+  color: #22c55e;
+  border-color: #86efac;
+  background: #dcfce7;
+}
+
+/* 危险按钮样式 */
+.header-btn-danger {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.header-btn-danger:hover {
+  background: #fee2e2;
+  border-color: #f87171;
+  color: #991b1b;
+}
+
+/* 暗色模式 - 头部按钮 */
+html.dark .header-btn {
+  background: #3c3c3c;
+  border-color: #5a5a5a;
+  color: #cccccc;
+}
+
+html.dark .header-btn:hover {
+  background: #505050;
+  border-color: #6a6a6a;
+}
+
+html.dark .header-btn-run {
+  color: #10b981;
+  border-color: #059669;
+}
+
+html.dark .header-btn-run:hover {
+  background: #064e3b;
+  border-color: #10b981;
+}
+
+html.dark .header-btn-copy {
+  color: #06b6d4;
+  border-color: #0891b2;
+}
+
+html.dark .header-btn-copy:hover {
+  background: #164e63;
+  border-color: #06b6d4;
+}
+
+html.dark .header-btn-copied {
+  color: #10b981;
+  border-color: #059669;
+  background: #064e3b;
+}
+
+html.dark .header-btn-danger {
+  color: #ef4444;
+  border-color: #dc2626;
+}
+
+html.dark .header-btn-danger:hover {
+  background: #7f1d1d;
+  border-color: #ef4444;
+}
+
+/* 代码内容区 */
+.code-block-content {
+  position: relative;
+  background: #1e1e1e;
+  max-height: 500px;
+  overflow: auto;
+}
+
+/* 透明编辑层 - 覆盖在高亮层上方 */
+.code-textarea-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  padding-left: 64px; /* 留出行号空间 */
+  font-size: 13px;
+  line-height: 1.5;
+  color: transparent; /* 文字透明 */
+  caret-color: #d4d4d4; /* 光标可见 */
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Courier New', monospace;
+  tab-size: 2;
+  white-space: pre;
+  overflow-wrap: normal;
+  z-index: 2;
+}
+
+.code-textarea-overlay::placeholder {
+  color: transparent;
+}
+
+/* 暗色模式 */
+html.dark .enhanced-code-block {
+  background: #1e1e1e;
+  border-color: #3e3e42;
+}
+
+html.dark .code-block-header {
+  background: #252526;
+  border-color: #3e3e42;
+}
+
+html.dark .code-block-label {
+  color: #cccccc;
+}
+
+html.dark .language-selector {
+  background: #3c3c3c;
+  border-color: #5a5a5a;
+  color: #cccccc;
+}
+
+html.dark .header-btn {
+  background: #3c3c3c;
+  border-color: #5a5a5a;
+  color: #cccccc;
+}
+
+html.dark .header-btn:hover {
+  background: #505050;
+  border-color: #6a6a6a;
+}
+
+/* 滚动条样式 */
+.code-block-content::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.code-block-content::-webkit-scrollbar-track {
+  background: #252526;
+}
+
+.code-block-content::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 5px;
+}
+
+.code-block-content::-webkit-scrollbar-thumb:hover {
+  background: #4e4e4e;
+}

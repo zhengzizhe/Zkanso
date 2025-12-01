@@ -1,0 +1,1233 @@
+/* ========================================
+   统一的块级元素样式 - Crafted Docs 风格
+   基于 crafted-docs-renderer 的精美设计
+   一字不差的 Tailwind CSS 转纯 CSS 实现
+   ======================================== */
+
+/* ========= 1. 标题样式 (Headings H1-H6) ========= */
+
+/* H1 - 巨大黑体标题 */
+.ProseMirror h1 {
+  font-size: 3rem; /* text-5xl */
+  font-weight: 900; /* font-black */
+  letter-spacing: -0.025em; /* tracking-tight */
+  color: #111827; /* text-gray-900 */
+  margin-bottom: 1.5rem; /* mb-6 */
+  margin-top: 2.5rem; /* mt-10 */
+  line-height: 1.25; /* leading-tight */
+  position: relative;
+}
+
+.ProseMirror h1::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 0.5rem;
+  width: 0.375rem; /* w-1.5 */
+  height: 3rem; /* h-12 */
+  background: #3b82f6; /* bg-blue-500 */
+  border-radius: 9999px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ProseMirror h1:hover::before {
+  opacity: 1;
+}
+
+/* H2 - 大标题带下划线 */
+.ProseMirror h2 {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  letter-spacing: -0.025em; /* tracking-tight */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-4 */
+  margin-top: 2rem; /* mt-8 */
+  padding-bottom: 0.75rem; /* pb-3 */
+  border-bottom: 1px solid #f3f4f6; /* border-gray-100 */
+}
+
+/* H3 - 中标题带圆点 */
+.ProseMirror h3 {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 0.75rem; /* mb-3 */
+  margin-top: 1.5rem; /* mt-6 */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ProseMirror h3::before {
+  content: '';
+  width: 0.375rem; /* w-1.5 */
+  height: 0.375rem; /* h-1.5 */
+  border-radius: 9999px;
+  background: #a78bfa; /* bg-indigo-400 */
+  flex-shrink: 0;
+}
+
+/* H4 - 紫色标题带#符号 */
+.ProseMirror h4 {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #4f46e5; /* text-indigo-600 */
+  margin-bottom: 0.5rem; /* mb-2 */
+  margin-top: 1rem; /* mt-4 */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* H5 - 大写标签样式 */
+.ProseMirror h5 {
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 700; /* font-bold */
+  color: #6b7280; /* text-gray-500 */
+  text-transform: uppercase;
+  letter-spacing: 0.1em; /* tracking-widest */
+  margin-bottom: 0.5rem; /* mb-2 */
+  margin-top: 1rem; /* mt-4 */
+  background: #f9fafb; /* bg-gray-50 */
+  display: inline-block;
+  padding: 0.25rem 0.5rem; /* px-2 py-1 */
+  border-radius: 0.25rem;
+}
+
+/* H6 - 小型大写标题 */
+.ProseMirror h6 {
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 700; /* font-bold */
+  color: #9ca3af; /* text-gray-400 */
+  text-transform: uppercase;
+  letter-spacing: 0.1em; /* tracking-widest */
+  margin-bottom: 0.25rem; /* mb-1 */
+  margin-top: 0.75rem; /* mt-3 */
+}
+
+/* ========= 2. 段落样式 (Paragraphs) ========= */
+.ProseMirror p {
+  color: #4b5563; /* text-gray-600 */
+  line-height: 1.75rem; /* leading-7 */
+  font-size: 16px;
+  margin-bottom: 0.5rem; /* mb-2 */
+  font-weight: 400; /* font-normal */
+  letter-spacing: 0.025em; /* tracking-wide */
+}
+
+/* 行内代码 */
+.ProseMirror code {
+  padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
+  border-radius: 0.375rem; /* rounded-md */
+  background: #e5e7eb; /* bg-gray-200 */
+  color: #1f2937; /* text-gray-800 */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem; /* text-sm */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+}
+
+/* ========= 3. 引用块样式 (Blockquote) ========= */
+.ProseMirror blockquote {
+  position: relative;
+  margin: 2rem 0; /* my-8 */
+  padding-left: 1.5rem; /* pl-6 */
+  padding-top: 0.5rem; /* py-2 */
+  padding-bottom: 0.5rem;
+}
+
+.ProseMirror blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, #3b82f6, #a855f7); /* from-blue-500 to-purple-500 */
+  border-radius: 9999px;
+  opacity: 0.3;
+  transition: opacity 0.2s;
+}
+
+.ProseMirror blockquote:hover::before {
+  opacity: 1;
+}
+
+.ProseMirror blockquote > p {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 400; /* font-medium */
+  color: #1f2937; /* text-gray-800 */
+  line-height: 1.5; /* leading-relaxed */
+  font-style: italic;
+  margin: 0;
+}
+
+.ProseMirror blockquote > p::before {
+  content: '"';
+}
+
+.ProseMirror blockquote > p::after {
+  content: '"';
+}
+
+/* 引用来源 */
+.ProseMirror blockquote cite {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem; /* mt-3 */
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* text-gray-500 */
+  font-weight: 600; /* font-semibold */
+  letter-spacing: 0.025em; /* tracking-wide */
+  text-transform: uppercase;
+  font-style: normal; /* not-italic */
+}
+
+.ProseMirror blockquote cite::before {
+  content: '';
+  height: 1px;
+  width: 2rem; /* w-8 */
+  background: #d1d5db; /* bg-gray-300 */
+}
+
+/* ========= 4. 列表样式 (Lists) ========= */
+
+/* 无序列表 */
+.ProseMirror ul:not([data-type="taskList"]) {
+  margin-bottom: 0.25rem; /* mb-1 */
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-left: 1.25rem; /* ml-5 */
+  color: #374151; /* text-gray-700 */
+}
+
+.ProseMirror ul:not([data-type="taskList"]) li {
+  padding-left: 0.5rem; /* pl-2 */
+  line-height: 1.75rem; /* leading-7 */
+  margin: 0.25rem 0;
+}
+
+.ProseMirror ul:not([data-type="taskList"]) li::marker {
+  color: #9ca3af; /* marker:text-gray-400 */
+  font-weight: 600; /* marker:font-semibold */
+}
+
+/* 有序列表 */
+.ProseMirror ol {
+  margin-bottom: 0.25rem; /* mb-1 */
+  list-style-type: decimal;
+  list-style-position: outside;
+  margin-left: 1.25rem; /* ml-5 */
+  color: #374151; /* text-gray-700 */
+}
+
+.ProseMirror ol li {
+  padding-left: 0.5rem; /* pl-2 */
+  line-height: 1.75rem; /* leading-7 */
+  margin: 0.25rem 0;
+}
+
+.ProseMirror ol li::marker {
+  color: #9ca3af; /* marker:text-gray-400 */
+  font-weight: 600; /* marker:font-semibold */
+}
+
+/* ========= 5. 任务列表 (Task Lists) ========= */
+/* 基于 crafted-docs-renderer 的任务列表样式 */
+.ProseMirror ul[data-type="taskList"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem; /* space-y-0.5 */
+  margin-bottom: 0.25rem; /* mb-1 */
+  list-style: none;
+  padding-left: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem; /* 复选框和文字之间的间距 */
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
+  margin-left: -0.75rem; /* -ml-3 */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid transparent;
+  list-style: none;
+}
+
+.ProseMirror ul[data-type="taskList"] > li:hover {
+  background: #f9fafb; /* bg-gray-50 */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
+
+/* 已完成任务不显示悬停效果 */
+.ProseMirror ul[data-type="taskList"] > li.completed {
+  opacity: 0.6;
+}
+
+.ProseMirror ul[data-type="taskList"] > li.completed:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* 复选框样式 */
+.ProseMirror ul[data-type="taskList"] input[type="checkbox"] {
+  margin-top: 0.125rem; /* mt-0.5 */
+  margin-right: 0.75rem; /* mr-3 */
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #d1d5db; /* text-gray-300 */
+  border-radius: 0.25rem;
+  background: white;
+  position: relative;
+}
+
+.ProseMirror ul[data-type="taskList"] input[type="checkbox"]:hover {
+  transform: scale(1.1);
+  border-color: #60a5fa; /* text-blue-400 */
+}
+
+.ProseMirror ul[data-type="taskList"] input[type="checkbox"]:checked {
+  background: #3b82f6; /* bg-blue-500 fill-blue-50 */
+  border-color: #3b82f6; /* text-blue-500 */
+}
+
+.ProseMirror ul[data-type="taskList"] input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 任务文本 */
+.ProseMirror ul[data-type="taskList"] label {
+  flex-shrink: 0;
+  user-select: none;
+  cursor: pointer;
+}
+
+.ProseMirror ul[data-type="taskList"] > li > div {
+  flex: 1;
+  color: #374151; /* text-gray-700 */
+  line-height: 1.625; /* leading-relaxed */
+  font-weight: 500; /* font-medium */
+  transition: all 0.2s;
+}
+
+.ProseMirror ul[data-type="taskList"] li.completed > div {
+  text-decoration: line-through;
+  text-decoration-color: #d1d5db; /* decoration-gray-300 */
+  color: #9ca3af; /* text-gray-400 */
+  font-weight: 400;
+}
+
+/* ========= 6. 表格样式 (Tables) ========= */
+.ProseMirror .tableWrapper {
+  position: relative;
+  margin: 2rem 0; /* my-8 */
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+  background: white; /* bg-white */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-card */
+  overflow: hidden;
+  ring: 1px;
+  ring-color: rgba(0, 0, 0, 0.05); /* ring-black/5 */
+}
+
+.ProseMirror .tableWrapper:hover .table-badge {
+  opacity: 1;
+}
+
+/* 表格右上角标签 */
+.ProseMirror .table-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem; /* p-2 */
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.ProseMirror .table-badge > div {
+  background: rgba(17, 24, 39, 0.05); /* bg-gray-900/5 */
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2); /* border-white/20 */
+  border-radius: 0.25rem; /* rounded */
+  padding: 0.375rem; /* p-1.5 */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  font-size: 0.625rem; /* text-[10px] */
+  font-weight: 700; /* font-bold */
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* tracking-wider */
+  color: #6b7280; /* text-gray-500 */
+}
+
+.ProseMirror table {
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.ProseMirror table thead {
+  background: rgba(249, 250, 251, 0.8); /* bg-gray-50/80 */
+}
+
+.ProseMirror table thead tr {
+  border-bottom: 1px solid #f3f4f6; /* divide-gray-100 */
+}
+
+.ProseMirror table th {
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  text-align: left;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 700; /* font-bold */
+  color: #6b7280; /* text-gray-500 */
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* tracking-wider */
+}
+
+.ProseMirror table tbody {
+  background: white; /* bg-white */
+}
+
+.ProseMirror table tbody tr {
+  transition: background-color 0.2s; /* transition-colors */
+  border-bottom: 1px solid #f9fafb; /* divide-gray-50 */
+}
+
+.ProseMirror table tbody tr:hover {
+  background: rgba(239, 246, 255, 0.3); /* bg-blue-50/30 */
+}
+
+.ProseMirror table td {
+  padding: 0.875rem 1.5rem; /* px-6 py-3.5 */
+  white-space: nowrap;
+  font-size: 0.875rem; /* text-sm */
+  color: #4b5563; /* text-gray-600 */
+  transition: color 0.2s;
+}
+
+.ProseMirror table tbody tr:hover td {
+  color: #111827; /* text-gray-900 */
+}
+
+/* ========= 7. 代码块样式 (Code Block) ========= */
+.ProseMirror pre {
+  position: relative;
+  margin: 2rem 0; /* my-8 */
+  border-radius: 0.75rem; /* rounded-xl */
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl shadow-black/10 */
+  border: 1px solid #1f2937; /* border-gray-800 */
+  background: #1e1e1e; /* bg-[#1e1e1e] */
+  ring: 4px;
+  ring-color: rgba(229, 231, 235, 0.5); /* ring-gray-200/50 */
+}
+
+/* macOS 窗口标题栏 */
+.ProseMirror pre::before {
+  content: '';
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  background: #252526; /* bg-[#252526] */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* border-white/5 */
+}
+
+.ProseMirror pre code {
+  display: block;
+  padding: 1.25rem; /* p-5 */
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px; /* text-[13px] */
+  line-height: 1.5; /* leading-relaxed */
+  color: #d4d4d4; /* text-[#d4d4d4] */
+  background: #1e1e1e;
+  border: none;
+}
+
+/* ========= 8. 链接卡片 (Link Card) ========= */
+.ProseMirror a.link-card {
+  display: flex;
+  width: 100%;
+  max-width: 42rem; /* max-w-2xl */
+  background: white; /* bg-white */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+  border-radius: 0.75rem; /* rounded-xl */
+  overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  ring: 1px;
+  ring-color: rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+  text-decoration: none;
+  margin: 1.5rem 0; /* my-6 */
+}
+
+.ProseMirror a.link-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  border-color: #93c5fd; /* border-blue-300 */
+}
+
+/* 链接卡片图标区域 */
+.ProseMirror a.link-card .link-icon {
+  width: 8rem; /* w-32 */
+  background: #f9fafb; /* bg-gray-50 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #d1d5db; /* text-gray-300 */
+  transition: all 0.3s;
+  flex-shrink: 0;
+  border-right: 1px solid #f3f4f6; /* border-gray-100 */
+  position: relative;
+  overflow: hidden;
+}
+
+.ProseMirror a.link-card:hover .link-icon {
+  background: #eff6ff; /* bg-blue-50 */
+  color: #60a5fa; /* text-blue-400 */
+}
+
+.ProseMirror a.link-card .link-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, transparent, rgba(0, 0, 0, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.ProseMirror a.link-card:hover .link-icon::before {
+  opacity: 1;
+}
+
+/* 链接卡片内容区域 */
+.ProseMirror a.link-card .link-content {
+  padding: 1rem; /* p-4 */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.ProseMirror a.link-card .link-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem; /* mb-1 */
+}
+
+.ProseMirror a.link-card .link-title span {
+  font-size: 1rem; /* text-base */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.ProseMirror a.link-card:hover .link-title span {
+  color: #2563eb; /* text-blue-600 */
+}
+
+.ProseMirror a.link-card .link-url {
+  font-size: 0.75rem; /* text-xs */
+  color: #9ca3af; /* text-gray-400 */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ProseMirror a.link-card .link-description {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 0.75rem; /* text-xs */
+  color: #6b7280; /* text-gray-500 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+/* ========= 9. 高亮文本 (Highlight) ========= */
+.ProseMirror mark,
+.ProseMirror .highlight {
+  margin: 1rem 0; /* my-4 */
+  padding: 1rem 1.25rem; /* px-5 py-4 */
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px solid;
+  background: linear-gradient(to bottom right, var(--highlight-from), var(--highlight-to));
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 400; /* font-medium */
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  backdrop-filter: blur(4px); /* backdrop-blur-sm */
+}
+
+/* 黄色高亮 */
+.ProseMirror mark.yellow,
+.ProseMirror .highlight.yellow {
+  --highlight-from: #fefce8; /* from-yellow-50 */
+  --highlight-to: rgba(254, 243, 199, 0.5); /* to-orange-50/50 */
+  color: #713f12; /* text-yellow-900 */
+  border-color: rgba(254, 240, 138, 0.6); /* border-yellow-200/60 */
+  box-shadow: 0 4px 14px 0 rgba(254, 243, 199, 0.5); /* shadow-yellow-100/50 */
+}
+
+/* 紫色高亮 */
+.ProseMirror mark.purple,
+.ProseMirror .highlight.purple {
+  --highlight-from: #faf5ff; /* from-purple-50 */
+  --highlight-to: rgba(238, 242, 255, 0.5); /* to-indigo-50/50 */
+  color: #581c87; /* text-purple-900 */
+  border-color: rgba(233, 213, 255, 0.6); /* border-purple-200/60 */
+  box-shadow: 0 4px 14px 0 rgba(243, 232, 255, 0.5); /* shadow-purple-100/50 */
+}
+
+/* 绿色高亮 */
+.ProseMirror mark.green,
+.ProseMirror .highlight.green {
+  --highlight-from: #ecfdf5; /* from-emerald-50 */
+  --highlight-to: rgba(240, 253, 250, 0.5); /* to-teal-50/50 */
+  color: #064e3b; /* text-emerald-900 */
+  border-color: rgba(167, 243, 208, 0.6); /* border-emerald-200/60 */
+  box-shadow: 0 4px 14px 0 rgba(209, 250, 229, 0.5); /* shadow-emerald-100/50 */
+}
+
+/* 红色高亮 */
+.ProseMirror mark.red,
+.ProseMirror .highlight.red {
+  --highlight-from: #fef2f2; /* from-red-50 */
+  --highlight-to: rgba(255, 241, 242, 0.5); /* to-rose-50/50 */
+  color: #7f1d1d; /* text-red-900 */
+  border-color: rgba(254, 202, 202, 0.6); /* border-red-200/60 */
+  box-shadow: 0 4px 14px 0 rgba(254, 226, 226, 0.5); /* shadow-red-100/50 */
+}
+
+/* 蓝色高亮 */
+.ProseMirror mark.blue,
+.ProseMirror .highlight.blue {
+  --highlight-from: #eff6ff; /* from-blue-50 */
+  --highlight-to: rgba(240, 249, 255, 0.5); /* to-sky-50/50 */
+  color: #1e3a8a; /* text-blue-900 */
+  border-color: rgba(191, 219, 254, 0.6); /* border-blue-200/60 */
+  box-shadow: 0 4px 14px 0 rgba(219, 234, 254, 0.5); /* shadow-blue-100/50 */
+}
+
+/* 高亮块图标 */
+.ProseMirror mark::before,
+.ProseMirror .highlight::before {
+  content: 'ℹ'; /* Info icon */
+  margin-top: 0.125rem; /* mt-0.5 */
+  flex-shrink: 0;
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.5); /* bg-white/50 */
+  padding: 0.25rem;
+  border-radius: 0.375rem; /* rounded-md */
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========= 10. 分割线 (Divider) ========= */
+.ProseMirror hr {
+  padding: 2.5rem 0; /* py-10 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  border: none;
+  margin: 2rem 0;
+}
+
+.ProseMirror hr:hover {
+  opacity: 1;
+}
+
+.ProseMirror hr::before,
+.ProseMirror hr::after {
+  content: '';
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, #e5e7eb, transparent); /* from-transparent via-gray-200 to-transparent */
+  transition: all 0.2s;
+}
+
+.ProseMirror hr:hover::before,
+.ProseMirror hr:hover::after {
+  background: linear-gradient(to right, transparent, #d1d5db, transparent); /* via-gray-300 */
+}
+
+/* 分割线中心点 */
+.ProseMirror hr::after {
+  content: '•••'; /* More horizontal dots */
+  width: auto;
+  height: auto;
+  background: white; /* bg-white */
+  padding: 0 0.5rem; /* px-2 */
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  color: #e5e7eb; /* text-gray-200 */
+  margin: 0 1rem; /* mx-4 */
+  font-size: 16px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.ProseMirror hr:hover::after {
+  color: #c4b5fd; /* text-indigo-300 */
+  border-color: #e0e7ff; /* border-indigo-100 */
+}
+
+/* ========= 11. 图片 (Images) ========= */
+.ProseMirror img,
+.ProseMirror .image-block {
+  margin: 2.5rem 0; /* my-10 */
+  position: relative;
+  user-select: none;
+}
+
+.ProseMirror .image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem; /* rounded-2xl */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-float */
+  background: #f3f4f6; /* bg-gray-100 */
+  ring: 1px;
+  ring-color: rgba(0, 0, 0, 0.05); /* ring-black/5 */
+  aspect-ratio: 16/9; /* aspect-video */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProseMirror img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 0.7s;
+}
+
+.ProseMirror .image-wrapper:hover img {
+  transform: scale(1.02);
+}
+
+/* 图片控制按钮 */
+.ProseMirror .image-controls {
+  position: absolute;
+  top: 1rem; /* top-4 */
+  right: 1rem; /* right-4 */
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 20;
+}
+
+.ProseMirror .image-wrapper:hover .image-controls {
+  opacity: 1;
+}
+
+.ProseMirror .image-controls button {
+  padding: 0.5rem; /* p-2 */
+  background: rgba(0, 0, 0, 0.5); /* bg-black/50 */
+  backdrop-filter: blur(12px); /* backdrop-blur-md */
+  color: white; /* text-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.ProseMirror .image-controls button:hover {
+  background: rgba(0, 0, 0, 0.7); /* bg-black/70 */
+}
+
+/* 图片说明 */
+.ProseMirror .image-caption {
+  margin-top: 1rem; /* mt-4 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #6b7280; /* text-gray-500 */
+}
+
+.ProseMirror .image-caption::before {
+  content: '';
+  width: 0.375rem; /* w-1.5 */
+  height: 0.375rem; /* h-1.5 */
+  border-radius: 9999px;
+  background: #a78bfa; /* bg-indigo-400 */
+}
+
+.ProseMirror .image-caption p {
+  text-align: center;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 400; /* font-medium */
+  opacity: 0.8;
+  letter-spacing: 0.025em; /* tracking-wide */
+  margin: 0;
+}
+
+/* ========= 12. 折叠块 (Details) ========= */
+.ProseMirror details {
+  margin: 1rem 0; /* my-4 */
+  background: white; /* bg-white */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+  border-radius: 0.75rem; /* rounded-xl */
+  overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  transition: all 0.3s;
+}
+
+.ProseMirror details:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+}
+
+.ProseMirror details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 1rem; /* p-4 */
+  font-weight: 400; /* font-medium */
+  color: #374151; /* text-gray-700 */
+  list-style: none;
+  user-select: none;
+  background: rgba(249, 250, 251, 0.3); /* bg-gray-50/30 */
+  transition: all 0.2s;
+}
+
+.ProseMirror details summary::-webkit-details-marker {
+  display: none;
+}
+
+.ProseMirror details summary:hover {
+  background: #f9fafb; /* bg-gray-50 */
+}
+
+.ProseMirror details[open] summary {
+  background: rgba(239, 246, 255, 0.3); /* bg-blue-50/30 */
+}
+
+/* 折叠块箭头 */
+.ProseMirror details summary::before {
+  content: '▶'; /* ChevronRight */
+  display: inline-block;
+  padding: 0.25rem;
+  border-radius: 0.375rem; /* rounded-md */
+  background: white; /* bg-white */
+  border: 1px solid #e5e7eb; /* border-gray-200 */
+  color: #9ca3af; /* text-gray-400 */
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  margin-right: 0.75rem; /* gap-3 */
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProseMirror details[open] summary::before {
+  transform: rotate(90deg);
+  color: #3b82f6; /* text-blue-500 */
+  border-color: #bfdbfe; /* border-blue-200 */
+}
+
+.ProseMirror details[open] summary span {
+  color: #1e3a8a; /* text-blue-900 */
+  font-weight: 600; /* font-semibold */
+}
+
+/* 折叠块内容 */
+.ProseMirror details > div {
+  padding: 1.25rem; /* p-5 */
+  padding-left: 3.5rem; /* pl-14 */
+  color: #4b5563; /* text-gray-600 */
+  background: white; /* bg-white */
+  border-top: 1px solid #f3f4f6; /* border-gray-100 */
+  line-height: 1.5; /* leading-relaxed */
+  font-size: 0.875rem; /* text-sm */
+}
+
+/* ========= 13. Callout 提示框 ========= */
+.ProseMirror .callout {
+  position: relative;
+  padding: 1.25rem; /* p-5 */
+  border-radius: 1rem; /* rounded-2xl */
+  border: 1px solid;
+  backdrop-filter: blur(4px); /* backdrop-blur-sm */
+  margin: 1.5rem 0; /* my-6 */
+  display: flex;
+  gap: 1.25rem; /* gap-5 */
+  transition: transform 0.3s;
+}
+
+.ProseMirror .callout:hover {
+  transform: scale(1.01);
+}
+
+/* Callout 装饰光晕 */
+.ProseMirror .callout::after {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 6rem; /* w-24 */
+  height: 6rem; /* h-24 */
+  background: white; /* bg-white */
+  opacity: 0.2;
+  filter: blur(2rem); /* blur-2xl */
+  border-radius: 9999px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.ProseMirror .callout:hover::after {
+  opacity: 0.3;
+}
+
+/* Callout 图标 */
+.ProseMirror .callout-icon {
+  flex-shrink: 0;
+  width: 2.5rem; /* w-10 */
+  height: 2.5rem; /* h-10 */
+  border-radius: 0.75rem; /* rounded-xl */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); /* shadow-inner */
+}
+
+/* Callout 内容 */
+.ProseMirror .callout-content {
+  flex: 1;
+}
+
+.ProseMirror .callout-title {
+  font-weight: 700; /* font-bold */
+  margin-bottom: 0.375rem; /* mb-1.5 */
+  font-size: 15px; /* text-[15px] */
+  letter-spacing: -0.025em; /* tracking-tight */
+}
+
+.ProseMirror .callout-text {
+  font-size: 14px; /* text-[14px] */
+  line-height: 1.5; /* leading-relaxed */
+}
+
+/* Info Callout */
+.ProseMirror .callout.info {
+  background: rgba(239, 246, 255, 0.5); /* bg-blue-50/50 */
+  border-color: rgba(191, 219, 254, 0.6); /* border-blue-100/60 */
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.1); /* shadow-[0_4px_14px_0_rgba(59,130,246,0.1)] */
+}
+
+.ProseMirror .callout.info .callout-icon {
+  background: #dbeafe; /* bg-blue-100 */
+  color: #2563eb; /* text-blue-600 */
+}
+
+.ProseMirror .callout.info .callout-title {
+  color: #1e3a8a; /* text-blue-900 */
+}
+
+.ProseMirror .callout.info .callout-text {
+  color: rgba(30, 58, 138, 0.8); /* text-blue-800/80 */
+}
+
+/* Warning Callout */
+.ProseMirror .callout.warning {
+  background: rgba(254, 252, 232, 0.5); /* bg-amber-50/50 */
+  border-color: rgba(254, 243, 199, 0.6); /* border-amber-100/60 */
+  box-shadow: 0 4px 14px 0 rgba(251, 191, 36, 0.1); /* shadow-[0_4px_14px_0_rgba(251,191,36,0.1)] */
+}
+
+.ProseMirror .callout.warning .callout-icon {
+  background: #fef3c7; /* bg-amber-100 */
+  color: #d97706; /* text-amber-600 */
+}
+
+.ProseMirror .callout.warning .callout-title {
+  color: #78350f; /* text-amber-900 */
+}
+
+.ProseMirror .callout.warning .callout-text {
+  color: rgba(120, 53, 15, 0.8); /* text-amber-800/80 */
+}
+
+/* Success Callout */
+.ProseMirror .callout.success {
+  background: rgba(236, 253, 245, 0.5); /* bg-emerald-50/50 */
+  border-color: rgba(167, 243, 208, 0.6); /* border-emerald-100/60 */
+  box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.1); /* shadow-[0_4px_14px_0_rgba(16,185,129,0.1)] */
+}
+
+.ProseMirror .callout.success .callout-icon {
+  background: #d1fae5; /* bg-emerald-100 */
+  color: #059669; /* text-emerald-600 */
+}
+
+.ProseMirror .callout.success .callout-title {
+  color: #064e3b; /* text-emerald-900 */
+}
+
+.ProseMirror .callout.success .callout-text {
+  color: rgba(6, 78, 59, 0.8); /* text-emerald-800/80 */
+}
+
+/* Error Callout */
+.ProseMirror .callout.error {
+  background: rgba(254, 242, 242, 0.5); /* bg-red-50/50 */
+  border-color: rgba(254, 202, 202, 0.6); /* border-red-100/60 */
+  box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.1); /* shadow-[0_4px_14px_0_rgba(239,68,68,0.1)] */
+}
+
+.ProseMirror .callout.error .callout-icon {
+  background: #fee2e2; /* bg-red-100 */
+  color: #dc2626; /* text-red-600 */
+}
+
+.ProseMirror .callout.error .callout-title {
+  color: #7f1d1d; /* text-red-900 */
+}
+
+.ProseMirror .callout.error .callout-text {
+  color: rgba(127, 29, 29, 0.8); /* text-red-800/80 */
+}
+
+/* Neutral Callout */
+.ProseMirror .callout.neutral {
+  background: rgba(249, 250, 251, 0.8); /* bg-gray-50/80 */
+  border-color: rgba(229, 231, 235, 0.6); /* border-gray-200/60 */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
+
+.ProseMirror .callout.neutral .callout-icon {
+  background: #e5e7eb; /* bg-gray-200 */
+  color: #6b7280; /* text-gray-500 */
+}
+
+.ProseMirror .callout.neutral .callout-title {
+  color: #111827; /* text-gray-900 */
+}
+
+.ProseMirror .callout.neutral .callout-text {
+  color: #4b5563; /* text-gray-600 */
+}
+
+/* ========= 14. 占位符 (Placeholder) ========= */
+.ProseMirror .placeholder-block {
+  margin: 1.5rem 0; /* my-6 */
+  padding: 1rem; /* p-4 */
+  border-radius: 0.75rem; /* rounded-xl */
+  border: 1px dashed #e5e7eb; /* border-dashed border-gray-200 */
+  background: rgba(249, 250, 251, 0.5); /* bg-gray-50/50 */
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* animate-pulse */
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.4; }
+}
+
+.ProseMirror .placeholder-content {
+  display: flex;
+  gap: 1rem; /* gap-4 */
+  align-items: center;
+}
+
+.ProseMirror .placeholder-icon {
+  width: 2.5rem; /* w-10 */
+  height: 2.5rem; /* h-10 */
+  background: #e5e7eb; /* bg-gray-200 */
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.ProseMirror .placeholder-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+.ProseMirror .placeholder-line {
+  height: 0.5rem; /* h-2 */
+  background: #e5e7eb; /* bg-gray-200 */
+  border-radius: 0.25rem; /* rounded */
+}
+
+.ProseMirror .placeholder-line:first-child {
+  width: 33.333333%; /* w-1/3 */
+}
+
+.ProseMirror .placeholder-line:last-child {
+  width: 25%; /* w-1/4 */
+}
+
+/* ========= 15. 选中状态 (Selection) ========= */
+.ProseMirror-selectednode {
+  outline: 3px solid #3b82f6 !important; /* ring-2 ring-blue-400/30 */
+  outline-offset: 4px;
+  border-radius: 0.75rem;
+}
+
+/* 块级选中 */
+.ProseMirror .block-selected {
+  background: rgba(239, 246, 255, 0.4) !important; /* bg-blue-50/40 */
+  ring: 2px;
+  ring-color: rgba(96, 165, 250, 0.3); /* ring-blue-400/30 */
+  margin-left: -1rem;
+  padding-left: 1rem;
+  z-index: 10;
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.05); /* shadow-lg shadow-blue-500/5 */
+}
+
+/* 选中指示条 */
+.ProseMirror .block-selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem; /* top-2 */
+  bottom: 0.5rem; /* bottom-2 */
+  width: 4px; /* w-[4px] */
+  background: #3b82f6; /* bg-blue-500 */
+  border-radius: 0 9999px 9999px 0; /* rounded-r-full */
+}
+
+/* 深色模式 */
+html.dark .ProseMirror h1,
+html.dark .ProseMirror h2,
+html.dark .ProseMirror h3,
+html.dark .ProseMirror h4 {
+  color: #f3f4f6; /* text-gray-100 */
+}
+
+html.dark .ProseMirror h5,
+html.dark .ProseMirror h6 {
+  color: #9ca3af; /* text-gray-400 */
+}
+
+html.dark .ProseMirror p {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+html.dark .ProseMirror code {
+  background: #374151; /* bg-gray-700 */
+  color: #f3f4f6; /* text-gray-100 */
+  border-color: #4b5563; /* border-gray-600 */
+}
+
+html.dark .ProseMirror blockquote::before {
+  background: linear-gradient(to bottom, #60a5fa, #c084fc); /* from-blue-400 to-purple-400 */
+}
+
+html.dark .ProseMirror blockquote > p {
+  color: #f3f4f6; /* text-gray-100 */
+}
+
+html.dark .ProseMirror blockquote cite {
+  color: #9ca3af; /* text-gray-400 */
+}
+
+html.dark .ProseMirror blockquote cite::before {
+  background: #6b7280; /* bg-gray-500 */
+}
+
+html.dark .ProseMirror table {
+  background: #1f2937; /* bg-gray-800 */
+  border-color: #374151; /* border-gray-700 */
+}
+
+html.dark .ProseMirror table th {
+  background: #111827; /* bg-gray-900 */
+  color: #9ca3af; /* text-gray-400 */
+}
+
+html.dark .ProseMirror table td {
+  color: #d1d5db; /* text-gray-300 */
+}
+
+html.dark .ProseMirror table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.1); /* bg-blue-500/10 */
+}
+
+html.dark .ProseMirror table tbody tr:hover td {
+  color: #f3f4f6; /* text-gray-100 */
+}
+
+html.dark .ProseMirror a.link-card {
+  background: #1f2937; /* bg-gray-800 */
+  border-color: #374151; /* border-gray-700 */
+}
+
+html.dark .ProseMirror a.link-card .link-icon {
+  background: #111827; /* bg-gray-900 */
+  border-color: #374151; /* border-gray-700 */
+}
+
+html.dark .ProseMirror a.link-card .link-title span {
+  color: #f3f4f6; /* text-gray-100 */
+}
+
+html.dark .ProseMirror a.link-card:hover .link-title span {
+  color: #60a5fa; /* text-blue-400 */
+}
+
+html.dark .ProseMirror details {
+  background: #1f2937; /* bg-gray-800 */
+  border-color: #374151; /* border-gray-700 */
+}
+
+html.dark .ProseMirror details summary {
+  background: rgba(17, 24, 39, 0.3); /* bg-gray-900/30 */
+  color: #d1d5db; /* text-gray-300 */
+}
+
+html.dark .ProseMirror details summary:hover {
+  background: #111827; /* bg-gray-900 */
+}
+
+html.dark .ProseMirror details[open] summary {
+  background: rgba(30, 58, 138, 0.2); /* bg-blue-900/20 */
+}
+
+html.dark .ProseMirror details > div {
+  background: #1f2937; /* bg-gray-800 */
+  color: #9ca3af; /* text-gray-400 */
+  border-top-color: #374151; /* border-gray-700 */
+}

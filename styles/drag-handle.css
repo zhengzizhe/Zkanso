@@ -1,0 +1,85 @@
+/* 拖拽手柄样式 - GlobalDragHandle */
+
+/* 为拖拽手柄预留空间 */
+.tiptap-editor {
+  padding-left: 48px !important;
+  position: relative;
+}
+
+/* 拖拽手柄容器 */
+.drag-handle {
+  position: absolute;
+  left: 8px; /* 相对于编辑器容器的左边距 */
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex !important; /* 始终显示 */
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  opacity: 0.3; /* 默认半透明 */
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  color: #9ca3af;
+  border-radius: 4px;
+  z-index: 10;
+  background: transparent;
+}
+
+.drag-handle:hover {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #6b7280;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+/* 当鼠标悬停在块上时显示手柄 */
+.ProseMirror > *:hover ~ .drag-handle,
+.ProseMirror .has-focus ~ .drag-handle,
+.drag-handle:hover {
+  opacity: 0.6;
+}
+
+.drag-handle:hover {
+  opacity: 1 !important;
+}
+
+/* 拖拽手柄图标使用内联 SVG */
+.drag-handle svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 深色模式 */
+.dark .drag-handle {
+  color: #6b7280;
+}
+
+.dark .drag-handle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #9ca3af;
+}
+
+.dark .drag-handle:active {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+/* Dropcursor 样式优化 */
+.ProseMirror-dropcursor {
+  border-top: 2px solid #6366f1 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  margin-top: -2px !important;
+  pointer-events: none;
+}
+
+/* Gapcursor 样式 */
+.ProseMirror-gapcursor:after {
+  border-top: 2px solid #6366f1 !important;
+}
