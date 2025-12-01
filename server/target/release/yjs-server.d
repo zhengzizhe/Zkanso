@@ -1,1 +1,1 @@
-/Users/zhengzizhe/IdeaProjects/Zkanso/server/target/release/yjs-server: /Users/zhengzizhe/IdeaProjects/Zkanso/server/src/main.rs
+/Users/zhengzizhe/Documents/GitHub/Zkanso/server/target/release/yjs-server: /Users/zhengzizhe/Documents/GitHub/Zkanso/server/src/main.rs

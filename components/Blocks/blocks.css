@@ -1,0 +1,536 @@
+/**
+ * Kanso 区块样式系统
+ * 基于 8px 网格设计
+ */
+
+/* ===== 通用区块样式 ===== */
+
+.kanso-block-wrapper {
+  position: relative;
+  margin: 4px 0;
+  transition: background-color 150ms ease;
+}
+
+.kanso-block-wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 4px;
+}
+
+.kanso-drag-handle {
+  user-select: none;
+}
+
+.kanso-drag-handle:active {
+  cursor: grabbing !important;
+}
+
+/* ===== 段落 ===== */
+
+/* 段落容器 */
+.kanso-paragraph-container {
+  position: relative;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+/* 增强版段落 */
+.kanso-paragraph-enhanced {
+  position: relative;
+  caret-color: #2383E2;  /* Notion 蓝 */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;  /* 支持软换行（Shift+Enter）*/
+  box-sizing: border-box;
+}
+
+/* 占位符 - 默认状态 */
+.kanso-paragraph-enhanced[data-is-empty="true"]::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #9CA3AF;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+  user-select: none;
+}
+
+/* 占位符 - 焦点状态（Craft 风格 - 变淡但保留）*/
+.kanso-paragraph-enhanced[data-is-focused="true"][data-is-empty="true"]::before {
+  opacity: 0.3;
+}
+
+/* 选中文本的颜色 */
+.kanso-paragraph-enhanced::selection {
+  background: rgba(45, 170, 219, 0.3);
+  color: inherit;
+}
+
+/* 拖拽时的样式 */
+.kanso-paragraph-container.dragging {
+  opacity: 0.4;
+}
+
+.drag-handle {
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+.drag-handle:active {
+  cursor: grabbing !important;
+}
+
+/* 全局拖拽状态 */
+.editor-dragging {
+  cursor: grabbing !important;
+}
+
+.editor-dragging * {
+  cursor: grabbing !important;
+}
+
+/* 放置指示器 */
+.drop-indicator {
+  animation: dropIndicatorFadeIn 150ms ease-out;
+}
+
+@keyframes dropIndicatorFadeIn {
+  from {
+    opacity: 0;
+    transform: scaleX(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* 拖拽镜像样式 */
+.drag-ghost {
+  opacity: 0.9;
+  transform: rotate(2deg) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+/* 快捷菜单动画 */
+.block-menu {
+  animation: slideIn 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 菜单项悬停效果 */
+.menu-item:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.menu-item:active {
+  background: rgba(0, 0, 0, 0.08) !important;
+  transform: scale(0.98);
+}
+
+/* 原段落样式（兼容）*/
+.kanso-paragraph:empty::before {
+  content: attr(data-placeholder);
+  color: #9CA3AF;
+  pointer-events: none;
+  position: absolute;
+  left: 4px;
+}
+
+.kanso-paragraph:focus::before {
+  content: none;
+}
+
+/* ===== 标题 ===== */
+
+.kanso-heading-icon {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.kanso-block-wrapper:hover .kanso-heading-icon {
+  opacity: 1;
+}
+
+/* ===== 列表 ===== */
+
+.kanso-bullet-list {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.kanso-bullet-list li::marker {
+  color: #6B7280;
+}
+
+/* 嵌套层级 */
+.kanso-bullet-list .kanso-bullet-list {
+  margin: 4px 0;
+}
+
+.kanso-bullet-list .kanso-bullet-list li::marker {
+  color: #9CA3AF;
+}
+
+.kanso-ordered-list {
+  list-style: none;
+  counter-reset: list-counter;
+  margin: 8px 0;
+  padding-left: 28px;
+}
+
+.kanso-ordered-list > li {
+  counter-increment: list-counter;
+  position: relative;
+  padding-left: 12px;
+}
+
+.kanso-ordered-list > li::before {
+  content: counter(list-counter) ".";
+  position: absolute;
+  left: -28px;
+  font-weight: 600;
+  color: #0066FF;
+  min-width: 20px;
+  text-align: right;
+}
+
+/* 嵌套编号 */
+.kanso-ordered-list .kanso-ordered-list > li::before {
+  content: counter(list-counter, lower-alpha) ".";
+  color: #6366F1;
+}
+
+/* ===== 任务列表 ===== */
+
+.kanso-task-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0;
+}
+
+.kanso-checkbox {
+  flex-shrink: 0;
+}
+
+/* ===== 引用块 ===== */
+
+.kanso-quote {
+  border-left: 4px solid #0066FF;
+  background-color: #F9FAFB;
+}
+
+.kanso-quote:hover {
+  border-left-color: #0052CC;
+}
+
+/* ===== 代码块 ===== */
+
+.kanso-code-block-wrapper {
+  font-variant-ligatures: none;
+}
+
+.kanso-code-toolbar {
+  backdrop-filter: blur(8px);
+}
+
+.kanso-language-selector option {
+  background: #334155;
+  color: #94A3B8;
+}
+
+/* 语法高亮 */
+.hljs-keyword { color: #C792EA; }
+.hljs-string { color: #C3E88D; }
+.hljs-number { color: #F78C6C; }
+.hljs-function { color: #82AAFF; }
+.hljs-comment { color: #546E7A; font-style: italic; }
+.hljs-variable { color: #89DDFF; }
+.hljs-class { color: #FFCB6B; }
+.hljs-operator { color: #89DDFF; }
+.hljs-built_in { color: #FFCB6B; }
+.hljs-title { color: #82AAFF; }
+
+/* 代码行号 */
+.kanso-code-block pre code .line::before {
+  content: counter(line);
+  display: inline-block;
+  width: 40px;
+  text-align: right;
+  padding-right: 16px;
+  color: #64748B;
+  user-select: none;
+}
+
+/* ===== 提示块 ===== */
+
+.kanso-callout {
+  transition: all 200ms ease;
+}
+
+.kanso-callout:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== 图片块 ===== */
+
+.kanso-image-container {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.kanso-image-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15) !important;
+}
+
+.kanso-resize-handle {
+  transition: all 150ms ease;
+}
+
+.kanso-resize-handle:hover {
+  transform: scale(1.5);
+}
+
+/* ===== 表格 ===== */
+
+.kanso-table-wrapper {
+  overflow-x: auto;
+}
+
+.kanso-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.kanso-table-wrapper th {
+  background: #F9FAFB;
+  font-weight: 600;
+  color: #374151;
+  text-align: left;
+  padding: 8px 12px;
+  border: 1px solid #E5E7EB;
+}
+
+.kanso-table-wrapper td {
+  padding: 8px 12px;
+  border: 1px solid #E5E7EB;
+  min-width: 100px;
+}
+
+.kanso-table-wrapper tr:hover {
+  background: #F9FAFB;
+}
+
+/* ===== 响应式 ===== */
+
+/* ===== 响应式 ===== */
+
+@media (max-width: 640px) {
+  /* 隐藏左侧工具栏 */
+  .paragraph-toolbar {
+    display: none !important;
+  }
+  
+  /* 拖拽手柄位置调整 */
+  .kanso-drag-handle {
+    left: -20px;
+  }
+  
+  /* 段落容器内边距 */
+  .kanso-paragraph-container {
+    padding: 0 8px;
+  }
+  
+  /* 段落字号调整 */
+  .kanso-paragraph-enhanced {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  
+  /* 占位符字号 */
+  .kanso-paragraph-enhanced[data-is-empty="true"]::before {
+    font-size: 14px;
+  }
+  
+  /* 最小高度调整 */
+  .kanso-paragraph-enhanced {
+    min-height: 28px;
+  }
+  
+  /* 快捷菜单 */
+  .block-menu {
+    left: 0;
+    right: 0;
+    width: calc(100% - 32px);
+    margin: 0 16px;
+  }
+  
+  .kanso-block-wrapper {
+    padding: 0 8px;
+  }
+  
+  .kanso-heading-1 {
+    font-size: 24px !important;
+  }
+  
+  .kanso-heading-2 {
+    font-size: 20px !important;
+  }
+  
+  .kanso-heading-3 {
+    font-size: 18px !important;
+  }
+  
+  .kanso-code-block pre {
+    font-size: 13px !important;
+  }
+}
+
+/* 平板适配 */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .kanso-paragraph-enhanced {
+    font-size: 15.5px;
+  }
+  
+  .paragraph-toolbar {
+    left: -48px;
+  }
+}
+
+/* ===== 选中状态 ===== */
+
+.ProseMirror-selectednode {
+  outline: 2px solid #0066FF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== 暗黑模式 ===== */
+
+/* ===== 暗黑模式 ===== */
+
+@media (prefers-color-scheme: dark) {
+  /* 段落容器 */
+  .kanso-paragraph-container:hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+  }
+  
+  /* 段落文本 */
+  .kanso-paragraph-enhanced {
+    color: #E2E8F0;
+    caret-color: #60A5FA;
+  }
+  
+  /* 占位符 */
+  .kanso-paragraph-enhanced[data-is-empty="true"]::before {
+    color: #64748B;
+    opacity: 0.5;
+  }
+  
+  .kanso-paragraph-enhanced[data-is-focused="true"][data-is-empty="true"]::before {
+    opacity: 0.25;
+  }
+  
+  /* 选中文本 */
+  .kanso-paragraph-enhanced::selection {
+    background: rgba(96, 165, 250, 0.3);
+  }
+  
+  /* 焦点边框 */
+  .kanso-paragraph-container[data-focused="true"] {
+    border-left-color: #60A5FA !important;
+  }
+  
+  /* 选中状态 */
+  .kanso-paragraph-container[data-selected="true"] {
+    background: rgba(96, 165, 250, 0.1) !important;
+    border-color: rgba(96, 165, 250, 0.4) !important;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.1) !important;
+  }
+  
+  /* 快捷菜单 */
+  .block-menu {
+    background: #1F2937;
+    border-color: #374151;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .menu-item {
+    color: #E5E7EB !important;
+  }
+  
+  .menu-item:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+  }
+  
+  .menu-item:active {
+    background: rgba(255, 255, 255, 0.12) !important;
+  }
+  
+  /* 拖拽手柄和按钮 */
+  .drag-handle svg,
+  .paragraph-toolbar button svg {
+    color: #9CA3AF;
+  }
+  
+  .paragraph-toolbar button {
+    background: #374151 !important;
+    border-color: #4B5563 !important;
+  }
+  
+  .paragraph-toolbar button:hover {
+    background: #4B5563 !important;
+  }
+  
+  .block-wrapper:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .kanso-paragraph {
+    color: #E2E8F0 !important;
+  }
+  
+  .kanso-paragraph:empty::before {
+    color: #64748B;
+  }
+  
+  .kanso-quote {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #CBD5E1;
+  }
+  
+  .kanso-callout {
+    filter: brightness(0.9);
+  }
+}
+
+/* ===== 打印样式 ===== */
+
+@media print {
+  .kanso-drag-handle {
+    display: none !important;
+  }
+  
+  .kanso-block-wrapper {
+    page-break-inside: avoid;
+  }
+  
+  .kanso-code-toolbar {
+    display: none !important;
+  }
+}

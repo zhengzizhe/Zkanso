@@ -1,8 +1,10 @@
 import {
-  Extension,
+  Extension
+} from "./chunk-DLFEES4I.js";
+import {
   Plugin,
   dropPoint
-} from "./chunk-NWJVDFDO.js";
+} from "./chunk-POEM2MVD.js";
 
 // node_modules/prosemirror-dropcursor/dist/index.js
 function dropCursor(options = {}) {
@@ -157,4 +159,4 @@ var Dropcursor = Extension.create({
 export {
   Dropcursor
 };
-//# sourceMappingURL=chunk-Z3L2R3BW.js.map
+//# sourceMappingURL=chunk-AIHAXR3I.js.map

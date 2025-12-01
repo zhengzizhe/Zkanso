@@ -1,0 +1,122 @@
+/**
+ * 飞书风格的块类型指示器样式
+ * 为每个块级元素添加类型图标和拖拽手柄
+ */
+
+/* 为所有块级节点添加相对定位和左侧空间 */
+.has-block-handle {
+  position: relative;
+  padding-left: 60px; /* 为左侧指示器留出空间 */
+  margin-left: 0;
+}
+
+/* 块类型指示器容器 - 使用伪元素 */
+.has-block-handle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+  pointer-events: none;
+}
+
+/* 拖拽手柄 + 图标容器 */
+.has-block-handle:hover::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 48px;
+  height: 24px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g></svg>') no-repeat left center;
+  background-size: 16px 24px;
+  cursor: grab;
+  opacity: 0;
+  animation: fadeIn 150ms ease-out forwards;
+  pointer-events: auto;
+}
+
+/* 段落 - T 图标 */
+.has-block-handle[data-block-type="paragraph"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><text x="22" y="16" font-family="sans-serif" font-size="12" font-weight="500" fill="%236B7280">T</text></svg>');
+}
+
+/* 标题 1 - H1 图标 */
+.has-block-handle[data-block-type="heading"][data-block-attrs*='"level":1']::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><text x="20" y="16" font-family="sans-serif" font-size="11" font-weight="600" fill="%232563EB">H1</text></svg>');
+}
+
+/* 标题 2 - H2 图标 */
+.has-block-handle[data-block-type="heading"][data-block-attrs*='"level":2']::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><text x="20" y="16" font-family="sans-serif" font-size="11" font-weight="600" fill="%237C3AED">H2</text></svg>');
+}
+
+/* 标题 3 - H3 图标 */
+.has-block-handle[data-block-type="heading"][data-block-attrs*='"level":3']::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><text x="20" y="16" font-family="sans-serif" font-size="11" font-weight="600" fill="%2310B981">H3</text></svg>');
+}
+
+/* 引用块 - " 图标 */
+.has-block-handle[data-block-type="blockquote"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><text x="22" y="16" font-family="serif" font-size="14" font-weight="700" fill="%239333EA">"</text></svg>');
+}
+
+/* 代码块 - </> 图标 */
+.has-block-handle[data-block-type="codeBlock"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><path d="M21 9l-2 6m6-6l2 6m-7-3h4" stroke="%230891B2" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>');
+}
+
+/* 无序列表 - • 图标 */
+.has-block-handle[data-block-type="bulletList"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><circle cx="26" cy="9" r="2" fill="%237C3AED"/><circle cx="26" cy="15" r="2" fill="%237C3AED"/></svg>');
+}
+
+/* 有序列表 - 1. 图标 */
+.has-block-handle[data-block-type="orderedList"]::after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24"><g fill="%239CA3AF"><circle cx="6" cy="8" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="16" r="1.5"/><circle cx="10" cy="8" r="1.5"/><circle cx="10" cy="12" r="1.5"/><circle cx="10" cy="16" r="1.5"/></g><text x="22" y="16" font-family="sans-serif" font-size="11" font-weight="600" fill="%23DC2626">1.</text></svg>');
+}
+
+/* 悬停动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 拖拽状态 */
+.has-block-handle:active::after {
+  cursor: grabbing;
+  opacity: 0.8;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .has-block-handle {
+    padding-left: 20px;
+  }
+  
+  .has-block-handle::after {
+    display: none;
+  }
+}
+
+/* 打印时隐藏 */
+@media print {
+  .has-block-handle::before,
+  .has-block-handle::after {
+    display: none !important;
+  }
+  
+  .has-block-handle {
+    padding-left: 0;
+  }
+}
